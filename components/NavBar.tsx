@@ -43,11 +43,12 @@ export default function NavBar() {
         .container {
           display: flex;
           flex-direction: row;
-          gap: 40px;
+          gap: 100px;
         }
         nav a {
           text-decoration: none;
           font-size: 20px;
+          letter-spacing: -0.05;
         }
         .non-active {
           color: #646464;

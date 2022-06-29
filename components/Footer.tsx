@@ -62,7 +62,7 @@ export default function Footer() {
         .naver {
           width: 21px;
           height: 21px;
-          border: 2.5px solid white;
+          border: 2.8px solid white;
           border-radius: 5px;
           display: flex;
           justify-content: center;

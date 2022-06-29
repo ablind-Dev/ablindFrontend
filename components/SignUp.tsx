@@ -11,6 +11,9 @@ export default function SignUp() {
   const [phoneNum, setPhoneNum] = useState("");
   const [address, setAddress] = useState("");
 
+  axios.defaults.xsrfCookieName = "csrftoken";
+  axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+
   const onChangeHandler = (type: string, value: string) => {
     switch (type) {
       case "id":
@@ -50,7 +53,7 @@ export default function SignUp() {
 
     axios
       .post(
-        "localhost/members/new",
+        "http://52.78.104.59/new",
         {
           member_id: id,
           name: name,
