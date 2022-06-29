@@ -2,6 +2,7 @@ import SignInImageCarousel from "../components/SignInImageCarousel";
 import LoginForm from "../components/LoginForm";
 import ButtonsForm from "../components/ButtonsForm";
 import SignUpForm from "../components/SignUpForm";
+import AddInfo from "../components/AddInfo";
 import { useState, useEffect } from "react";
 
 export default function SignIn() {
@@ -15,6 +16,9 @@ export default function SignIn() {
   const signupFormChange = () => {
     setState("signup");
   };
+  const addInfoChange = () => {
+    setState("addinfo");
+  };
   return (
     <div className="container">
       <SignInImageCarousel />
@@ -22,8 +26,10 @@ export default function SignIn() {
         <LoginForm onChagne={buttonsFormChange} />
       ) : state === "buttons" ? (
         <ButtonsForm backLogin={loginFormChange} goSignup={signupFormChange} />
+      ) : state === "signup" ? (
+        <SignUpForm backLogin={loginFormChange} goNext={addInfoChange} />
       ) : (
-        <SignUpForm />
+        <AddInfo backLogin={loginFormChange} />
       )}
       <style jsx>{`
         .container {
