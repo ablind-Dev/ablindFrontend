@@ -36,7 +36,6 @@ export default function SignInImageCarousel() {
       });
     }, 4000);
   }, []);
-  console.log(order);
 
   return (
     <div className="img-box">

@@ -1,16 +1,23 @@
 import { NextPage } from "next";
+import { useCallback, useState, useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { recoilSignUpState } from "../states/recoilSignUpState";
 
-const AddInfo: NextPage<{ backLogin: () => void }> = (props) => {
+interface SignUpState {
+  name: string;
+  id: string;
+  pwd: string;
+}
+
+const AddInfo: NextPage<{ backLogin: () => void; backpage: () => void }> = (
+  props
+) => {
+  const [recoilInfo, setRecoilInfo] = useRecoilState(recoilSignUpState);
+  const defaultState: SignUpState = { ...recoilInfo };
+
   return (
     <div className="container">
       <form onSubmit={(e) => e.preventDefault()}>
-        <label htmlFor="email">email</label>
-        <input
-          id="email"
-          type="email"
-          placeholder="이메일을 입력하세요."
-          className="input-text"
-        />
         <label htmlFor="number">전화번호</label>
         <input
           id="number"
@@ -62,7 +69,7 @@ const AddInfo: NextPage<{ backLogin: () => void }> = (props) => {
           }}
           className="back"
         >
-          돌아가기
+          처음화면으로
         </button>
         <button className="complete">가입완료</button>
       </div>
@@ -149,7 +156,7 @@ const AddInfo: NextPage<{ backLogin: () => void }> = (props) => {
           box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
           backdrop-filter: blur(4.5px);
           -webkit-backdrop-filter: blur(4.5px);
-          border-radius: 5px;
+          border-radius: 2px;
           position: absolute;
           top: 0px;
           left: 0px;

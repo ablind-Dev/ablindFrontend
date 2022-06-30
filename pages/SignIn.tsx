@@ -3,7 +3,7 @@ import LoginForm from "../components/LoginForm";
 import ButtonsForm from "../components/ButtonsForm";
 import SignUpForm from "../components/SignUpForm";
 import AddInfo from "../components/AddInfo";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function SignIn() {
   const [state, setState] = useState("login");
@@ -19,6 +19,7 @@ export default function SignIn() {
   const addInfoChange = () => {
     setState("addinfo");
   };
+
   return (
     <div className="container">
       <SignInImageCarousel />
@@ -29,7 +30,7 @@ export default function SignIn() {
       ) : state === "signup" ? (
         <SignUpForm backLogin={loginFormChange} goNext={addInfoChange} />
       ) : (
-        <AddInfo backLogin={loginFormChange} />
+        <AddInfo backLogin={loginFormChange} backpage={signupFormChange} />
       )}
       <style jsx>{`
         .container {

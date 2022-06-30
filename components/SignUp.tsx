@@ -11,9 +11,6 @@ export default function SignUp() {
   const [phoneNum, setPhoneNum] = useState("");
   const [address, setAddress] = useState("");
 
-  axios.defaults.xsrfCookieName = "csrftoken";
-  axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-
   const onChangeHandler = (type: string, value: string) => {
     switch (type) {
       case "id":
@@ -46,6 +43,9 @@ export default function SignUp() {
     }
   };
 
+  axios.defaults.xsrfCookieName = "csrftoken";
+  axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+
   const signUp = () => {
     console.log(
       `아이디 : ${id}, 비밀번호 : ${pwd}, 이름 : ${name}, 계좌번호 : ${account}, 은행 : ${accountName}, 전화번호 : ${phoneNum}, 이메일 : ${email}`
@@ -53,7 +53,7 @@ export default function SignUp() {
 
     axios
       .post(
-        "http://52.78.104.59/new",
+        "http://3.36.78.39:8080/new",
         {
           member_id: id,
           name: name,
