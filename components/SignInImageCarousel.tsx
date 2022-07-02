@@ -1,27 +1,13 @@
 import bubble from "../public/images/carousel/bubble.jpg";
 import flower from "../public/images/carousel/flower.jpg";
 import flowerhill from "../public/images/carousel/flowerhill.jpg";
-import girl from "../public/images/carousel/girl.jpg";
-import nature from "../public/images/carousel/nature.jpg";
-import pinkm from "../public/images/carousel/pink.jpg";
-import tiger from "../public/images/carousel/tiger.jpg";
 import waterwheel from "../public/images/carousel/waterwheel.jpg";
 import yellowm from "../public/images/carousel/yellow.jpg";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
 export default function SignInImageCarousel() {
-  const images = [
-    bubble,
-    flower,
-    flowerhill,
-    girl,
-    nature,
-    pinkm,
-    tiger,
-    waterwheel,
-    yellowm,
-  ];
+  const images = [bubble, flower, flowerhill, waterwheel, yellowm];
 
   useEffect(() => {
     images;
@@ -31,16 +17,22 @@ export default function SignInImageCarousel() {
   useEffect(() => {
     setInterval(() => {
       setOrder((prev) => {
-        if (prev === 8) return 0;
+        if (prev === 4) return 0;
         else return prev + 1;
       });
-    }, 4000);
+    }, 5000);
   }, []);
 
   return (
     <div className="img-box">
       <div className="first">
-        <Image src={images[order]} priority width={800} height={500} />
+        <Image
+          src={images[order]}
+          priority
+          width={800}
+          height={500}
+          className="img"
+        />
       </div>
 
       <style jsx>{`
@@ -62,9 +54,17 @@ export default function SignInImageCarousel() {
         .first {
           position: relative;
           animation-name: first-fade;
-          animation-duration: 4s;
+          animation-duration: 5s;
           animation-iteration-count: infinite;
           animation-direction: alternate;
+
+          box-shadow: 0 5px 18px 0px rgba(50, 50, 93, 0.111),
+            0 3px 10px -3px rgba(0, 0, 0, 0.137),
+            0 -1px 8px -1px rgba(0, 0, 0, 0.025);
+        }
+
+        .img {
+          margin: 0;
         }
       `}</style>
     </div>
