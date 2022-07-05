@@ -53,16 +53,15 @@ export default function SignUp() {
 
     axios
       .post(
-        "http://3.36.78.39:8080/new",
+        "http://www.ablind.co.kr/members/new",
         {
-          member_id: id,
           name: name,
           email: email,
           address: address,
-          password: pwd,
+          pass: pwd,
           account: account,
           account_name: accountName,
-          phone_number: phoneNum,
+          phoneNumber: phoneNum,
         },
         {
           headers: {

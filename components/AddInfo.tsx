@@ -4,6 +4,7 @@ import { useRecoilState, useResetRecoilState } from "recoil";
 import { recoilSignUpState } from "../states/recoilSignUpState";
 import BasicModal from "./BasicModal";
 import DaumPostcode from "react-daum-postcode";
+import axios from "axios";
 
 interface SignUpState {
   name: string;
@@ -181,21 +182,32 @@ const AddInfo: NextPage<{ backLogin: () => void; backpage: () => void }> = (
   };
 
   const saveState = () => {
-    const completeState: InfoInterface = {
-      name: defaultState.name,
-      email: defaultState.id,
-      password: defaultState.pwd,
-      phone_number: phoneNum,
-      address: `${isAddress}(${isZoneCode})_${detailAddress}`,
-      account: account,
-      account_name: bank,
-    };
-    setCompleteInfo(completeState);
+    axios
+      .post(
+        "http://www.ablind.co.kr/members/new",
+        {
+          name: defaultState.name,
+          email: defaultState.id,
+          pass: defaultState.pwd,
+          phoneNumber: phoneNum,
+          address: `${isAddress}(${isZoneCode})_${detailAddress}`,
+          account: account,
+          account_name: bank,
+        },
+        {
+          headers: {
+            "Content-type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((res) => {
+        console.log("Error!");
+      });
   };
-
-  useEffect(() => {
-    console.log(completeInfo);
-  }, [completeInfo]);
 
   return (
     <div className="container">

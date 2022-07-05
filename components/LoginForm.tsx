@@ -27,6 +27,26 @@ const LoginForm: NextPage<{ onChagne: () => void }> = (props) => {
 
   const loginBtnHandler = () => {
     //통신구문추가
+    axios
+      .post(
+        "http://www.ablind.co.kr/members/login",
+        {
+          email: id,
+          pass: pwd,
+        },
+        {
+          headers: {
+            "Content-type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((res) => {
+        console.log("Error!");
+      });
   };
 
   const signupBtnHandler = () => {};
@@ -72,7 +92,7 @@ const LoginForm: NextPage<{ onChagne: () => void }> = (props) => {
         />
       </form>
       <div className="btns">
-        <button>Login</button>
+        <button onClick={() => loginBtnHandler()}>Login</button>
         <button onClick={props.onChagne}>Sign Up</button>
       </div>
       <div className="link-box">
