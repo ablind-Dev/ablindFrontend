@@ -30,6 +30,7 @@ export default function MainBannerCarousel() {
       <style jsx>{`
         .container {
           overflow: hidden;
+          cursor: pointer;
         }
       `}</style>
     </div>

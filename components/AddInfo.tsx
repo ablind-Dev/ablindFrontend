@@ -64,6 +64,7 @@ const AddInfo: NextPage<{ backLogin: () => void; backpage: () => void }> = (
     "NH농협",
     "카카오뱅크",
     "KB국민",
+    "우리",
     "부산은행",
     "신한은행",
     "BNK경남은행",
@@ -202,7 +203,11 @@ const AddInfo: NextPage<{ backLogin: () => void; backpage: () => void }> = (
         }
       )
       .then((res) => {
-        console.log(res.data);
+        if (confirm("회원가입이 완료되었습니다.\n로그인해주세요!")) {
+          props.backpage();
+        } else {
+          props.backpage();
+        }
       })
       .catch((res) => {
         console.log("Error!");

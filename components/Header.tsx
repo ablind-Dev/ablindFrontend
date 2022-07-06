@@ -16,7 +16,7 @@ export default function Header() {
       <NavBar />
       <style jsx>{`
         .container {
-          padding-bottom: 20px;
+          padding-bottom: 25px;
         }
         .logo-box {
           display: flex;

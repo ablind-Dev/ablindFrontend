@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import { useCallback, useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { recoilSignUpState } from "../states/recoilSignUpState";
+import axios from "axios";
 
 interface SignUpState {
   name: string;
@@ -43,9 +44,27 @@ const SignUpForm: NextPage<{ backLogin: () => void; goNext: () => void }> = (
 
   const checkIdClick = () => {
     //통신해서 id 중복검사
-    if (confirm("사용가능한 ID입니다. 사용하시겠습니까?")) {
-      setIdCheck(true);
-    }
+    axios
+      .post(
+        "http://www.ablind.co.kr/members/login/id",
+        {
+          email: id,
+        },
+        {
+          headers: {
+            "Content-type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        if (confirm("사용가능한 Email 입니다. 사용하시겠습니까?")) {
+          setIdCheck(true);
+        }
+      })
+      .catch((res) => {
+        console.log(res);
+      });
   };
 
   const cancleID = () => {
@@ -107,12 +126,12 @@ const SignUpForm: NextPage<{ backLogin: () => void; goNext: () => void }> = (
         />
         <div className="id-box">
           <div className="id-input-box">
-            <label htmlFor="id">ID</label>
+            <label htmlFor="id">Email</label>
             <input
               id="id"
               type="text"
               name="id"
-              placeholder="ID를 입력하세요."
+              placeholder="Email를 입력하세요."
               value={id}
               onChange={(e) => inputHandler(e.target.value, e.target.name)}
               disabled={idCheck}

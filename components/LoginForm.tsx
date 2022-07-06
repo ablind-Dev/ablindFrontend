@@ -1,11 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { NextPage } from "next";
+import { useCookies } from "react-cookie";
+import Router from "next/router";
+import { useRecoilState } from "recoil";
+import { recoilAuthState } from "../states/recoilAuthState";
+
+interface AuthState {
+  state: boolean;
+}
 
 const LoginForm: NextPage<{ onChagne: () => void }> = (props) => {
   const [id, setId] = useState("");
   const [pwd, setPwd] = useState("");
-  const [autoLogin, setAutoLogin] = useState(false);
+  const [autoLogin, setAutoLogin] = useState(true);
+  const [recoilInfo, setRecoilInfo] = useRecoilState(recoilAuthState);
+  const defaultState: AuthState = { ...recoilInfo };
+  const [refreshCookie, setRefreshCookie] = useCookies();
+  const router = Router;
 
   const onChangeHandler = (value: string, type: string) => {
     switch (type) {
@@ -42,14 +54,26 @@ const LoginForm: NextPage<{ onChagne: () => void }> = (props) => {
         }
       )
       .then((res) => {
-        console.log(res.data);
+        //TODO data key value 수정하기(액세스토큰, 액세스토큰만료시간, 리프레시토큰)
+        localStorage.setItem("accessToken", res.data.jwtToken);
+        localStorage.setItem("accessTokenExpiredTime", res.data.date);
+        localStorage.setItem("email", id);
+        changeLoginState();
+        // setRefreshCookie("refreshToken", res.data.refresh_token, {
+        //   path: "/",
+        //   httpOnly: true,
+        // });
       })
       .catch((res) => {
         console.log("Error!");
       });
   };
 
-  const signupBtnHandler = () => {};
+  const changeLoginState = () => {
+    defaultState.state = true;
+    setRecoilInfo(defaultState);
+    router.push("/");
+  };
 
   return (
     <div className="container">
@@ -62,12 +86,12 @@ const LoginForm: NextPage<{ onChagne: () => void }> = (props) => {
         <div className="title">바로 이곳 Ablind에서-</div>
       </div>
       <form onSubmit={(e) => e.preventDefault()} className="login-form">
-        <label htmlFor="id-input">ID</label>
+        <label htmlFor="id-input">Email</label>
         <input
           type="text"
           id="id-input"
           name="id"
-          placeholder="아이디를 입력하세요"
+          placeholder="이메일을 입력하세요"
           className="text-input"
           onChange={(e) => onChangeHandler(e.target.value, e.target.name)}
         />

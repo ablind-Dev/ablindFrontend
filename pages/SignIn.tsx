@@ -30,7 +30,7 @@ export default function SignIn() {
       ) : state === "signup" ? (
         <SignUpForm backLogin={loginFormChange} goNext={addInfoChange} />
       ) : (
-        <AddInfo backLogin={loginFormChange} backpage={signupFormChange} />
+        <AddInfo backLogin={loginFormChange} backpage={loginFormChange} />
       )}
       <style jsx>{`
         .container {
@@ -38,7 +38,7 @@ export default function SignIn() {
           flex-direction: row;
           align-items: center;
           justify-content: space-evenly;
-          padding: 50px 0px 150px 0px;
+          padding: 30px 0px 150px 0px;
         }
       `}</style>
     </div>
