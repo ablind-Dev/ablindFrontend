@@ -30,7 +30,7 @@ export default function NavBar() {
         </Link>
         <Link href="/NFT">
           <a className={router.pathname === "/NFT" ? "active" : "non-active"}>
-            NFT
+            NFT's
           </a>
         </Link>
       </div>

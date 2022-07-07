@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import basicProfile from "../public/images/basic_profile.png";
 import Image from "next/image";
 import axios from "axios";
-import { useRecoilState, useResetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { recoilAuthState } from "../states/recoilAuthState";
 
 interface AuthState {

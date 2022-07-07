@@ -1,3 +1,5 @@
+import ArtistTab from "../components/ArtistTab";
+
 export default function Artist() {
-  return <></>;
+  return <ArtistTab />;
 }

@@ -18,19 +18,22 @@ export default function MainBannerCarousel() {
     autoplay: true,
     autoplaySpeed: 3500,
   };
+  const banners = [first, second, third, fourth, fifth];
+
   return (
     <div className="container">
-      <Slider {...settings}>
-        <Image src={first} />
-        <Image src={second} />
-        <Image src={third} />
-        <Image src={fourth} />
-        <Image src={fifth} />
+      <Slider {...settings} dotsClass="main-banner-dots">
+        {banners.map((banner, index) => (
+          <div key={index} className="banner">
+            <Image src={banner} />
+          </div>
+        ))}
       </Slider>
       <style jsx>{`
         .container {
-          overflow: hidden;
           cursor: pointer;
+          padding: 0px;
+          overflow: hidden;
         }
       `}</style>
     </div>
