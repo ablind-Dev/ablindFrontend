@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { recoilThemeState } from "../../states/recoilThemeState";
+import ArtistBackCarousel from "../Resource/ArtistBackCarousel";
 
 interface Artist {
   name: string;
@@ -60,15 +61,20 @@ export default function ArtistTab() {
     intro: "10시10분\n멋쟁이호랑이처럼",
   };
   const artists = [first, second, third, fourth, fifth, sixth];
+  const imgs = artists.map((img) => img.profile);
 
   //스크롤 페이드 애니메이션
 
   return (
     <div className="container">
-      <div className="title-box">
-        <span className="title">{title}</span>
-        <span className="subtitle">{subtitle}</span>
+      <div className="upper-box">
+        <ArtistBackCarousel imgs={imgs} />
+        <div className="title-box">
+          <span className="title">{title}</span>
+          <span className="subtitle">{subtitle}</span>
+        </div>
       </div>
+
       <div className="name-box">
         {artists.map((artist, index) => (
           <div key={index} className="name">
@@ -93,26 +99,38 @@ export default function ArtistTab() {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 80px;
-          padding: 100px 0px 100px 0px;
+          gap: 200px;
+          padding: 80px 0px 140px 0px;
           background-color: black;
+          width: 100%;
+        }
+        .upper-box {
+          width: 100%;
+          position: relative;
         }
         .title-box {
+          width: 100%;
           display: flex;
-          flex-direction: column;
+          flex-direction: row;
+          justify-content: center;
           align-items: center;
-          gap: 20px;
+          gap: 60px;
           color: white;
-        }
-        .title-box {
-          text-align: center;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
         }
         .title {
-          font-size: 22px;
+          font-size: 42px;
           font-weight: bold;
+          background-color: white;
+          color: black;
+          padding: 10px 15px 10px 15px;
         }
         .subtitle {
           line-height: 25px;
+          text-shadow: 2px 2px 6px gray;
         }
         .name-box {
           display: flex;
@@ -130,11 +148,11 @@ export default function ArtistTab() {
           color: #76ba99;
         }
         .artist-box {
+          max-width: 1320px;
           display: flex;
           flex-direction: row;
           gap: 40px;
           flex-wrap: wrap;
-          justify-content: center;
         }
 
         .artist {
