@@ -1,9 +1,19 @@
 import { useState, useEffect } from "react";
-import instagram from "../public/images/instagram.png";
+import instagram from "../../public/images/instagram.png";
 import Image from "next/image";
 import Link from "next/link";
+import { useRecoilState } from "recoil";
+import { recoilThemeState } from "../../states/recoilThemeState";
+
+interface ThemeState {
+  theme: boolean; //true: white theme | false: black theme
+}
 
 export default function Footer() {
+  const [recoilInfo, setRecoilInfo] = useRecoilState(recoilThemeState);
+  const defaultState: ThemeState = { ...recoilInfo };
+  const backgroundColor = defaultState.theme ? "#434343" : "black";
+
   const onClickInstagram = () => {
     window.open(`https://www.instagram.com/ablind_official/`);
   };
@@ -41,7 +51,8 @@ export default function Footer() {
           align-items: center;
           justify-content: center;
           height: 250px;
-          background-color: #434343;
+          background-color: ${backgroundColor};
+          transition: all 0.25s;
         }
         .box {
           display: flex;

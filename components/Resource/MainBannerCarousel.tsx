@@ -1,9 +1,9 @@
 import Image from "next/image";
-import first from "../public/images/banners/banner_1.jpg";
-import second from "../public/images/banners/banner_2.jpg";
-import third from "../public/images/banners/banner_3.jpg";
-import fourth from "../public/images/banners/banner_4.jpg";
-import fifth from "../public/images/banners/banner_5.jpg";
+import first from "../../public/images/banners/banner_1.jpg";
+import second from "../../public/images/banners/banner_2.jpg";
+import third from "../../public/images/banners/banner_3.jpg";
+import fourth from "../../public/images/banners/banner_4.jpg";
+import fifth from "../../public/images/banners/banner_5.jpg";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";

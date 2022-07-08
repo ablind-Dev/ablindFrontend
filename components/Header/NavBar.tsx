@@ -1,8 +1,17 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useRecoilState } from "recoil";
+import { recoilThemeState } from "../../states/recoilThemeState";
+
+interface ThemeState {
+  theme: boolean; //true: white theme | false: black theme
+}
 
 export default function NavBar() {
   const router = useRouter();
+  const [recoilInfo, setRecoilInfo] = useRecoilState(recoilThemeState);
+  const defaultState: ThemeState = { ...recoilInfo };
+  const color = defaultState.theme ? "#646464" : "white";
   return (
     <nav>
       <div className="container">
@@ -51,7 +60,9 @@ export default function NavBar() {
           letter-spacing: -0.05;
         }
         .non-active {
-          color: #646464;
+          color: ${color};
+          ${defaultState.theme ? `font-weight:400;` : `font-weight:100;`}
+          transition: all 0.25s;
         }
         .active {
           font-weight: bold;

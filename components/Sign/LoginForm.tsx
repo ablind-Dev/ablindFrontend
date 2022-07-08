@@ -4,7 +4,7 @@ import { NextPage } from "next";
 import { useCookies } from "react-cookie";
 import Router from "next/router";
 import { useRecoilState } from "recoil";
-import { recoilAuthState } from "../states/recoilAuthState";
+import { recoilAuthState } from "../../states/recoilAuthState";
 
 interface AuthState {
   state: boolean;

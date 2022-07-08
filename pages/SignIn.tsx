@@ -1,11 +1,18 @@
-import SignInImageCarousel from "../components/SignInImageCarousel";
-import LoginForm from "../components/LoginForm";
-import ButtonsForm from "../components/ButtonsForm";
-import SignUpForm from "../components/SignUpForm";
-import AddInfo from "../components/AddInfo";
-import { useState } from "react";
+import SignInImageCarousel from "../components/Resource/SignInImageCarousel";
+import LoginForm from "../components/Sign/LoginForm";
+import ButtonsForm from "../components/Sign/ButtonsForm";
+import SignUpForm from "../components/Sign/SignUpForm";
+import AddInfo from "../components/Sign/AddInfo";
+import { useState, useEffect } from "react";
+import { useResetRecoilState } from "recoil";
+import { recoilThemeState } from "../states/recoilThemeState";
 
 export default function SignIn() {
+  const resetTheme = useResetRecoilState(recoilThemeState);
+  useEffect(() => {
+    resetTheme();
+  }, []);
+
   const [state, setState] = useState("login");
   const loginFormChange = () => {
     setState("login");

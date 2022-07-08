@@ -1,8 +1,8 @@
 import { NextPage } from "next";
 import { useCallback, useState, useEffect } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
-import { recoilSignUpState } from "../states/recoilSignUpState";
-import BasicModal from "./BasicModal";
+import { recoilSignUpState } from "../../states/recoilSignUpState";
+import BasicModal from "../Resource/BasicModal";
 import DaumPostcode from "react-daum-postcode";
 import axios from "axios";
 

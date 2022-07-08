@@ -1,17 +1,27 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import basicProfile from "../public/images/basic_profile.png";
+import basicProfile from "../../public/images/basic_profile.png";
 import Image from "next/image";
 import axios from "axios";
 import { useRecoilState } from "recoil";
-import { recoilAuthState } from "../states/recoilAuthState";
+import { recoilAuthState } from "../../states/recoilAuthState";
+import { recoilThemeState } from "../../states/recoilThemeState";
+
+interface ThemeState {
+  theme: boolean; //true: white theme | false: black theme
+}
 
 interface AuthState {
   state: boolean;
 }
 
 export default function Auth() {
+  //Artist 탭 색 테마
+  const [recoilTheme, setRecoilTheme] = useRecoilState(recoilThemeState);
+  const defaultTheme: ThemeState = { ...recoilTheme };
+  const color = defaultTheme.theme ? "#646464" : "white";
+
   const router = useRouter();
   const [recoilInfo, setRecoilInfo] = useRecoilState(recoilAuthState);
   const defaultState: AuthState = { ...recoilInfo };
@@ -56,7 +66,7 @@ export default function Auth() {
             headers: {
               "Content-type": "application/json",
               Accept: "application/json",
-              "X-AUTH-TOKEN": token,
+              "ACCESS-TOKEN": token,
             },
           }
         )
@@ -111,7 +121,7 @@ export default function Auth() {
     <div>
       {defaultState.state ? (
         <nav className="yes-auth">
-          <span>
+          <span className="non-active">
             반가워요, <b>{name}</b>님!
           </span>
           <div
@@ -171,7 +181,8 @@ export default function Auth() {
           font-size: 18px;
         }
         .non-active {
-          color: #646464;
+          color: ${color};
+          ${defaultTheme.theme ? `font-weight:400;` : `font-weight:100;`}
         }
         .active {
           font-weight: bold;

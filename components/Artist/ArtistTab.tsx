@@ -1,4 +1,6 @@
-import { useRef, useCallback, useEffect } from "react";
+import { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { recoilThemeState } from "../../states/recoilThemeState";
 
 interface Artist {
   name: string;
@@ -6,10 +8,21 @@ interface Artist {
   intro: string;
 }
 
+interface ThemeState {
+  theme: boolean; //true: white theme | false: black theme
+}
+
 export default function ArtistTab() {
-  const title = "Ablind와 함께하는 예술가";
+  const title = "Ablind's Artist";
   const subtitle =
     "세상이 ‘할 수 없다’고 말할 때, 결과로 보여준 이들이 있습니다.\nablind의 불가능을 가능으로 바꾼 예술가들이 바로 그 사람들이죠.\n이 곳에서 당신의 예술가를 만나보세요.";
+
+  const [recoilInfo, setRecoilInfo] = useRecoilState(recoilThemeState);
+  const defaultState: ThemeState = { ...recoilInfo };
+  useEffect(() => {
+    defaultState.theme = false;
+    setRecoilInfo(defaultState);
+  }, []);
 
   //임시 데이터
   const first: Artist = {
@@ -82,19 +95,14 @@ export default function ArtistTab() {
           align-items: center;
           gap: 80px;
           padding: 100px 0px 100px 0px;
-          background: rgb(67, 67, 67);
-          background: linear-gradient(
-            0deg,
-            rgba(67, 67, 67, 1) 0%,
-            rgba(129, 129, 129, 1) 65%,
-            rgba(255, 255, 255, 1) 100%
-          );
+          background-color: black;
         }
         .title-box {
           display: flex;
           flex-direction: column;
           align-items: center;
           gap: 20px;
+          color: white;
         }
         .title-box {
           text-align: center;
@@ -115,10 +123,11 @@ export default function ArtistTab() {
         }
         .name {
           cursor: pointer;
+          color: white;
           transition: all 0.25s;
         }
         .name:hover {
-          color: white;
+          color: #76ba99;
         }
         .artist-box {
           display: flex;

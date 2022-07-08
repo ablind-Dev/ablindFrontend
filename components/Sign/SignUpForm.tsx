@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import { useCallback, useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { recoilSignUpState } from "../states/recoilSignUpState";
+import { recoilSignUpState } from "../../states/recoilSignUpState";
 import axios from "axios";
 
 interface SignUpState {

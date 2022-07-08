@@ -1,8 +1,8 @@
-import bubble from "../public/images/carousel/bubble.jpg";
-import flower from "../public/images/carousel/flower.jpg";
-import flowerhill from "../public/images/carousel/flowerhill.jpg";
-import waterwheel from "../public/images/carousel/waterwheel.jpg";
-import yellowm from "../public/images/carousel/yellow.jpg";
+import bubble from "../../public/images/carousel/bubble.jpg";
+import flower from "../../public/images/carousel/flower.jpg";
+import flowerhill from "../../public/images/carousel/flowerhill.jpg";
+import waterwheel from "../../public/images/carousel/waterwheel.jpg";
+import yellowm from "../../public/images/carousel/yellow.jpg";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
