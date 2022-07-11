@@ -6,6 +6,7 @@ import AddInfo from "../components/Sign/AddInfo";
 import { useState, useEffect } from "react";
 import { useResetRecoilState } from "recoil";
 import { recoilThemeState } from "../states/recoilThemeState";
+import Seo from "../components/Seo";
 
 export default function SignIn() {
   const resetTheme = useResetRecoilState(recoilThemeState);
@@ -29,6 +30,7 @@ export default function SignIn() {
 
   return (
     <div className="container">
+      <Seo title="Sign In" />
       <SignInImageCarousel />
       {state === "login" ? (
         <LoginForm onChagne={buttonsFormChange} />

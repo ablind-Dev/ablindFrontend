@@ -7,6 +7,7 @@ import axios from "axios";
 import { useRecoilState } from "recoil";
 import { recoilAuthState } from "../../states/recoilAuthState";
 import { recoilThemeState } from "../../states/recoilThemeState";
+import Api from "../Auth/CustomApi";
 
 interface ThemeState {
   theme: boolean; //true: white theme | false: black theme
@@ -88,20 +89,19 @@ export default function Auth() {
     setModalState(false);
   };
 
-  const getUserName = () => {
+  const getUserName = async () => {
     const token = localStorage.getItem("accessToken");
     if (token !== null) {
-      axios
-        .post(
-          "http://www.ablind.co.kr/members/username",
-          { email: localStorage.getItem("email") },
-          {
-            headers: {
-              "Content-type": "application/json",
-              Accept: "application/json",
-            },
-          }
-        )
+      await Api.post(
+        "http://www.ablind.co.kr/members/username",
+        { email: localStorage.getItem("email") },
+        {
+          headers: {
+            "Content-type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      )
         .then((res) => {
           setName(res.data.name);
         })

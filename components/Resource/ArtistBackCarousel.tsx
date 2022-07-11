@@ -17,19 +17,9 @@ export default function ArtistBackCarousel(props: imgProps) {
     const length = `transform: translateX(${-300 * imgs.length}px);`;
     setMoveLength(length);
   }, []);
-
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3500,
-  };
   return (
     <div className="view-window">
-      <div {...settings} className="img-box">
+      <div className="img-box">
         {imgs.map((img, index) => (
           <div key={index} className="artist">
             <img src={img} alt="Ablid's Artist" />

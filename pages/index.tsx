@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import MainBannerCarousel from "../components/Resource/MainBannerCarousel";
 import { useResetRecoilState } from "recoil";
 import { recoilThemeState } from "../states/recoilThemeState";
+import Seo from "../components/Seo";
 
 interface ThemeState {
   theme: boolean; //true: white theme | false: black theme
@@ -18,6 +19,7 @@ const Home: NextPage = () => {
 
   return (
     <div className="container">
+      <Seo title="Home" />
       <MainBannerCarousel />
       <style jsx>{`
         .container {

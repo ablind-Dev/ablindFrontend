@@ -37,35 +37,28 @@ const LoginForm: NextPage<{ onChagne: () => void }> = (props) => {
     setAutoLogin(checked);
   };
 
-  const loginBtnHandler = () => {
-    //통신구문추가
-    axios
+  const loginBtnHandler = async () => {
+    await axios
       .post(
         "http://www.ablind.co.kr/members/login",
         {
           email: id,
           pass: pwd,
         },
-        {
-          headers: {
-            "Content-type": "application/json",
-            Accept: "application/json",
-          },
-        }
+        { withCredentials: true }
       )
       .then((res) => {
-        //TODO data key value 수정하기(액세스토큰, 액세스토큰만료시간, 리프레시토큰)
-        localStorage.setItem("accessToken", res.data.jwtToken);
+        localStorage.setItem("accessToken", res.data.accessToken);
         localStorage.setItem("accessTokenExpiredTime", res.data.date);
         localStorage.setItem("email", id);
+        setRefreshCookie("refreshToken", res.data.refreshToken, {
+          path: "/",
+          httpOnly: true,
+        });
         changeLoginState();
-        // setRefreshCookie("refreshToken", res.data.refresh_token, {
-        //   path: "/",
-        //   httpOnly: true,
-        // });
       })
       .catch((res) => {
-        console.log("Error!");
+        console.log(res);
       });
   };
 
