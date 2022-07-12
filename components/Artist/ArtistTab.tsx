@@ -5,6 +5,7 @@ import ArtistBackCarousel from "../Resource/ArtistBackCarousel";
 import Router from "next/router";
 
 interface Artist {
+  artistId: number;
   name: string;
   profile: string;
   intro: string;
@@ -37,7 +38,7 @@ export default function ArtistTab(props: staticPropsType) {
   const router = Router;
   const moveToArtist = (artist: Artist) => {
     router.push({
-      pathname: `Artist/${artist.name}`,
+      pathname: `Artist/${artist.artistId}`,
     });
   };
 

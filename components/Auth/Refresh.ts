@@ -1,10 +1,12 @@
 import axios, { AxiosRequestConfig } from "axios";
-import Cookies from "js-cookie";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 const refresh = async (
   config: AxiosRequestConfig
 ): Promise<AxiosRequestConfig> => {
-  const refreshToken = Cookies.get("refreshToken");
+  const refreshToken = cookies.get("refreshToken");
   let token = localStorage.getItem("accessToken");
   const curDate = new Date();
   const authDate = new Date(
@@ -12,33 +14,35 @@ const refresh = async (
   );
 
   // 토큰이 만료되었고, refreshToken 이 저장되어 있을 때
-  if (curDate > authDate && refreshToken) {
-    const body = {
-      refreshToken,
-    };
-
+  if (curDate >= authDate && refreshToken && token) {
     // 토큰 갱신 서버통신
     const { data } = await axios.post(
-      `http://www.ablind.co.kr/members/reissue`,
-      body
+      "http://www.ablind.co.kr/members/reissue",
+      {},
+      {
+        headers: {
+          "ACCESS-TOKEN": token,
+          "REFRESH-TOKEN": refreshToken,
+        },
+      }
     );
-
-    token = data.data.jwtToken;
-    localStorage.setItem("accessToken", data.data.jwtToken);
-    localStorage.setItem("accessTokenExpiredTime", data.data.date);
-    // setRefreshCookie("refreshToken", data.data.refresh_token, {
-    //   path: "/",
-    //   httpOnly: true,
-    // });
+    token = data.accessToken;
+    localStorage.setItem("accessToken", data.accessToken);
+    localStorage.setItem("accessTokenExpiredTime", data.date);
+    cookies.set("refreshToken", data.refreshToken, {
+      path: "/",
+    });
   }
 
-  config.headers!["Authorization"] = `Bearer ${token}`;
+  config.headers!["ACCESS-TOKEN"] = `${token}`;
 
   return config;
 };
 
 const refreshErrorHandle = (err: any) => {
-  Cookies.remove("refreshToken");
+  console.log(err);
+  console.log("에러 : 쿠키삭제할게요");
+  cookies.remove("refreshToken");
 };
 
 export { refresh, refreshErrorHandle };

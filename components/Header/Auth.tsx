@@ -8,6 +8,7 @@ import { useRecoilState } from "recoil";
 import { recoilAuthState } from "../../states/recoilAuthState";
 import { recoilThemeState } from "../../states/recoilThemeState";
 import Api from "../Auth/CustomApi";
+import Cookies from "universal-cookie";
 
 interface ThemeState {
   theme: boolean; //true: white theme | false: black theme
@@ -29,6 +30,8 @@ export default function Auth() {
   const [modalState, setModalState] = useState(false);
   const [name, setName] = useState("");
 
+  const cookies = new Cookies();
+
   useEffect(() => {
     const curDate = new Date();
     const authDate = new Date(
@@ -40,7 +43,8 @@ export default function Auth() {
         defaultLogined();
       } else {
         //토큰 만료시간이 지났다면
-        logoutServer();
+        // logoutServer();
+        defaultLogined();
       }
     }
   }, []);
@@ -84,6 +88,7 @@ export default function Auth() {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("accessTokenExpiredTime");
     localStorage.removeItem("email");
+    cookies.remove("refreshToken");
     defaultState.state = false;
     setRecoilInfo(defaultState);
     setModalState(false);
@@ -92,16 +97,9 @@ export default function Auth() {
   const getUserName = async () => {
     const token = localStorage.getItem("accessToken");
     if (token !== null) {
-      await Api.post(
-        "http://www.ablind.co.kr/members/username",
-        { email: localStorage.getItem("email") },
-        {
-          headers: {
-            "Content-type": "application/json",
-            Accept: "application/json",
-          },
-        }
-      )
+      await Api.post("/members/username", {
+        email: localStorage.getItem("email"),
+      })
         .then((res) => {
           setName(res.data.name);
         })

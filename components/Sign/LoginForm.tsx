@@ -1,10 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
 import { NextPage } from "next";
-import { useCookies } from "react-cookie";
 import Router from "next/router";
 import { useRecoilState } from "recoil";
 import { recoilAuthState } from "../../states/recoilAuthState";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 interface AuthState {
   state: boolean;
@@ -16,7 +18,6 @@ const LoginForm: NextPage<{ onChagne: () => void }> = (props) => {
   const [autoLogin, setAutoLogin] = useState(true);
   const [recoilInfo, setRecoilInfo] = useRecoilState(recoilAuthState);
   const defaultState: AuthState = { ...recoilInfo };
-  const [refreshCookie, setRefreshCookie] = useCookies();
   const router = Router;
 
   const onChangeHandler = (value: string, type: string) => {
@@ -51,9 +52,8 @@ const LoginForm: NextPage<{ onChagne: () => void }> = (props) => {
         localStorage.setItem("accessToken", res.data.accessToken);
         localStorage.setItem("accessTokenExpiredTime", res.data.date);
         localStorage.setItem("email", id);
-        setRefreshCookie("refreshToken", res.data.refreshToken, {
+        cookies.set("refreshToken", res.data.refreshToken, {
           path: "/",
-          httpOnly: true,
         });
         changeLoginState();
       })
