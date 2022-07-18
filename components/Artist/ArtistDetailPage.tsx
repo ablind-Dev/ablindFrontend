@@ -5,6 +5,7 @@ import totopWhite from "../../public/images/caret-up-white.png";
 import ArtistDetailUpperComponent from "./ArtistDetailUpperComponent";
 import ArtistDetailContentComponent from "./ArtistDetailContentComponent";
 import ArtistDetailArtworksComponent from "./ArtistDetailArtworksComponent";
+import ArtistDetailCommentComponent from "./ArtistDetailCommentComponent";
 
 interface serverSideProps {
   artistId: number;
@@ -59,6 +60,10 @@ export default function ArtistDetailPage(props: serverSideProps) {
       <div className="btn-box">
         <button>구독하고 굿즈받기</button>
         <button>다른 작가 보러가기</button>
+      </div>
+      <hr />
+      <div className="comment-box">
+        <ArtistDetailCommentComponent artistId={artistId} />
       </div>
       <style jsx>{`
         .toTop {
@@ -142,6 +147,18 @@ export default function ArtistDetailPage(props: serverSideProps) {
           border: 3px solid #76ba99;
           background-color: #76ba99;
           color: white;
+        }
+        hr {
+          width: 90%;
+          margin-top: 90px;
+          height: 1px;
+          background-color: black;
+          border: none;
+          border-radius: 3px;
+        }
+        .comment-box {
+          width: 80%;
+          margin: auto;
         }
       `}</style>
     </div>
