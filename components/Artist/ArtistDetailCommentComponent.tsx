@@ -143,7 +143,7 @@ export default function ArtistDetailCommentComponent(props: artistId) {
         .comment-box {
           display: flex;
           flex-direction: column;
-          gap: 50px;
+          gap: 70px;
         }
         .comment-btn {
           padding: 50px 0px 50px 0px;
@@ -158,13 +158,13 @@ export default function ArtistDetailCommentComponent(props: artistId) {
           border-radius: 10px;
           font-weight: 600;
           cursor: pointer;
-          border: 3px solid black;
+          border: 2px solid black;
           color: black;
           transition: all 0.25s;
         }
         .comment-btn button:hover {
-          border: 3px solid black;
-          background-color: black;
+          border: 2px solid #76ba99;
+          background-color: #76ba99;
           color: white;
         }
         .modal {
@@ -172,8 +172,12 @@ export default function ArtistDetailCommentComponent(props: artistId) {
           flex-direction: column;
           gap: 5px;
         }
+        .modal input {
+          padding: 3px 5px 3px 5px;
+        }
         .modal textarea {
           min-height: 150px;
+          padding: 3px 5px 3px 5px;
         }
       `}</style>
     </div>

@@ -8,6 +8,7 @@ export default function Seo(props: headProps) {
   return (
     <Head>
       <title>{title} | 특별한 예술가들의 모임, Ablind</title>
+      <link rel="icon" href="/favicon/color.png" />
     </Head>
   );
 }

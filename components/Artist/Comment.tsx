@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import BasicModal from "../Resource/BasicModal";
 
 interface commentType {
   index: number;
@@ -61,9 +62,35 @@ export default function Comment(props: commentType) {
     }
   };
 
+  //댓글 작성 및 수정 _ 모달 오픈
+  const [editTitle, setEditTitle] = useState(title);
+  const [editContent, setEditContent] = useState(content);
+  const [modalOpen, setModalOpen] = useState(false);
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+  const saveModal = () => {
+    //통신구문_응원글 작성
+    closeModal();
+  };
+  const inputHandler = (id: string, value: string) => {
+    switch (id) {
+      case "title":
+        setEditTitle(value);
+        break;
+      case "content":
+        setEditContent(value);
+        break;
+      default:
+        alert("잘못된 접근입니다.");
+        break;
+    }
+  };
+
   const editComment = () => {
     if (confirm("댓글을 수정하시겠습니까?")) {
       //댓글 수정 모달 오픈
+      setModalOpen(true);
     }
   };
 
@@ -94,7 +121,30 @@ export default function Comment(props: commentType) {
           <span className="content">{cutContent}</span>
         )}
       </div>
-
+      <BasicModal
+        open={modalOpen}
+        close={closeModal}
+        save={saveModal}
+        header="응원글 수정"
+      >
+        <div className="modal">
+          <label htmlFor="title">응원글 제목</label>
+          <input
+            type="text"
+            id="title"
+            placeholder="제목을 입력해주세요."
+            onChange={(e) => inputHandler(e.target.id, e.target.value)}
+            value={editTitle}
+          />
+          <label htmlFor="content">응원글</label>
+          <textarea
+            id="content"
+            placeholder="내용을 입력해주세요."
+            onChange={(e) => inputHandler(e.target.id, e.target.value)}
+            value={editContent}
+          />
+        </div>
+      </BasicModal>
       <style jsx>{`
         .container {
           border-radius: 30px;
@@ -144,6 +194,18 @@ export default function Comment(props: commentType) {
           text-decoration: underline;
           transition: all 0.15s linear;
           cursor: pointer;
+        }
+        .modal {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+        }
+        .modal input {
+          padding: 3px 5px 3px 5px;
+        }
+        .modal textarea {
+          min-height: 150px;
+          padding: 3px 5px 3px 5px;
         }
       `}</style>
     </div>

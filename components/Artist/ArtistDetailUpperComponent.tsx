@@ -1,13 +1,25 @@
+import Link from "next/link";
+
 interface upperProps {
+  artistId: number;
   title: string;
   subtitle: string;
   content: string;
   profile: string; //이미지 url
   background: string; //이미지 url
+  moveToComment: () => void;
 }
 
 export default function ArtistDetailUpperComponent(props: upperProps) {
-  const { title, subtitle, content, profile, background } = props;
+  const {
+    artistId,
+    title,
+    subtitle,
+    content,
+    profile,
+    background,
+    moveToComment,
+  } = props;
   return (
     <div className="container">
       <div className="glass" />
@@ -18,8 +30,12 @@ export default function ArtistDetailUpperComponent(props: upperProps) {
           <span className="subtitle">{subtitle}</span>
           <span className="content">{content}</span>
           <div className="btn-box">
-            <button>구독하고 굿즈받기</button>
-            <button>응원글 남기기</button>
+            <Link href={`/Subscribe/${artistId}`}>
+              <a>
+                <button>구독하고 굿즈받기</button>
+              </a>
+            </Link>
+            <button onClick={() => moveToComment()}>응원글 남기기</button>
           </div>
         </div>
       </div>
