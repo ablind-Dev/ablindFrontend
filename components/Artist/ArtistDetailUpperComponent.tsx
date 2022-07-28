@@ -97,6 +97,7 @@ export default function ArtistDetailUpperComponent(props: upperProps) {
           font-size: 42px;
           font-weight: bold;
           letter-spacing: -0.1;
+          white-space: initial;
         }
         .subtitle {
           font-size: 32px;

@@ -7,9 +7,15 @@ import { recoilThemeState } from "../../states/recoilThemeState";
 import { GetServerSideProps } from "next";
 import SubscribePage from "../../components/Subscribe/SubscribePage";
 
+interface workType {
+  id: number;
+  work: string;
+}
+
 interface serverSideProps {
+  artistId: number;
   name: string;
-  artworks: Array<string>;
+  works: Array<workType>;
 }
 
 interface coverProps {
@@ -18,7 +24,8 @@ interface coverProps {
 
 export default function Subscribe(props: coverProps) {
   const { data } = props;
-  const { name, artworks } = data;
+  const { artistId, name, works } = data;
+  const artworks = works.map((art) => art.work);
   const resetTheme = useResetRecoilState(recoilThemeState);
   useEffect(() => {
     resetTheme();
@@ -27,36 +34,30 @@ export default function Subscribe(props: coverProps) {
   const temp = `${router.query.params}`;
   return (
     <>
-      <Seo title={temp} />
-      <SubscribePage name={name} artworks={artworks} />
+      <Seo title={name} />
+      <SubscribePage artistId={artistId} name={name} artworks={artworks} />
     </>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  //임시데이터
-  const tmpData: serverSideProps = {
-    name: "박환",
-    artworks: [
-      "https://www.fnnews.com/resource/media/image/2018/07/11/201807111619001689_l.jpg",
-      "http://www.kbiznews.co.kr/news/photo/202006/68102_26376_5711.jpg",
-      "https://www.fnnews.com/resource/media/image/2018/07/11/201807111619001689_l.jpg",
-      "http://www.kbiznews.co.kr/news/photo/202006/68102_26376_5711.jpg",
-      "https://www.fnnews.com/resource/media/image/2018/07/11/201807111619001689_l.jpg",
-      "http://www.kbiznews.co.kr/news/photo/202006/68102_26376_5711.jpg",
-      "https://www.fnnews.com/resource/media/image/2018/07/11/201807111619001689_l.jpg",
-      "http://www.kbiznews.co.kr/news/photo/202006/68102_26376_5711.jpg",
-      "https://www.fnnews.com/resource/media/image/2018/07/11/201807111619001689_l.jpg",
-      "http://www.kbiznews.co.kr/news/photo/202006/68102_26376_5711.jpg",
-      "https://www.fnnews.com/resource/media/image/2018/07/11/201807111619001689_l.jpg",
-      "http://www.kbiznews.co.kr/news/photo/202006/68102_26376_5711.jpg",
-      "https://www.fnnews.com/resource/media/image/2018/07/11/201807111619001689_l.jpg",
-      "http://www.kbiznews.co.kr/news/photo/202006/68102_26376_5711.jpg",
-    ],
-  };
-  return {
-    props: {
-      data: tmpData,
-    },
-  };
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  try {
+    const artistId = query.params;
+    const res = await axios.get(`http://www.ablind.co.kr/artist/${artistId}`, {
+      headers: {
+        "Content-type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    if (res.status === 200) {
+      const artist = res.data;
+      return {
+        props: { data: artist },
+      };
+    }
+    return { props: {} };
+  } catch (err) {
+    console.log(err);
+    return { props: {} };
+  }
 };

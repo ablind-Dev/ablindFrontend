@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 interface modalState {
   open: boolean;
@@ -10,7 +10,10 @@ interface modalState {
 
 export default function BasicModal(props: modalState) {
   const { open, close, save, header } = props;
-
+  const [saveButton, setSaveButton] = useState("저장");
+  useEffect(() => {
+    if (header === "작가 구독하기") setSaveButton("결제");
+  }, []);
   return (
     <div className={open ? "openModal modal" : "modal"}>
       {open ? (
@@ -24,7 +27,7 @@ export default function BasicModal(props: modalState) {
           <main>{props.children}</main>
           <footer>
             <button className="close" onClick={save}>
-              저장
+              {saveButton}
             </button>
           </footer>
         </section>
@@ -47,7 +50,7 @@ export default function BasicModal(props: modalState) {
         }
         .modal > section {
           width: 90%;
-          max-width: 450px;
+          max-width: 600px;
           margin: 0 auto;
           border-radius: 0.3rem;
           background-color: #fff;
