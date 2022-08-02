@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import BasicModal from "../Resource/BasicModal";
+import axios from "axios";
+import Api from "../Auth/CustomApi";
 
 interface commentType {
+  artistId: number;
+  boardId: number;
   index: number;
   writerId: string;
   title: string;
@@ -9,11 +13,23 @@ interface commentType {
   date: string;
   content: string;
   deleteComment: (ind: number) => void;
+  updateComment: () => void;
 }
 export default function Comment(props: commentType) {
-  const { index, writerId, title, writerName, date, content, deleteComment } =
-    props;
-  const [cutContent, setCutContent] = useState(content);
+  const {
+    artistId,
+    boardId,
+    index,
+    writerId,
+    title,
+    writerName,
+    date,
+    content,
+    deleteComment,
+    updateComment,
+  } = props;
+  const [originContent, setOriginContent] = useState(content);
+  const [cutContent, setCutContent] = useState(originContent);
   const [isLong, setIsLong] = useState(false); // 응원글이 길면 true
   const [collapse, setCollapse] = useState(false); // 응원글 접고(false) 펼치기(true)
   const [isMine, setIsMine] = useState(true);
@@ -21,13 +37,13 @@ export default function Comment(props: commentType) {
   useEffect(() => {
     testLong();
     checkMyComment();
-  }, []);
+  }, [originContent]);
 
   const testLong = () => {
     const countArray = cutContent.split(`\n`); //개행기준으로 문자열 나누기
     const count = countArray.length - 1; //개행문자 개수
-    if (content.length > 200) {
-      setCutContent(`${content.substring(0, 196)}...`);
+    if (originContent.length > 200) {
+      setCutContent(`${originContent.substring(0, 196)}...`);
       setIsLong(true);
     } else if (count > 4) {
       setCutContent(
@@ -35,14 +51,14 @@ export default function Comment(props: commentType) {
       );
       setIsLong(true);
     } else {
-      setCutContent(content);
+      setCutContent(originContent);
     }
   };
 
   const onClickCollapse = () => {
     if (collapse) testLong();
     else {
-      setCutContent(content);
+      setCutContent(originContent);
     }
     setCollapse((prev) => !prev);
   };
@@ -51,28 +67,58 @@ export default function Comment(props: commentType) {
     const myEmail = localStorage.getItem("email");
     if (myEmail === writerId) {
       setIsMine(true);
+    } else {
+      setIsMine(false);
     }
   };
 
-  const deleteCommentHandler = () => {
+  const deleteCommentHandler = async () => {
     if (confirm("삭제한 댓글은 복구할 수 없습니다.\n정말 삭제하시겠습니까?")) {
       //댓글 삭제 통신
-      deleteComment(index);
-      console.log("삭제");
+      await Api.delete(
+        `http://www.ablind.co.kr/artist/${artistId}/board/delete`,
+        {
+          data: {
+            boardId: boardId,
+          },
+        }
+      )
+        .then((res) => {
+          alert("댓글 삭제가 완료되었습니다.");
+          deleteComment(index);
+          closeModal();
+        })
+        .catch((res) => {
+          console.log(res);
+        });
     }
   };
 
   //댓글 작성 및 수정 _ 모달 오픈
   const [editTitle, setEditTitle] = useState(title);
-  const [editContent, setEditContent] = useState(content);
+  const [editContent, setEditContent] = useState(originContent);
   const [modalOpen, setModalOpen] = useState(false);
   const closeModal = () => {
     setModalOpen(false);
   };
-  const saveModal = () => {
-    //통신구문_응원글 작성
-    closeModal();
+
+  const saveModal = async () => {
+    await Api.put(`http://www.ablind.co.kr/artist/${artistId}/board/update`, {
+      boardId: boardId,
+      title: editTitle,
+      content: editContent,
+    })
+      .then((res) => {
+        alert("댓글 수정이 완료되었습니다.");
+        updateComment();
+        setOriginContent(editContent);
+        closeModal();
+      })
+      .catch((res) => {
+        console.log(res);
+      });
   };
+
   const inputHandler = (id: string, value: string) => {
     switch (id) {
       case "title":

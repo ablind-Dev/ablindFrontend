@@ -210,7 +210,7 @@ const AddInfo: NextPage<{ backLogin: () => void; backpage: () => void }> = (
         }
       })
       .catch((res) => {
-        console.log("Error!");
+        console.log(res);
       });
   };
 

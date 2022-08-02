@@ -1,11 +1,11 @@
 import { atom, selector } from "recoil";
 
 export interface ThemeState {
-  theme: boolean; //true: white theme | false: black theme
+  theme: string; //"white" | "black" | "mix"
 }
 
 const initialState: ThemeState = {
-  theme: true,
+  theme: "white",
 };
 
 export const recoilThemeState = atom({

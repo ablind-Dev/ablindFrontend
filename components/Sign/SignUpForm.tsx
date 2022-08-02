@@ -58,12 +58,16 @@ const SignUpForm: NextPage<{ backLogin: () => void; goNext: () => void }> = (
         }
       )
       .then((res) => {
-        if (confirm("사용가능한 Email 입니다. 사용하시겠습니까?")) {
-          setIdCheck(true);
-        }
+        alert("중복되는 아이디가 존재합니다.");
       })
       .catch((res) => {
-        console.log(res);
+        if (res.response.data === "No") {
+          alert("중복되는 아이디가 존재합니다");
+        } else {
+          if (confirm("사용가능한 Email 입니다. 사용하시겠습니까?")) {
+            setIdCheck(true);
+          }
+        }
       });
   };
 

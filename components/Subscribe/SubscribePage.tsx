@@ -152,7 +152,7 @@ export default function SubscribePage(props: artistProps) {
           font-weight: 700;
         }
         .btn-box {
-          margin-top: 20px;
+          margin-top: -80px;
           display: flex;
           flex-direction: row;
           gap: 20px;

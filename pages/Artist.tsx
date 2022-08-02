@@ -16,10 +16,13 @@ interface staticPropsType {
 }
 
 export default function Artist(props: staticPropsType) {
+  const { artists } = props;
+  console.log(artists);
+
   return (
     <>
       <Seo title="Artist" />
-      <ArtistTab artists={props.artists} />
+      <ArtistTab artists={artists} />
     </>
   );
 }
@@ -44,4 +47,28 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     console.log(err);
     return { props: {} };
   }
+
+  //더미 데이터
+  // const artist: Artist = {
+  //   artistId: 1,
+  //   name: "강슬기",
+  //   profile:
+  //     "https://blog.kakaocdn.net/dn/cyxO85/btqZ1JefDo7/gchehboJxQPqK9UZibrnpk/img.jpg",
+  //   intro: "캠퍼스 라이프,\n컨버스 앰버서더.",
+  // };
+
+  // const artists = [
+  //   artist,
+  //   artist,
+  //   artist,
+  //   artist,
+  //   artist,
+  //   artist,
+  //   artist,
+  //   artist,
+  // ];
+
+  // return {
+  //   props: { artists },
+  // };
 };

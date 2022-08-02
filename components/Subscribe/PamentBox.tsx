@@ -14,7 +14,7 @@ interface stageProps {
 export default function PaymentBox(props: stageProps) {
   const { stage, selectStage, selected } = props;
   const [img, setImg] = useState(stageOneImg);
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState("Listener");
   const [explanation, setExplanation] = useState([
     "작가님의 최신 소식을 카카오톡으로 알려드립니다.",
   ]);
@@ -29,17 +29,17 @@ export default function PaymentBox(props: stageProps) {
   useEffect(() => {
     switch (stage) {
       case 0:
-        setPrice(0);
+        setPrice("Listener");
         setExplanation(one);
         break;
       case 1:
         setImg(stageTwoImg);
-        setPrice(3);
+        setPrice("Supporter");
         setExplanation(two);
         break;
       case 2:
         setImg(stageThreeImg);
-        setPrice(5);
+        setPrice("VIP");
         setExplanation(three);
         break;
       default:
@@ -57,9 +57,9 @@ export default function PaymentBox(props: stageProps) {
         <Image src={img} width="200" height="180" />
       </div>
       <div className="price-box">
-        <span className="price">${price}</span>
+        <span className="price">{price}</span>
         <span className="sub">월 기준</span>
-        {price === 0 ? <></> : <span className="vat">(+VAT)</span>}
+        {price === "Listener" ? <></> : <span className="vat">(+VAT)</span>}
       </div>
       <div className="line" />
       <ul className="explain-box">

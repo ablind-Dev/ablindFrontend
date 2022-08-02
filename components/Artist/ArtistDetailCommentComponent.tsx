@@ -1,17 +1,21 @@
 import Comment from "./Comment";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BasicModal from "../Resource/BasicModal";
+import axios from "axios";
+import Api from "../Auth/CustomApi";
 
 interface artistId {
   artistId: number;
 }
 
 interface commentType {
-  writerId: string;
-  title: string;
-  writerName: string;
-  date: string;
+  boardId: number;
   content: string;
+  createdAt: string;
+  email: string;
+  title: string;
+  updatedAt: string;
+  writer: string;
 }
 
 export default function ArtistDetailCommentComponent(props: artistId) {
@@ -21,30 +25,62 @@ export default function ArtistDetailCommentComponent(props: artistId) {
 
   //board api로 응원글 받아오기
   //임시데이터
-  const tmpComment: commentType = {
-    writerId: "abc@naver.com",
-    title: "와 진짜 멋져요...",
-    writerName: "홍길동",
-    date: "2022-07-18",
-    content:
-      "피고, 거선의 광야에서 가지에 사랑의 품었기 그러므로 설산에서 스며들어 피다.\n들어 위하여 품에 불러 몸이 뭇 무엇을 불어 부패뿐이다.\n투명하되 위하여 더운지라 천지는 광야에서 피가 싹이 남는 아니다.\n따뜻한 끓는 그들의 소금이라 우리 속에 봄바람이다.\n피고, 거선의 광야에서 가지에 사랑의 품었기 그러므로 설산에서 스며들어 피다.\n들어 위하여 품에 불러 몸이 뭇 무엇을 불어 부패뿐이다.\n투명하되 위하여 더운지라 천지는 광야에서 피가 싹이 남는 아니다.\n따뜻한 끓는 그들의 소금이라 우리 속에 봄바람이다.",
+  // const tmpComment: commentType = {
+  //   writerId: "abc@naver.com",
+  //   title: "와 진짜 멋져요...",
+  //   writerName: "홍길동",
+  //   date: "2022-07-18",
+  //   content:
+  //     "피고, 거선의 광야에서 가지에 사랑의 품었기 그러므로 설산에서 스며들어 피다.\n들어 위하여 품에 불러 몸이 뭇 무엇을 불어 부패뿐이다.\n투명하되 위하여 더운지라 천지는 광야에서 피가 싹이 남는 아니다.\n따뜻한 끓는 그들의 소금이라 우리 속에 봄바람이다.\n피고, 거선의 광야에서 가지에 사랑의 품었기 그러므로 설산에서 스며들어 피다.\n들어 위하여 품에 불러 몸이 뭇 무엇을 불어 부패뿐이다.\n투명하되 위하여 더운지라 천지는 광야에서 피가 싹이 남는 아니다.\n따뜻한 끓는 그들의 소금이라 우리 속에 봄바람이다.",
+  // };
+  // const tmp = [
+  //   tmpComment,
+  //   tmpComment,
+  //   tmpComment,
+  //   tmpComment,
+  //   tmpComment,
+  //   tmpComment,
+  //   tmpComment,
+  // ];
+
+  // const [tmpCommentArray, setTmpCommentArray] = useState(tmp);
+
+  //댓글 받아오기
+  const initialComment: commentType = {
+    boardId: 0,
+    content: "",
+    createdAt: "",
+    email: "",
+    title: "",
+    updatedAt: "",
+    writer: "",
   };
-  const tmp = [
-    tmpComment,
-    tmpComment,
-    tmpComment,
-    tmpComment,
-    tmpComment,
-    tmpComment,
-    tmpComment,
-  ];
-  const [tmpCommentArray, setTmpCommentArray] = useState(tmp);
+  const [comments, setComments] = useState<Array<commentType>>([
+    initialComment,
+  ]);
+  const getComment = async () => {
+    await axios
+      .get(`http://www.ablind.co.kr/artist/${artistId}/board`, {
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+        },
+      })
+      .then((res) => {
+        setComments(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getComment();
+  }, []);
 
   //댓글 삭제 함수
   const deleteComment = (ind: number) => {
-    setTmpCommentArray(
-      tmpCommentArray.filter((comment, index) => index !== ind)
-    );
+    setComments(comments.filter((comment, index) => index !== ind));
   };
 
   //댓글 작성 및 수정 _ 모달 오픈
@@ -52,10 +88,23 @@ export default function ArtistDetailCommentComponent(props: artistId) {
   const closeModal = () => {
     setModalOpen(false);
   };
-  const saveModal = () => {
-    //통신구문_응원글 작성
-    closeModal();
+
+  const saveModal = async () => {
+    await Api.post(`http://www.ablind.co.kr/artist/${artistId}/board`, {
+      email: localStorage.getItem("email"),
+      title: myCommentTitle,
+      content: myComment,
+    })
+      .then((res) => {
+        alert("댓글 작성이 완료되었습니다.");
+        getComment();
+        closeModal();
+      })
+      .catch((res) => {
+        console.log(res);
+      });
   };
+
   const inputHandler = (id: string, value: string) => {
     switch (id) {
       case "title":
@@ -73,20 +122,23 @@ export default function ArtistDetailCommentComponent(props: artistId) {
   return (
     <div className="container">
       <div className="title-box">
-        <span className="title">{tmpCommentArray.length}개의 응원글</span>
+        <span className="title">{comments.length}개의 응원글</span>
         <span className="subtitle">따뜻한 한마디로 작가님을 응원해주세요!</span>
       </div>
       <div className="comment-box">
-        {tmpCommentArray.map((comment, index) => (
+        {comments.map((com, index) => (
           <div key={index}>
             <Comment
+              artistId={artistId}
+              boardId={com.boardId}
               index={index}
-              writerId={comment.writerId}
-              title={comment.title}
-              writerName={comment.writerName}
-              date={comment.date}
-              content={comment.content}
+              writerId={com.email}
+              title={com.title}
+              writerName={com.writer}
+              date={com.createdAt}
+              content={com.content}
               deleteComment={deleteComment}
+              updateComment={getComment}
             />
           </div>
         ))}

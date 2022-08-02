@@ -60,4 +60,28 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     console.log(err);
     return { props: {} };
   }
+
+  //더미 데이터
+  // const artwork: workType = {
+  //   id: 1,
+  //   work: "https://photo.akmall.com/image4/goods/96/53/97/54/96539754_M_1500.jpg",
+  // };
+  // const artist: serverSideProps = {
+  //   artistId: 1,
+  //   name: "강슬기",
+  //   works: [
+  //     artwork,
+  //     artwork,
+  //     artwork,
+  //     artwork,
+  //     artwork,
+  //     artwork,
+  //     artwork,
+  //     artwork,
+  //     artwork,
+  //   ],
+  // };
+  // return {
+  //   props: { data: artist },
+  // };
 };

@@ -26,6 +26,7 @@ const refresh = async (
         },
       }
     );
+    if (data) console.log("토큰 갱신");
     token = data.accessToken;
     localStorage.setItem("accessToken", data.accessToken);
     localStorage.setItem("accessTokenExpiredTime", data.date);
