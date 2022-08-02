@@ -4,14 +4,14 @@ import { useRecoilState } from "recoil";
 import { recoilThemeState } from "../../states/recoilThemeState";
 
 interface ThemeState {
-  theme: boolean; //true: white theme | false: black theme
+  theme: string;
 }
 
 export default function NavBar() {
   const router = useRouter();
   const [recoilInfo, setRecoilInfo] = useRecoilState(recoilThemeState);
   const defaultState: ThemeState = { ...recoilInfo };
-  const color = defaultState.theme ? "#646464" : "white";
+  const color = defaultState.theme === "white" ? "#646464" : "white";
   return (
     <nav>
       <div className="container">

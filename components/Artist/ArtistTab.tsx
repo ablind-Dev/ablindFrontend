@@ -16,7 +16,7 @@ interface staticPropsType {
 }
 
 interface ThemeState {
-  theme: boolean; //true: white theme | false: black theme
+  theme: string;
 }
 
 export default function ArtistTab(props: staticPropsType) {
@@ -29,7 +29,7 @@ export default function ArtistTab(props: staticPropsType) {
   const [recoilInfo, setRecoilInfo] = useRecoilState(recoilThemeState);
   const defaultState: ThemeState = { ...recoilInfo };
   useEffect(() => {
-    defaultState.theme = false;
+    defaultState.theme = "black";
     setRecoilInfo(defaultState);
   }, []);
 

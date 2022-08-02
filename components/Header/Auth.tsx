@@ -11,7 +11,7 @@ import Api from "../Auth/CustomApi";
 import Cookies from "universal-cookie";
 
 interface ThemeState {
-  theme: boolean; //true: white theme | false: black theme
+  theme: string;
 }
 
 interface AuthState {
@@ -22,7 +22,7 @@ export default function Auth() {
   //Artist 탭 색 테마
   const [recoilTheme, setRecoilTheme] = useRecoilState(recoilThemeState);
   const defaultTheme: ThemeState = { ...recoilTheme };
-  const color = defaultTheme.theme ? "#646464" : "white";
+  const color = defaultTheme.theme === "white" ? "#646464" : "white";
 
   const router = useRouter();
   const [recoilInfo, setRecoilInfo] = useRecoilState(recoilAuthState);

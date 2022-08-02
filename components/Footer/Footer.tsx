@@ -6,13 +6,13 @@ import { useRecoilState } from "recoil";
 import { recoilThemeState } from "../../states/recoilThemeState";
 
 interface ThemeState {
-  theme: boolean; //true: white theme | false: black theme
+  theme: string;
 }
 
 export default function Footer() {
   const [recoilInfo, setRecoilInfo] = useRecoilState(recoilThemeState);
   const defaultState: ThemeState = { ...recoilInfo };
-  const backgroundColor = defaultState.theme ? "#434343" : "black";
+  const backgroundColor = defaultState.theme === "black" ? "black" : "#434343";
 
   const onClickInstagram = () => {
     window.open(`https://www.instagram.com/ablind_official/`);

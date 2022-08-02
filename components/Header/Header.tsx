@@ -6,15 +6,16 @@ import { useRecoilState } from "recoil";
 import { recoilThemeState } from "../../states/recoilThemeState";
 
 interface ThemeState {
-  theme: boolean; //true: white theme | false: black theme
+  theme: string;
 }
 
 export default function Header() {
   const router = useRouter();
   const [recoilInfo, setRecoilInfo] = useRecoilState(recoilThemeState);
   const defaultState: ThemeState = { ...recoilInfo };
-  const backgroundColor = defaultState.theme ? "white" : "black";
-  const logoColor = defaultState.theme ? "black" : "white";
+  const backgroundColor =
+    defaultState.theme === "black" ? "black" : `#00ff0000`;
+  const logoColor = defaultState.theme === "white" ? "black" : "white";
 
   return (
     <div className="container">
