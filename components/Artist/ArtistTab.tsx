@@ -24,7 +24,7 @@ export default function ArtistTab(props: staticPropsType) {
 
   const title = "Ablind's Artist";
   const subtitle =
-    "세상이 ‘할 수 없다’고 말할 때, 결과로 보여준 이들이 있습니다.\nablind의 불가능을 가능으로 바꾼 예술가들이 바로 그 사람들이죠.\n이 곳에서 당신의 예술가를 만나보세요.";
+    "세상이 ‘할 수 없다’고 말할 때, 결과로 보여준 이들이 있습니다.\n불가능을 가능으로 바꾼 ablind의 예술가들이 바로 그 사람들이죠.\n이 곳에서 당신의 예술가를 만나보세요.";
 
   const [recoilInfo, setRecoilInfo] = useRecoilState(recoilThemeState);
   const defaultState: ThemeState = { ...recoilInfo };

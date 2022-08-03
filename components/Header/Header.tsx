@@ -40,10 +40,11 @@ export default function Header() {
           text-decoration: none;
           color: ${logoColor};
           font-size: 36px;
-          font-weight: bold;
+          font-weight: 900;
           text-align: center;
           padding: 0px 0px 15px 0px;
           transition: all 0.25s;
+        }
       `}</style>
     </div>
   );
