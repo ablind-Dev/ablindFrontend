@@ -18,6 +18,7 @@ const LoginForm: NextPage<{ onChagne: () => void }> = (props) => {
   const [autoLogin, setAutoLogin] = useState(true);
   const [recoilInfo, setRecoilInfo] = useRecoilState(recoilAuthState);
   const defaultState: AuthState = { ...recoilInfo };
+  const [err, setErr] = useState("");
   const router = Router;
 
   const onChangeHandler = (value: string, type: string) => {
@@ -55,10 +56,11 @@ const LoginForm: NextPage<{ onChagne: () => void }> = (props) => {
         cookies.set("refreshToken", res.data.refreshToken, {
           path: "/",
         });
+        setErr("");
         changeLoginState();
       })
       .catch((res) => {
-        console.log(res);
+        setErr("로그인에 실패하였습니다.");
       });
   };
 
@@ -108,6 +110,7 @@ const LoginForm: NextPage<{ onChagne: () => void }> = (props) => {
           onChange={(e) => onClickAutoLogin(e.target.checked)}
         />
       </form>
+      {err === "" ? <></> : <span className="err">{err}</span>}
       <div className="btns">
         <button onClick={() => loginBtnHandler()}>Login</button>
         <button onClick={props.onChagne}>Sign Up</button>
@@ -207,6 +210,10 @@ const LoginForm: NextPage<{ onChagne: () => void }> = (props) => {
         }
         a:visited {
           color: #646464;
+        }
+        .err {
+          font-size: 18px;
+          color: #d75281;
         }
       `}</style>
     </div>

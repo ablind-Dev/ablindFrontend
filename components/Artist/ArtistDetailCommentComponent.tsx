@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import BasicModal from "../Resource/BasicModal";
 import axios from "axios";
 import Api from "../Auth/CustomApi";
+import Router from "next/router";
 
 interface artistId {
   artistId: number;
@@ -22,6 +23,7 @@ export default function ArtistDetailCommentComponent(props: artistId) {
   const { artistId } = props;
   const [myCommentTitle, setMyCommentTitle] = useState("");
   const [myComment, setMyComment] = useState("");
+  const router = Router;
 
   //board api로 응원글 받아오기
   //임시데이터
@@ -67,6 +69,7 @@ export default function ArtistDetailCommentComponent(props: artistId) {
         },
       })
       .then((res) => {
+        console.log(res.data);
         setComments(res.data);
       })
       .catch((error) => {
@@ -85,6 +88,17 @@ export default function ArtistDetailCommentComponent(props: artistId) {
 
   //댓글 작성 및 수정 _ 모달 오픈
   const [modalOpen, setModalOpen] = useState(false);
+
+  const modalOpenHandler = () => {
+    if (localStorage.getItem("accessToken")) {
+      setModalOpen(true);
+    } else {
+      if (confirm("로그인이 필요한 서비스입니다.\n로그인하시겠습니까?")) {
+        router.push("/SignIn");
+      }
+    }
+  };
+
   const closeModal = () => {
     setModalOpen(false);
   };
@@ -127,7 +141,7 @@ export default function ArtistDetailCommentComponent(props: artistId) {
       </div>
       <div className="comment-box">
         {comments.map((com, index) => (
-          <div key={index}>
+          <div key={com.boardId}>
             <Comment
               artistId={artistId}
               boardId={com.boardId}
@@ -145,7 +159,13 @@ export default function ArtistDetailCommentComponent(props: artistId) {
       </div>
 
       <div className="comment-btn">
-        <button onClick={() => setModalOpen(true)}>응원글 작성하기</button>
+        <button
+          onClick={() => {
+            modalOpenHandler();
+          }}
+        >
+          응원글 작성하기
+        </button>
       </div>
       <BasicModal
         open={modalOpen}

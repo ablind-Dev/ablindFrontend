@@ -33,6 +33,9 @@ export default function ShopManiPage(props: shopProps) {
         <Categories artists={artists} />
       </div>
       <style jsx>{`
+        .main-box {
+          padding-top: 89px;
+        }
         .search-box {
           display: flex;
           justify-content: end;

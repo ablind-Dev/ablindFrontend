@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import BasicModal from "../Resource/BasicModal";
 import axios from "axios";
 import Api from "../Auth/CustomApi";
+import moment from "moment";
+// import "moment/locale/ko";
 
 interface commentType {
   artistId: number;
@@ -28,15 +30,30 @@ export default function Comment(props: commentType) {
     deleteComment,
     updateComment,
   } = props;
+  const [dateByString, setDateByString] = useState("");
   const [originContent, setOriginContent] = useState(content);
   const [cutContent, setCutContent] = useState(originContent);
   const [isLong, setIsLong] = useState(false); // 응원글이 길면 true
   const [collapse, setCollapse] = useState(false); // 응원글 접고(false) 펼치기(true)
   const [isMine, setIsMine] = useState(true);
 
+  const dateFormater = (value: string) => {
+    const nowDate = new Date();
+    const date = new Date(value);
+    const dateByString = moment(date).format("YYYY-MM-DD HH:mm:ss");
+    const gapTime = date.getTime() - nowDate.getTime();
+    console.log(gapTime);
+    if (gapTime > -86400000) {
+      setDateByString(moment(date).fromNow());
+    } else if (gapTime < -86400000) {
+      setDateByString(dateByString);
+    }
+  };
+
   useEffect(() => {
     testLong();
     checkMyComment();
+    dateFormater(date);
   }, [originContent]);
 
   const testLong = () => {
@@ -145,7 +162,7 @@ export default function Comment(props: commentType) {
       <span className="title">{title}</span>
       <div className="subtitle-box">
         <span className="writer">{writerName}</span>
-        <span className="date">{date}</span>
+        <span className="date">{dateByString}</span>
         {isMine ? (
           <div className="editor">
             <span onClick={() => editComment()}>수정</span>

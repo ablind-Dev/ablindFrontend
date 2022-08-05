@@ -7,5 +7,12 @@ interface Goods {
 
 export default function GoodsItem(props: Goods) {
   const { img, artist, name, price } = props;
-  return <></>;
+  return (
+    <div>
+      <div className="img" />
+      <span>{artist}</span>
+      <span>{name}</span>
+      <span>{price}</span>
+    </div>
+  );
 }
