@@ -14,11 +14,112 @@ interface pageProps {
 export default function Pagenation(props: pageProps) {
   const { pages, setPage } = props;
   const [curPage, setCurPage] = useState(0);
+  const [allPage, setAllPage] = useState<Array<Array<number>>>([]);
+  const [allTen, setAllTen] = useState(1); // 10개 짜리 페이지네이션이 몇개인지 (개수임! -1 해줘야함)
+  const [ten, setTen] = useState(0); //현재 10개 짜리의 인덱스! 인덱스임 인덱스
+
+  useEffect(() => {
+    let pageArray = [];
+    for (let i = 1; i < pages; i++) {
+      pageArray.push(i);
+    }
+
+    if (pages - 1 < 10) {
+      setAllPage([pageArray]);
+    } else {
+      let tenPage = [];
+      for (let i = 0; i < (pages - 1) / 10; i++) {
+        tenPage.push(pageArray.splice(0, 10));
+      }
+      setAllPage(tenPage);
+      setAllTen(Math.ceil((pages - 1) / 10));
+    }
+  }, [pages]);
+
+  const clickPageHandler = (page: number) => {
+    setCurPage(page);
+    setPage(page);
+  };
+
+  const leftHandler = () => {
+    if (ten !== 0) {
+      setTen((prev) => prev - 1);
+      clickPageHandler(allPage[ten - 1][0] - 1);
+    }
+  };
+
+  const rightHandler = () => {
+    if (ten !== allTen - 1) {
+      setTen((prev) => prev + 1);
+      clickPageHandler(allPage[ten + 1][0] - 1);
+    }
+  };
+
   return (
-    <div>
-      <FontAwesomeIcon icon={faChevronLeft} />
-      <ul></ul>
-      <FontAwesomeIcon icon={faChevronRight} />
+    <div className="container">
+      {allPage[0] ? (
+        <>
+          <div className="btn">
+            <FontAwesomeIcon
+              icon={faChevronLeft}
+              onClick={() => leftHandler()}
+            />
+          </div>
+
+          <ul>
+            {allPage[ten].map((page, index) => (
+              <li
+                key={page}
+                onClick={() => clickPageHandler(page - 1)}
+                className={curPage === page - 1 ? "selected" : ""}
+              >
+                {page}
+              </li>
+            ))}
+          </ul>
+          <div className="btn">
+            <FontAwesomeIcon
+              icon={faChevronRight}
+              onClick={() => rightHandler()}
+            />
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
+      <style jsx>{`
+        .container {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 15px;
+        }
+        ul {
+          list-style: none;
+          padding-left: 0px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 10px;
+        }
+        li {
+          cursor: pointer;
+          padding: 4px 8px;
+          transition: all 0.15s;
+        }
+        .selected {
+          background-color: #76ba99;
+          border-radius: 2px;
+          box-shadow: 0 5px 18px 0px rgba(50, 50, 93, 0.111),
+            0 3px 10px -3px rgba(0, 0, 0, 0.137),
+            0 -1px 8px -1px rgba(0, 0, 0, 0.025);
+          color: white;
+          font-weight: 600;
+        }
+        .btn {
+          cursor: pointer;
+        }
+      `}</style>
     </div>
   );
 }

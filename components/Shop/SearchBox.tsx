@@ -10,7 +10,6 @@ export default function SearchBox(props: searchProps) {
   const searchHandler = () => {};
   return (
     <div className="container">
-      <span>{advertise}</span>
       <form
         className="search-box"
         onSubmit={(e) => {
@@ -23,12 +22,13 @@ export default function SearchBox(props: searchProps) {
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </div>
       </form>
+      <span>{advertise}</span>
       <style jsx>{`
         .container {
           display: flex;
-          flex-direction: row;
-          gap: 15px;
-          align-items: center;
+          flex-direction: column;
+          gap: 10px;
+          align-items: end;
         }
         .search-box {
           padding: 5px 10px;

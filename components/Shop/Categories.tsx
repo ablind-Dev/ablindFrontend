@@ -1,5 +1,12 @@
+import { useRecoilState } from "recoil";
+import { recoilCategoryState } from "../../states/recoilCategoryState";
+
 interface categoryProps {
   artists: Array<string>;
+}
+
+interface CategoryState {
+  category: string;
 }
 
 export default function Categories(props: categoryProps) {
@@ -12,13 +19,27 @@ export default function Categories(props: categoryProps) {
     "엽서",
     "폰케이스 / 그립톡",
   ];
+  const [recoilInfo, setRecoilInfo] = useRecoilState(recoilCategoryState);
+  const defaultState: CategoryState = { ...recoilInfo };
+
+  const categoryClickHandler = (value: string) => {
+    defaultState.category = value;
+    setRecoilInfo(defaultState);
+  };
+
   return (
     <div className="container">
       <div className="category-box">
         <span className="title">CATEGORIES</span>
         <ul>
           {categories.map((category) => (
-            <li key={category}>{category}</li>
+            <li
+              key={category}
+              onClick={() => categoryClickHandler(category)}
+              className={defaultState.category === category ? "selected" : ""}
+            >
+              {category}
+            </li>
           ))}
         </ul>
       </div>
@@ -26,7 +47,13 @@ export default function Categories(props: categoryProps) {
         <span className="title">ARTISTS</span>
         <ul>
           {artists.map((artist) => (
-            <li key={artist}>{artist}</li>
+            <li
+              key={artist}
+              onClick={() => categoryClickHandler(artist)}
+              className={defaultState.category === artist ? "selected" : ""}
+            >
+              {artist}
+            </li>
           ))}
         </ul>
       </div>
@@ -54,6 +81,10 @@ export default function Categories(props: categoryProps) {
         li {
           transition: all 0.15s;
           cursor: pointer;
+        }
+        .selected {
+          font-weight: 700;
+          color: #76ba99;
         }
         li:hover {
           font-weight: 500;

@@ -17,7 +17,6 @@ interface staticPropsType {
 
 export default function Artist(props: staticPropsType) {
   const { artists } = props;
-  console.log(artists);
 
   return (
     <>
