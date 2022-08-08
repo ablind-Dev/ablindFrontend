@@ -104,6 +104,7 @@ export default function Auth() {
           setName(res.data.name);
         })
         .catch((res) => {
+          logoutServer();
           console.log(res);
         });
     }

@@ -1,4 +1,5 @@
 import Router from "next/router";
+import Image from "next/image";
 
 interface Goods {
   id: number;
@@ -16,7 +17,9 @@ export default function GoodsItem(props: Goods) {
   };
   return (
     <div className="box">
-      <div className="img" onClick={() => onClickItemHandler()} />
+      <div className="img" onClick={() => onClickItemHandler()}>
+        <Image src={img} loading="lazy" layout="fill" objectFit="cover" />
+      </div>
       <span className="artist">{artist}</span>
       <div className="info" onClick={() => onClickItemHandler()}>
         <span>{name}</span>
@@ -35,12 +38,10 @@ export default function GoodsItem(props: Goods) {
         .img {
           width: 80%;
           height: 80%;
-          background-image: url(${img});
-          background-size: cover;
-          background-position: center;
           box-shadow: 0 5px 18px 0px rgba(50, 50, 93, 0.111),
             0 3px 10px -3px rgba(0, 0, 0, 0.137),
             0 -1px 8px -1px rgba(0, 0, 0, 0.025);
+          position: relative;
           cursor: pointer;
         }
         span {

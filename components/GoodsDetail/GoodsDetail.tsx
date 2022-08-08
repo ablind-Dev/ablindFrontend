@@ -1,5 +1,7 @@
+import { useState, useEffect } from "react";
 import TitleImgBox from "./TitleImgBox";
 import TitleInfoBox from "./TitleInfoBox";
+import GoodsNav from "./GoodsNav";
 
 interface goodsDetail {
   imgs: Array<string>;
@@ -13,6 +15,7 @@ interface goodsDetail {
 
 export default function GoodsDetail(props: goodsDetail) {
   const { imgs, name, artist, price, naver, option, content } = props;
+  const [nav, setNav] = useState(0);
   return (
     <div className="container">
       <div className="upper-box">
@@ -25,13 +28,20 @@ export default function GoodsDetail(props: goodsDetail) {
           option={option}
         />
       </div>
+      <GoodsNav nav={nav} setNav={setNav} />
       <style jsx>{`
         .container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
           width: 100%;
+          padding: 50px 0px 100px 0px;
+          gap: 50px;
         }
         .upper-box {
           display: flex;
           flex-direction: row;
+          gap: 100px;
         }
       `}</style>
     </div>

@@ -4,7 +4,7 @@ import Seo from "../../components/Seo";
 import { useResetRecoilState } from "recoil";
 import { recoilThemeState } from "../../states/recoilThemeState";
 import { GetServerSideProps } from "next";
-import GoodsDetail from "./../../GoodsDetail/GoodsDetail";
+import GoodsDetail from "../../components/GoodsDetail/GoodsDetail";
 
 interface goodsDetail {
   imgs: Array<string>;
