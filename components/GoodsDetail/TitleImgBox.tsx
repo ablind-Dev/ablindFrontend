@@ -5,8 +5,13 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
+interface GoodsImg {
+  url: string;
+  id: number;
+}
+
 interface imgs {
-  imgs: Array<string>;
+  imgs: Array<GoodsImg>;
 }
 
 const SubImg = (img: string) => (
@@ -48,8 +53,8 @@ export default function TitleImgBox(props: imgs) {
       </div>
       <div className="sub-img-box">
         {imgs.map((img, index) => (
-          <div key={img} onClick={() => setMain(index)}>
-            {SubImg(img)}
+          <div key={img.id} onClick={() => setMain(index)}>
+            {SubImg(img.url)}
           </div>
         ))}
       </div>
@@ -63,7 +68,7 @@ export default function TitleImgBox(props: imgs) {
         .main-img {
           width: 470px;
           height: 470px;
-          background-image: url(${imgs[main]});
+          background-image: url(${imgs[main].url});
           background-size: cover;
           background-position: center;
           box-shadow: 0 5px 18px 0px rgba(50, 50, 93, 0.111),

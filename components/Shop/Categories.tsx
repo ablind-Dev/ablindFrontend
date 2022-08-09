@@ -46,9 +46,9 @@ export default function Categories(props: categoryProps) {
       <div className="artist-box">
         <span className="title">ARTISTS</span>
         <ul>
-          {artists.map((artist) => (
+          {artists.map((artist, index) => (
             <li
-              key={artist}
+              key={index}
               onClick={() => categoryClickHandler(artist)}
               className={defaultState.category === artist ? "selected" : ""}
             >

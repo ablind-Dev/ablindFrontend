@@ -1,5 +1,9 @@
 import axios from "axios";
 
+interface Tmp {
+  day: Array<string>;
+}
+
 export default function tmp() {
   const getArtistList = () => {
     axios
@@ -186,6 +190,52 @@ export default function tmp() {
       });
   };
 
+  const getBannerInShop = () => {
+    // /shop/banner
+    axios
+      .get("http://www.ablind.co.kr/shop/banner", {
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const getGoods = () => {
+    axios
+      .get("http://www.ablind.co.kr/shop", {
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const tmp = () => {
+    //tmp: JSON | searchArray: 찾으려는 요일 배열 | tmpGetArray: tmp 파싱한 배열 -> 결과찾기
+    const tmp = `[{"day":"화요일, 목요일"},{"day":"매주 목요일"},{"day":"목요일, 토요일"},{"day":"화요일, 목요일, 토요일"}]`;
+    const searchArray = ["토요일"];
+    let tmpGetArray: Array<Tmp> = JSON.parse(tmp);
+    for (let i in searchArray) {
+      tmpGetArray = tmpGetArray.filter((tmp) =>
+        tmp.day.includes(searchArray[i])
+      );
+    }
+    console.log(tmpGetArray);
+  };
+
   return (
     <>
       <button onClick={() => getArtistList()}>작가리스트받아오기</button>
@@ -198,6 +248,9 @@ export default function tmp() {
       <button onClick={() => subscribeAllow()}>구독승인</button>
       <button onClick={() => getSubscribed()}>구독확인</button>
       <button onClick={() => deleted()}>구독취소</button>
+      <button onClick={() => getBannerInShop()}>배너받아오기</button>
+      <button onClick={() => getGoods()}>상품받아오기</button>
+      <button onClick={() => tmp()}>송은주</button>
     </>
   );
 }

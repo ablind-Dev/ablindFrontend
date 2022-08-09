@@ -11,7 +11,6 @@ interface info {
   name: string;
   artist: string;
   price: number;
-  naver: string;
   option: Array<string>;
 }
 
@@ -23,7 +22,7 @@ interface Choice {
 }
 
 export default function TitleInfoBox(props: info) {
-  const { name, artist, price, naver, option } = props;
+  const { name, artist, price, option } = props;
   const [selectedOpt, setSelectedOpt] = useState("");
   const [collapse, setCollapse] = useState(false);
   const [peek, setPeek] = useState<Array<Choice>>();
@@ -113,7 +112,7 @@ export default function TitleInfoBox(props: info) {
         <li>
           <span className="list-title">리뷰</span>
           <span>
-            <a href={naver} target="_blank">
+            <a href={"www.naver.com"} target="_blank">
               네이버스토어
             </a>
             에서 확인하기

@@ -4,13 +4,21 @@ import { recoilCategoryState } from "../../states/recoilCategoryState";
 import GoodsItem from "./GoodsItem";
 import Pagenation from "./Pagenation";
 
-interface Goods {
+interface GoodsImg {
+  url: string;
   id: number;
-  img: string;
-  artist: string;
+}
+
+interface Goods {
+  itemId: number;
+  detailImg: string;
+  images: Array<GoodsImg>;
+  author: string;
   name: string;
+  option: Array<string>;
   price: number;
 }
+
 interface shopProps {
   goods: Array<Goods>;
 }
@@ -23,12 +31,14 @@ export default function GoodsComponent(props: shopProps) {
   const { goods } = props;
   const [recoilInfo, setRecoilInfo] = useRecoilState(recoilCategoryState);
   const defaultState: CategoryState = { ...recoilInfo };
+
   const [pages, setPages] = useState(1); //전체페이지 수
   const [curPage, setCurPage] = useState(1); //현재 몇 페이지인지
   const [pageContent, setPageContent] = useState<Array<Array<Goods>>>();
+
   const goodsSlice = (pages: number) => {
     let tmpGoods = [];
-    for (let i = 0; i < pages - 1; i++) {
+    for (let i = 0; i < pages; i++) {
       tmpGoods.push(goods.splice(0, 16));
     }
     setPageContent(tmpGoods);
@@ -36,29 +46,30 @@ export default function GoodsComponent(props: shopProps) {
 
   useEffect(() => {
     if (goods.length > 16) {
-      const allPages = goods.length / 16 + 1;
+      let allPages;
+      if (goods.length % 16 === 0) {
+        allPages = Math.floor(goods.length / 16);
+      } else {
+        allPages = Math.floor(goods.length / 16) + 1;
+      }
       setPages(allPages);
       goodsSlice(allPages);
+    } else {
+      setPageContent([goods]);
     }
   }, [goods]);
-
-  useEffect(() => {
-    if (pageContent) {
-      console.log(pageContent[curPage]);
-    }
-  }, [curPage]);
 
   return (
     <div className="container">
       <span className="category-peek">{defaultState.category}</span>
       {pageContent ? (
         <div className="goods-box">
-          {pageContent[curPage].map((content, index) => (
-            <div className="goods">
+          {pageContent[curPage - 1].map((content, index) => (
+            <div className="goods" key={content.itemId}>
               <GoodsItem
-                id={content.id}
-                img={content.img}
-                artist={content.artist}
+                id={content.itemId}
+                img={content.images}
+                artist={content.author}
                 name={content.name}
                 price={content.price}
                 key={index}

@@ -2,33 +2,46 @@ import { useState, useEffect } from "react";
 import TitleImgBox from "./TitleImgBox";
 import TitleInfoBox from "./TitleInfoBox";
 import GoodsNav from "./GoodsNav";
+import Content from "./Content";
+import Review from "./Review";
+import Qna from "./Qna";
+
+interface GoodsImg {
+  url: string;
+  id: number;
+}
 
 interface goodsDetail {
-  imgs: Array<string>;
+  detailImg: string;
+  images: Array<GoodsImg>;
+  author: string;
   name: string;
-  artist: string;
-  price: number;
-  naver: string;
   option: Array<string>;
-  content: string;
+  price: number;
 }
 
 export default function GoodsDetail(props: goodsDetail) {
-  const { imgs, name, artist, price, naver, option, content } = props;
+  const { detailImg, images, author, name, option, price } = props;
   const [nav, setNav] = useState(0);
   return (
     <div className="container">
       <div className="upper-box">
-        <TitleImgBox imgs={imgs} />
+        <TitleImgBox imgs={images} />
         <TitleInfoBox
           name={name}
-          artist={artist}
+          artist={author}
           price={price}
-          naver={naver}
           option={option}
         />
       </div>
       <GoodsNav nav={nav} setNav={setNav} />
+      {nav === 0 ? (
+        <Content detailImg={detailImg} />
+      ) : nav === 1 ? (
+        <Review />
+      ) : (
+        <Qna />
+      )}
       <style jsx>{`
         .container {
           display: flex;
@@ -36,7 +49,7 @@ export default function GoodsDetail(props: goodsDetail) {
           align-items: center;
           width: 100%;
           padding: 50px 0px 100px 0px;
-          gap: 50px;
+          gap: 100px;
         }
         .upper-box {
           display: flex;

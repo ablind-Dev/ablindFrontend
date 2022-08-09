@@ -5,15 +5,24 @@ import Categories from "./Categories";
 import GoodsComponent from "./GoodsComponent";
 
 interface Banner {
-  img: string;
   content: string;
-  url: string;
+  id: number;
+  img: string;
+  link: string;
+}
+
+interface GoodsImg {
+  url:string,
+  id:number,
 }
 
 interface Goods {
-  img: string;
-  artist: string;
+  itemId: number;
+  detailImg: string;
+  images: Array<GoodsImg>;
+  author: string;
   name: string;
+  option: Array<string>;
   price: number;
 }
 

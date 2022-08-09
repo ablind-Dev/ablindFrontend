@@ -1,9 +1,15 @@
 import Router from "next/router";
 import Image from "next/image";
+import goodsdefault from "../../public/images/goodsdefault.png";
+
+interface GoodsImg {
+  url: string;
+  id: number;
+}
 
 interface Goods {
   id: number;
-  img: string;
+  img: Array<GoodsImg>;
   artist: string;
   name: string;
   price: number;
@@ -18,7 +24,21 @@ export default function GoodsItem(props: Goods) {
   return (
     <div className="box">
       <div className="img" onClick={() => onClickItemHandler()}>
-        <Image src={img} loading="lazy" layout="fill" objectFit="cover" />
+        {img.length !== 0 ? (
+          <Image
+            src={img[0].url}
+            loading="lazy"
+            layout="fill"
+            objectFit="cover"
+          />
+        ) : (
+          <Image
+            src={goodsdefault}
+            loading="lazy"
+            layout="fill"
+            objectFit="cover"
+          />
+        )}
       </div>
       <span className="artist">{artist}</span>
       <div className="info" onClick={() => onClickItemHandler()}>
