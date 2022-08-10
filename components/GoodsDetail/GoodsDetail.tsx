@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import PageMoveSticker from "../Resource/PageMoveSticker";
 import TitleImgBox from "./TitleImgBox";
 import TitleInfoBox from "./TitleInfoBox";
 import GoodsNav from "./GoodsNav";
@@ -25,6 +26,7 @@ export default function GoodsDetail(props: goodsDetail) {
   const [nav, setNav] = useState(0);
   return (
     <div className="container">
+      <PageMoveSticker />
       <div className="upper-box">
         <TitleImgBox imgs={images} />
         <TitleInfoBox
