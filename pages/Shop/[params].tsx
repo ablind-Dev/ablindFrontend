@@ -31,6 +31,7 @@ export default function ShopDetail(props: goodsDetail) {
     <>
       <Seo title={name} />
       <GoodsDetail
+        itemId={itemId}
         images={images}
         name={name}
         author={author}

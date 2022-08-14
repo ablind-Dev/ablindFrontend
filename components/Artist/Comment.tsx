@@ -3,7 +3,7 @@ import BasicModal from "../Resource/BasicModal";
 import axios from "axios";
 import Api from "../Auth/CustomApi";
 import moment from "moment";
-// import "moment/locale/ko";
+import "moment/locale/ko";
 
 interface commentType {
   artistId: number;

@@ -12,6 +12,7 @@ interface info {
   artist: string;
   price: number;
   option: Array<string>;
+  reviewLinkClick: () => void;
 }
 
 interface Choice {
@@ -22,7 +23,7 @@ interface Choice {
 }
 
 export default function TitleInfoBox(props: info) {
-  const { name, artist, price, option } = props;
+  const { name, artist, price, option, reviewLinkClick } = props;
   const [selectedOpt, setSelectedOpt] = useState("");
   const [collapse, setCollapse] = useState(false);
   const [peek, setPeek] = useState<Array<Choice>>();
@@ -111,12 +112,20 @@ export default function TitleInfoBox(props: info) {
         </li>
         <li>
           <span className="list-title">리뷰</span>
-          <span>
-            <a href={"www.naver.com"} target="_blank">
-              네이버스토어
-            </a>
-            에서 확인하기
-          </span>
+          <div>
+            <span>
+              <a href={"www.naver.com"} target="_blank">
+                네이버스토어
+              </a>
+              에서 확인하기
+            </span>
+            <span>
+              <span className="review-link" onClick={() => reviewLinkClick()}>
+                에이블라인드 리뷰
+              </span>
+              확인하기
+            </span>
+          </div>
         </li>
       </ul>
       <div className="opt-box">
@@ -220,18 +229,27 @@ export default function TitleInfoBox(props: info) {
           flex-direction: row;
           gap: 10px;
           font-size: 16px;
-          align-items: center;
+          align-items: start;
+        }
+        .info-list li div {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
         }
         .list-title {
           font-weight: 600;
           color: #646464;
         }
-        a {
+        a,
+        .review-link {
           font-weight: 600;
           color: black;
           transition: all 0.15s;
+          cursor: pointer;
+          text-decoration: underline;
         }
-        a:hover {
+        a:hover,
+        .review-link:hover {
           color: #76ba99;
         }
         .opt-box {
