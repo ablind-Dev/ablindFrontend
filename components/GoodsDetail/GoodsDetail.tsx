@@ -71,8 +71,8 @@ export default function GoodsDetail(props: goodsDetail) {
         .content-box {
           display: flex;
           width: 100%;
-          justify-content:center;
-          align-items:center;
+          justify-content: center;
+          align-items: center;
         }
       `}</style>
     </div>

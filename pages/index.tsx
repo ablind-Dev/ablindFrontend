@@ -6,6 +6,7 @@ import MainBannerCarousel from "../components/Resource/MainBannerCarousel";
 import { useResetRecoilState } from "recoil";
 import { recoilThemeState } from "../states/recoilThemeState";
 import Seo from "../components/Seo";
+import HomeLayout from "../components/Home/HomeLayout";
 
 interface ThemeState {
   theme: boolean; //true: white theme | false: black theme
@@ -21,6 +22,7 @@ const Home: NextPage = () => {
     <div className="container">
       <Seo title="Home" />
       <MainBannerCarousel />
+      <HomeLayout />
       <style jsx>{`
         .container {
           width: 100%;

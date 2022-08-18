@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import starEmpty from "../../public/images/stars_empty.png";
 import starFill from "../../public/images/stars_fill.png";
+import axios from "axios";
 
 interface reviewProps {
   title: string;
@@ -11,21 +12,32 @@ interface reviewProps {
   image: string;
   rate: number;
   reviewBoardId: number;
+  createdAt: string;
+  updatedAt: string;
+  myReview: boolean;
+  username: string;
+  updateReview: () => void;
 }
 
 export default function ReviewBox(props: reviewProps) {
-  const { title, content, image, rate, reviewBoardId } = props;
-  // const content =
-  //   "피고, 거선의 광야에서 가지에 사랑의 품었기 그러므로 설산에서 스며들어 피다.\n들어 위하여 품에 불러 몸이 뭇 무엇을 불어 부패뿐이다.\n투명하되 위하여 더운지라 천지는 광야에서 피가 싹이 남는 아니다.\n따뜻한 끓는 그들의 소금이라 우리 속에 봄바람이다.\n피고, 거선의 광야에서 가지에 사랑의 품었기 그러므로 설산에서 스며들어 피다.\n들어 위하여 품에 불러 몸이 뭇 무엇을 불어 부패뿐이다.\n투명하되 위하여 더운지라 천지는 광야에서 피가 싹이 남는 아니다.\n따뜻한 끓는 그들의 소금이라 우리 속에 봄바람이다.";
-  const name = "홍길동";
-  const date = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
+  const {
+    title,
+    content,
+    image,
+    rate,
+    reviewBoardId,
+    createdAt,
+    updatedAt,
+    myReview,
+    username,
+    updateReview,
+  } = props;
 
   const [originContent, setOriginContent] = useState(content);
   const [cutContent, setCutContent] = useState(originContent);
   const [isLong, setIsLong] = useState(false); // 리뷰가 길면 true
   const [collapse, setCollapse] = useState(false); // 리뷰 접고(false) 펼치기(true)
   const [dateByString, setDateByString] = useState("");
-  const [isMine, setIsMine] = useState(false);
   const [calRate, setCalRate] = useState("120px"); //별점 기본사이즈
 
   const [imgClicker, setImgClicker] = useState(false);
@@ -54,19 +66,10 @@ export default function ReviewBox(props: reviewProps) {
     setCollapse((prev) => !prev);
   };
 
-  const checkMyComment = () => {
-    // const myEmail = localStorage.getItem("email");
-    // if (myEmail === writerId) {
-    //   setIsMine(true);
-    // } else {
-    //   setIsMine(false);
-    // }
-  };
-
-  const dateFormater = (value: string) => {
+  const dateFormater = () => {
     const nowDate = new Date();
-    const date = new Date(value);
-    const dateByString = moment(date).format("YYYY-MM-DD HH:mm:ss");
+    const date = new Date(createdAt);
+    const dateByString = moment(createdAt).format("YYYY-MM-DD HH:mm:ss");
     const gapTime = date.getTime() - nowDate.getTime();
     if (gapTime > -86400000) {
       setDateByString(moment(date).fromNow());
@@ -80,9 +83,28 @@ export default function ReviewBox(props: reviewProps) {
     setCalRate(`${width}px`);
   };
 
+  const deleteReview = () => {
+    if (
+      confirm("한 번 삭제한 리뷰는 복구할 수 없습니다.\n정말 삭제하시겠습니까?")
+    ) {
+      axios
+        .delete(`http://www.ablind.co.kr/shop/5/review/delete`, {
+          data: {
+            reviewBoardId: reviewBoardId,
+          },
+        })
+        .then((res) => {
+          updateReview();
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+    }
+  };
+
   useEffect(() => {
     testLong();
-    dateFormater(date);
+    dateFormater();
     calculateRateStar();
   }, [originContent]);
 
@@ -91,12 +113,12 @@ export default function ReviewBox(props: reviewProps) {
       <div className="left-box">
         <span className="title">{title}</span>
         <div className="subtitle-box">
-          <span className="writer">{name}</span>
+          <span className="writer">{username}</span>
           <span className="date">{dateByString}</span>
-          {isMine ? (
+          {myReview ? (
             <div className="editor">
               <span>수정</span>
-              <span>삭제</span>
+              <span onClick={() => deleteReview()}>삭제</span>
             </div>
           ) : (
             <></>
@@ -130,12 +152,16 @@ export default function ReviewBox(props: reviewProps) {
           )}
         </div>
       </div>
-      <div
-        className={imgClicker ? "img-wide" : "img-box"}
-        onClick={() => setImgClicker((prev) => !prev)}
-      >
-        <Image src={image} loading="lazy" layout="fill" objectFit="cover" />
-      </div>
+      {image ? (
+        <div
+          className={imgClicker ? "img-wide" : "img-box"}
+          onClick={() => setImgClicker((prev) => !prev)}
+        >
+          <Image src={image} loading="lazy" layout="fill" objectFit="cover" />
+        </div>
+      ) : (
+        <></>
+      )}
       <style jsx>{`
         .container {
           width: 100%;

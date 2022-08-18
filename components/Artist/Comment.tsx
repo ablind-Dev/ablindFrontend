@@ -42,7 +42,6 @@ export default function Comment(props: commentType) {
     const date = new Date(value);
     const dateByString = moment(date).format("YYYY-MM-DD HH:mm:ss");
     const gapTime = date.getTime() - nowDate.getTime();
-    console.log(gapTime);
     if (gapTime > -86400000) {
       setDateByString(moment(date).fromNow());
     } else if (gapTime < -86400000) {

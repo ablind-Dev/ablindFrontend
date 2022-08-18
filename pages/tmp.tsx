@@ -302,7 +302,12 @@ export default function tmp() {
     multipartFile.append("ItemReviewDto", blob);
 
     axios
-      .post("http://www.ablind.co.kr/shop/5/review", multipartFile)
+      .post("http://www.ablind.co.kr/shop/5/review", multipartFile, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
+        },
+      })
       .then((res) => {
         console.log(res);
       })
@@ -317,10 +322,31 @@ export default function tmp() {
         headers: {
           "Content-type": "application/json",
           Accept: "application/json",
+          "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
         },
       })
       .then((res) => {
         console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const getRyu = () => {
+    axios.defaults.withCredentials = true;
+    axios
+      .post(
+        "https://port-0-backend-django-1k5zz25l6f9nen1.gksl1.cloudtype.app/accounts/login",
+        {
+          email: "sss",
+          password: "sssss",
+        },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        console.log(res);
+        console.log(res.headers.session_id);
       })
       .catch((error) => {
         console.log(error);
@@ -342,6 +368,7 @@ export default function tmp() {
       <button onClick={() => getBannerInShop()}>배너받아오기</button>
       <button onClick={() => getGoods()}>상품받아오기</button>
       <button onClick={() => tmp()}>송은주</button>
+      <button onClick={() => getRyu()}>유승민</button>
       {/* <LoadingSpinner /> */}
       <button onClick={() => getReview()}>리뷰받아오기</button>
       <label htmlFor="file">업로드</label>

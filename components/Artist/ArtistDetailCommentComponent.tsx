@@ -69,7 +69,6 @@ export default function ArtistDetailCommentComponent(props: artistId) {
         },
       })
       .then((res) => {
-        console.log(res.data);
         setComments(res.data);
       })
       .catch((error) => {
