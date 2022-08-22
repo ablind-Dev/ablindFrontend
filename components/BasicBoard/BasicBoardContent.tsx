@@ -16,6 +16,7 @@ interface boardContentProps {
   username: string;
   answer: string;
   filterArray: (ind: number) => void;
+  updateHandler: () => void;
 }
 
 export default function BasicBoardContent(props: boardContentProps) {
@@ -31,6 +32,7 @@ export default function BasicBoardContent(props: boardContentProps) {
     username,
     answer,
     filterArray,
+    updateHandler,
   } = props;
   const [collapseState, setCollapse] = useState(false);
   const [btnState, setBtnState] = useState(true);
@@ -105,6 +107,7 @@ export default function BasicBoardContent(props: boardContentProps) {
         )
         .then((res) => {
           alert("댓글 수정이 완료되었습니다.");
+          updateHandler();
           setBtnState(true);
           setEditState(false);
         })

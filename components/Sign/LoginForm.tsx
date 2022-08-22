@@ -80,7 +80,7 @@ const LoginForm: NextPage<{ onChagne: () => void }> = (props) => {
         </div>
         <div className="title">바로 이곳 Ablind에서-</div>
       </div>
-      <form onSubmit={(e) => e.preventDefault()} className="login-form">
+      <form onSubmit={(e) => loginBtnHandler()} className="login-form">
         <label htmlFor="id-input">Email</label>
         <input
           type="text"
