@@ -45,6 +45,14 @@ export default function ShopDetail(props: goodsDetail) {
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const goodsParams = query.params;
+
+  // try{
+
+  // }catch (err) {
+  //   console.log(err);
+  //   return { props: {} };
+  // }
+
   // 더미 데이터
   const goods = {
     itemId: 1,

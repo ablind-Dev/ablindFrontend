@@ -134,10 +134,19 @@ export default function Auth() {
               <ul>
                 <li>
                   <Link href="/MyPage">
-                    <a>마이페이지</a>
+                    <a onClick={() => setModalState((prev) => !prev)}>
+                      마이페이지
+                    </a>
                   </Link>
                 </li>
-                <li onClick={() => logout()}>로그아웃</li>
+                <li
+                  onClick={() => {
+                    logout();
+                    setModalState((prev) => !prev);
+                  }}
+                >
+                  로그아웃
+                </li>
               </ul>
             </div>
           ) : (

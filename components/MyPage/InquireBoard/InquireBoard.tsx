@@ -1,63 +1,37 @@
 import moment from "moment";
 import { useState, useEffect } from "react";
-import BasicBoardContent from "./BasicBoardContent";
-import Pagenation from "../Shop/Pagenation";
+import InquireBoardContent from "./InquireBoardContent";
+import Pagenation from "../../Shop/Pagenation";
 
 interface boardProps {
   title: string;
   contentNum: number;
-  firstCol: string; //첫 열 이름
-  thirdCol: string; //두 번쨰 열 이름
-  fourthCol: string; //세 번째 열 이름
-  buttonState: boolean; //버튼 존재하는가
-  buttonHandler: () => void; //버튼 클릭 핸들러
   contentArray: Array<boardContent>;
-  updateHandler: () => void;
 }
 
 interface boardContent {
-  content: string;
+  shopId: number; //주문내역 고유 아이디
+  shipping: string; //배송 상태
+  goods: Array<goods>; //주문 상품
+  priceSum: number; //총 가격
   createdAt: string;
-  myReview: boolean;
-  qnaBoardId: number;
-  secretTNF: boolean;
-  title: string;
-  updatedAt: string;
-  username: string;
-  answer: string;
 }
 
-export default function BasicBoard(props: boardProps) {
-  const {
-    title,
-    contentNum,
-    firstCol,
-    thirdCol,
-    fourthCol,
-    buttonState,
-    buttonHandler,
-    contentArray,
-    updateHandler,
-  } = props;
+interface goods {
+  goodsName: string; //상품 이름
+  optName: string; //옵션 이름
+  price: number; //해당 상품 -> 옵션 -> 가격
+}
 
-  const [viewQuestion, setViewQuestion] =
+export default function InquireBoard(props: boardProps) {
+  const { title, contentNum, contentArray } = props;
+
+  const [viewInquire, setViewInquire] =
     useState<Array<boardContent>>(contentArray);
 
   useEffect(() => {
-    setViewQuestion(contentArray);
+    setViewInquire(contentArray);
   }, [contentArray]);
-
-  const filterArray = (ind: number) => {
-    if (qnaListInPage) {
-      const filteredArray = qnaListInPage[curPage - 1].filter(
-        (qna, index) => ind !== index
-      );
-      const setArray = qnaListInPage.map((qna, index) =>
-        index == curPage - 1 ? filteredArray : qna
-      );
-      setQnaListPage(setArray);
-    }
-  };
 
   //페이지네이션 관련 -> 18개씩
   const [qnaListInPage, setQnaListPage] =
@@ -65,30 +39,30 @@ export default function BasicBoard(props: boardProps) {
   const [allPage, setAllPage] = useState(1);
   const [curPage, setCurPage] = useState(1);
 
-  const qnaSlice = (page: number) => {
+  const inquireSlice = (page: number) => {
     let tmpQnas = [];
-    if (viewQuestion) {
+    if (viewInquire) {
       for (let i = 0; i < page; i++) {
-        tmpQnas.push(viewQuestion.splice(0, 18));
+        tmpQnas.push(viewInquire.splice(0, 18));
       }
       setQnaListPage(tmpQnas);
     }
   };
 
   useEffect(() => {
-    if (viewQuestion && viewQuestion.length > 18) {
+    if (viewInquire && viewInquire.length > 18) {
       let allPages;
-      if (viewQuestion.length % 18 === 0) {
-        allPages = Math.floor(viewQuestion.length / 18);
+      if (viewInquire.length % 18 === 0) {
+        allPages = Math.floor(viewInquire.length / 18);
       } else {
-        allPages = Math.floor(viewQuestion.length / 18) + 1;
+        allPages = Math.floor(viewInquire.length / 18) + 1;
       }
       setAllPage(allPages);
-      qnaSlice(allPages);
-    } else if (viewQuestion && viewQuestion.length <= 18) {
-      setQnaListPage([viewQuestion]);
+      inquireSlice(allPages);
+    } else if (viewInquire && viewInquire.length <= 18) {
+      setQnaListPage([viewInquire]);
     }
-  }, [viewQuestion]);
+  }, [viewInquire]);
 
   return (
     <div className="container">
@@ -99,29 +73,22 @@ export default function BasicBoard(props: boardProps) {
       <table>
         <thead>
           <tr className="first-row">
-            <th className="first-col">{firstCol}</th>
+            <th className="first-col">배송 상태</th>
             <th className="second-col">{}</th>
-            <th className="third-col">{thirdCol}</th>
-            <th className="fourth-col">{fourthCol}</th>
+            <th className="third-col">주문 금액</th>
+            <th className="fourth-col">주문 일자</th>
           </tr>
         </thead>
         <tbody>
           {qnaListInPage ? (
             qnaListInPage[curPage - 1].map((content, index) => (
-              <BasicBoardContent
+              <InquireBoardContent
                 index={index}
-                content={content.content}
+                shopId={content.shopId}
+                shipping={content.shipping}
+                goods={content.goods}
+                priceSum={content.priceSum}
                 createdAt={content.createdAt}
-                myReview={content.myReview}
-                qnaBoardId={content.qnaBoardId}
-                secretTNF={content.secretTNF}
-                title={content.title}
-                updatedAt={content.updatedAt}
-                username={content.username}
-                answer={content.answer}
-                filterArray={filterArray}
-                key={content.qnaBoardId}
-                updateHandler={updateHandler}
               />
             ))
           ) : (
@@ -132,14 +99,6 @@ export default function BasicBoard(props: boardProps) {
       <div className="pagination">
         <Pagenation pages={allPage} setPage={setCurPage} />
       </div>
-      {buttonState ? (
-        <div className="down-box">
-          <div className="pagination"></div>
-          <button onClick={() => buttonHandler()}>문의하기</button>
-        </div>
-      ) : (
-        <></>
-      )}
       <style jsx>{`
         .container {
           width: 100%;

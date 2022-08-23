@@ -191,7 +191,7 @@ const AddInfo: NextPage<{ backLogin: () => void; backpage: () => void }> = (
           email: defaultState.id,
           pass: defaultState.pwd,
           phoneNumber: phoneNum,
-          address: `${isAddress}(${isZoneCode})_${detailAddress}`,
+          address: `${isAddress}(${isZoneCode})&${detailAddress}`,
           account: account,
           account_name: bank,
         },

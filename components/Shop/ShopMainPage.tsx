@@ -12,8 +12,8 @@ interface Banner {
 }
 
 interface GoodsImg {
-  url:string,
-  id:number,
+  url: string;
+  id: number;
 }
 
 interface Goods {
@@ -39,7 +39,7 @@ export default function ShopManiPage(props: shopProps) {
     <div className="container">
       <ShopBannerCarousel banners={banners} />
       <div className="search-box">
-        <SearchBox advertise={"#한정판_유리컵 이벤트 진행중❤"} />
+        <SearchBox advertise={"작품 또는 작가명을 검색해주세요❤"} />
       </div>
       <div className="category-box">
         <Categories artists={artists} />

@@ -236,6 +236,22 @@ export default function tmp() {
       });
   };
 
+  const getGood = () => {
+    axios
+      .get("http://www.ablind.co.kr/shop/5", {
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const tmp = () => {
     //tmp: JSON | searchArray: 찾으려는 요일 배열 | tmpGetArray: tmp 파싱한 배열 -> 결과찾기
     const tmp = `[{"day":"화요일, 목요일"},{"day":"매주 목요일"},{"day":"목요일, 토요일"},{"day":"화요일, 목요일, 토요일"}]`;
@@ -367,6 +383,7 @@ export default function tmp() {
       <button onClick={() => deleted()}>구독취소</button>
       <button onClick={() => getBannerInShop()}>배너받아오기</button>
       <button onClick={() => getGoods()}>상품받아오기</button>
+      <button onClick={() => getGood()}>특정 상품받아오기</button>
       <button onClick={() => tmp()}>송은주</button>
       <button onClick={() => getRyu()}>유승민</button>
       {/* <LoadingSpinner /> */}
