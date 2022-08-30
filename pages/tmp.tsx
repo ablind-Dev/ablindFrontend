@@ -238,7 +238,7 @@ export default function tmp() {
 
   const getGood = () => {
     axios
-      .get("http://www.ablind.co.kr/shop/5", {
+      .get("http://www.ablind.co.kr/shop/detail/5", {
         headers: {
           "Content-type": "application/json",
           Accept: "application/json",
@@ -369,6 +369,121 @@ export default function tmp() {
       });
   };
 
+  const getMyProfile = () => {
+    axios
+      .get("http://www.ablind.co.kr/mypage", {
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+          "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const getMyArtist = () => {
+    axios
+      .get("http://www.ablind.co.kr/mypage/follow/artist", {
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+          "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const getMyBasket = () => {
+    axios
+      .get("http://www.ablind.co.kr/mypage/cart", {
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+          "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const postMyBasket = () => {
+    axios
+      .post(
+        "http://www.ablind.co.kr/mypage/cart/add",
+        {
+          itemId: 5,
+          count: 2,
+          itemOption: "ㅎㅇㅎㅇㅎㅇ",
+        },
+        {
+          headers: {
+            "Content-type": "application/json",
+            Accept: "application/json",
+            "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const editOptionCount = () => {
+    axios
+      .put(
+        "http://www.ablind.co.kr/mypage/cart/update",
+        {
+          id: 6,
+          count: 4,
+        },
+        {
+          headers: {
+            "Content-type": "application/json",
+            Accept: "application/json",
+            "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const deleteOption = () => {
+    axios
+      .delete(`http://www.ablind.co.kr/mypage/cart/delete`, {
+        data: {
+          id: 6,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+  };
+
   return (
     <>
       <button onClick={() => getArtistList()}>작가리스트받아오기</button>
@@ -399,6 +514,12 @@ export default function tmp() {
       />
       <button onClick={() => makeReview()}>리뷰업로드</button>
       <button onClick={() => getQna()}>큐앤에이받아오기</button>
+      <button onClick={() => getMyProfile()}>유저정보받아오기</button>
+      <button onClick={() => getMyArtist()}>구독한작가받아오기</button>
+      <button onClick={() => getMyBasket()}>장바구니받아오기</button>
+      <button onClick={() => postMyBasket()}>5번아이템 장바구니에 담기</button>
+      <button onClick={() => editOptionCount()}>5번아이템 개수 4개로</button>
+      <button onClick={() => deleteOption()}>옵션삭제</button>
     </>
   );
 }

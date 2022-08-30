@@ -1,4 +1,5 @@
 import Image from "next/image";
+import basicProfile from "../../public/images/basic_profile.png";
 
 interface infoProps {
   profile: string; //프사
@@ -11,7 +12,11 @@ export default function BasicProfile(props: infoProps) {
   return (
     <div className="box">
       <div className="img-box">
-        <Image src={profile} layout="fill" objectFit="cover" />
+        <Image
+          src={profile !== "" ? profile : basicProfile}
+          layout="fill"
+          objectFit="cover"
+        />
       </div>
       <div className="info-box">
         <span className="title">{name}님 반갑습니다!</span>

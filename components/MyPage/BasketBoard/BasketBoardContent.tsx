@@ -1,37 +1,74 @@
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import { useState, useEffect } from "react";
+import Link from "next/link";
 
 interface itemProps {
   img: string; //상품 이미지
+  itemId: number;
   goodsName: string; //상품 이름
   option: string; //선택한 옵션 이름
   count: number; //개수
   price: number;
   optId: number; //옵션 아이디
+  upCount: (id: number, count: number) => void;
+  downCount: (id: number, count: number) => void;
+  peekItem: (id: number) => void;
+  peekOutItem: (id: number) => void;
 }
 
 export default function BasketBoardContent(props: itemProps) {
-  const { img, goodsName, option, price, count, optId } = props;
+  const {
+    img,
+    itemId,
+    goodsName,
+    option,
+    price,
+    count,
+    optId,
+    upCount,
+    downCount,
+    peekItem,
+    peekOutItem,
+  } = props;
+  const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    if (checked) peekItem(optId);
+    else peekOutItem(optId);
+  }, [checked]);
+
   return (
     <div className="box">
       <div className="img-box">
         <Image src={img} layout="fill" objectFit="cover" />
-        <input type="checkbox" />
+        <input
+          type="checkbox"
+          onChange={(e) => setChecked(e.target.checked)}
+          checked={checked}
+        />
       </div>
       <div className="info-box">
         <div className="title-box">
-          <span className="title">{goodsName}</span>
+          <Link href={`/Shop/${itemId}`}>
+            <a className="title">{goodsName}</a>
+          </Link>
           <span className="option">{option}</span>
           <span className="price">가격 : {price}</span>
         </div>
 
         <div className="count-box">
-          <button className="count-minus">
+          <button
+            className="count-minus"
+            onClick={() => {
+              count !== 1 ? downCount(optId, count) : console.log("");
+            }}
+          >
             <FontAwesomeIcon icon={faMinus} />
           </button>
           <span>{count}</span>
-          <button className="count-plus">
+          <button className="count-plus" onClick={() => upCount(optId, count)}>
             <FontAwesomeIcon icon={faPlus} />
           </button>
         </div>
@@ -72,6 +109,12 @@ export default function BasketBoardContent(props: itemProps) {
         .title {
           font-size: 28px;
           font-weight: 700;
+          color: black;
+          text-decoration: none;
+          transition: all 0.15s;
+        }
+        .title:hover {
+          color: #76ba99;
         }
         .price {
           font-size: 14px;

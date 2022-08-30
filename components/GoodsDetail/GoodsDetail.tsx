@@ -12,13 +12,18 @@ interface GoodsImg {
   id: number;
 }
 
+interface Option {
+  id: number;
+  itemOption: string;
+}
+
 interface goodsDetail {
   itemId: number;
   detailImg: string;
   images: Array<GoodsImg>;
   author: string;
   name: string;
-  option: Array<string>;
+  option: Array<Option>;
   price: number;
 }
 
@@ -37,6 +42,7 @@ export default function GoodsDetail(props: goodsDetail) {
       <div className="upper-box">
         <TitleImgBox imgs={images} />
         <TitleInfoBox
+          itemId={itemId}
           name={name}
           artist={author}
           price={price}
@@ -51,7 +57,7 @@ export default function GoodsDetail(props: goodsDetail) {
         ) : nav === 1 ? (
           <Review goodsId={itemId} />
         ) : (
-          <Qna />
+          <Qna goodsId={itemId} />
         )}
       </div>
       <style jsx>{`

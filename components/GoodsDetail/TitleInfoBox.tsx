@@ -6,29 +6,47 @@ import {
   faChevronDown,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import Router from "next/router";
+import { useRecoilState } from "recoil";
+import { recoilAuthState } from "../../states/recoilAuthState";
+
+interface Option {
+  id: number;
+  itemOption: string;
+}
 
 interface info {
+  itemId: number;
   name: string;
   artist: string;
   price: number;
-  option: Array<string>;
+  option: Array<Option>;
   reviewLinkClick: () => void;
 }
 
 interface Choice {
+  itemId: number;
   name: string;
   option: string;
   count: number;
   price: number;
 }
 
+interface AuthState {
+  state: boolean;
+}
+
 export default function TitleInfoBox(props: info) {
-  const { name, artist, price, option, reviewLinkClick } = props;
+  const { itemId, name, artist, price, option, reviewLinkClick } = props;
+  const [recoilInfo, setRecoilInfo] = useRecoilState(recoilAuthState);
+  const defaultState: AuthState = { ...recoilInfo };
   const [selectedOpt, setSelectedOpt] = useState("");
   const [collapse, setCollapse] = useState(false);
   const [peek, setPeek] = useState<Array<Choice>>();
   const [total, setTotal] = useState(price);
   const [btnClick, setBtnClick] = useState(false);
+  const router = Router;
 
   const selectOption = (opt: string) => {
     setBtnClick((prev) => !prev);
@@ -53,6 +71,7 @@ export default function TitleInfoBox(props: info) {
         }
       }
       const editedOpt: Choice = {
+        itemId: itemId,
         name: peek[ind].name,
         option: peek[ind].option,
         count: editedCount,
@@ -65,10 +84,49 @@ export default function TitleInfoBox(props: info) {
     }
   };
 
-  const putCart = () => {
-    if (!peek || peek.length === 0) {
-      alert("옵션을 선택해주세요.");
+  const putCart = async () => {
+    if (defaultState) {
+      if (!peek || peek.length === 0) {
+        alert("옵션을 선택해주세요.");
+      } else {
+        peek.map((item) => putCartItem(item.itemId, item.count, item.option));
+      }
+    } else {
+      if (
+        confirm("로그인 후 이용할 수 있는 서비스입니다.\n로그인하시겠습니까?")
+      ) {
+        router.push("/SignIn");
+      }
     }
+  };
+
+  const putCartItem = async (
+    itemId: number,
+    count: number,
+    itemOption: string
+  ) => {
+    await axios
+      .post(
+        "http://www.ablind.co.kr/mypage/cart/add",
+        {
+          itemId: itemId,
+          count: count,
+          itemOption: itemOption,
+        },
+        {
+          headers: {
+            "Content-type": "application/json",
+            Accept: "application/json",
+            "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        alert("장바구니에 담기를 실패하였습니다.");
+      });
   };
 
   const buyNow = () => {
@@ -80,6 +138,7 @@ export default function TitleInfoBox(props: info) {
   useEffect(() => {
     if (selectedOpt !== "") {
       const newPeek: Choice = {
+        itemId: itemId,
         name: name,
         option: selectedOpt,
         count: 1,
@@ -108,7 +167,7 @@ export default function TitleInfoBox(props: info) {
       <ul className="info-list">
         <li>
           <span className="list-title">배송</span>
-          <span>30,000원 이상 구매시 무료배송!</span>
+          <span>40,000원 이상 구매시 무료배송!</span>
         </li>
         <li>
           <span className="list-title">리뷰</span>
@@ -138,8 +197,8 @@ export default function TitleInfoBox(props: info) {
         <div className={collapse ? "fold" : "unfold"}>
           <ul>
             {option.map((opt, index) => (
-              <li key={index} onClick={() => selectOption(opt)}>
-                {opt}
+              <li key={index} onClick={() => selectOption(opt.itemOption)}>
+                {opt.itemOption}
               </li>
             ))}
           </ul>
@@ -191,6 +250,8 @@ export default function TitleInfoBox(props: info) {
           flex-direction: column;
           gap: 15px;
           align-items: start;
+          min-width: 60vh;
+          max-width: 75vh;
         }
         .name-box {
           display: flex;

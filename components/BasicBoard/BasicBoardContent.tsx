@@ -43,7 +43,7 @@ export default function BasicBoardContent(props: boardContentProps) {
   const dateFormater = (createdAt: string) => {
     const nowDate = new Date();
     const date = new Date(createdAt);
-    let dateByString = moment(createdAt).format("YYYY-MM-DD");
+    let dateByString = moment(createdAt, "YYYYMMDDHHmmss").format("YYYY-MM-DD");
     const gapTime = date.getTime() - nowDate.getTime();
     if (gapTime > -86400000) dateByString = moment(date).fromNow();
     return dateByString;

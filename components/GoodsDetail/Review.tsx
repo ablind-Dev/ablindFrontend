@@ -33,7 +33,7 @@ export default function Review(props: pageProps) {
   const [reviewArray, setReviewArray] = useState<Array<ReviewInfo>>();
 
   const getReview = () => {
-    Api.get(`http://www.ablind.co.kr/shop/${5}/review`, {
+    Api.get(`http://www.ablind.co.kr/shop/${goodsId}/review`, {
       //5부분에 goodsId넣어줘야함.
       headers: {
         "Content-type": "application/json",

@@ -1,5 +1,4 @@
 import BasicProfile from "../../components/MyPage/BasicProfile";
-// import SubscribeInfo from "../../components/MyPage/SubscribeInfo";
 import InquireOrder from "../../components/MyPage/InquireOrder";
 import ShopBasket from "./ShopBasket";
 import dynamic from "next/dynamic";

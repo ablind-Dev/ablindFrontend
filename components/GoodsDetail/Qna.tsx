@@ -7,6 +7,10 @@ import Api from "../Auth/CustomApi";
 import BasicModal from "../Resource/BasicModal";
 import Router from "next/router";
 
+interface pageProps {
+  goodsId: number;
+}
+
 interface AuthState {
   state: boolean;
 }
@@ -23,7 +27,8 @@ interface QnaInfo {
   answer: string;
 }
 
-export default function Qna() {
+export default function Qna(props: pageProps) {
+  const { goodsId } = props;
   const [recoilInfo, setRecoilInfo] = useRecoilState(recoilAuthState);
   const defaultState: AuthState = { ...recoilInfo };
   const router = Router;
@@ -31,7 +36,7 @@ export default function Qna() {
   const [contentNum, setContentNum] = useState(0);
 
   const getQna = () => {
-    Api.get("http://www.ablind.co.kr/shop/5/qna", {
+    Api.get(`http://www.ablind.co.kr/shop/${goodsId}/qna`, {
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",
