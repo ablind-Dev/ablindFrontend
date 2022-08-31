@@ -147,7 +147,7 @@ export default function tmp() {
   const subscribeAllow = () => {
     axios
       .post(
-        "http://www.ablind.co.kr/artist/4/follow/3000",
+        "http://www.ablind.co.kr/artist/6/follow/3000",
         {
           email: "abcd1234@naver.com",
         },

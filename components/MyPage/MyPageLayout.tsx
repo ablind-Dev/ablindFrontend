@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import Cookies from "universal-cookie";
 import axios from "axios";
 import Router from "next/router";
+import EditMyProfile from "./EditMyProfile";
 
 const SubscribeInfo = dynamic(
   () => import("../../components/MyPage/SubscribeInfo"),
@@ -83,7 +84,12 @@ export default function MyPageLayout(props: infoProps) {
         <div className="left-box">
           <BasicProfile profile={profile} name={name} type={type} />
           <div className="auth-btns">
-            <button className="non-selected">회원정보 수정</button>
+            <button
+              onClick={() => setMenu(3)}
+              className={menu === 3 ? "selected" : "non-selected"}
+            >
+              회원정보 수정
+            </button>
             <button className="non-selected" onClick={() => logout()}>
               로그아웃
             </button>
@@ -120,6 +126,8 @@ export default function MyPageLayout(props: infoProps) {
             <InquireOrder />
           ) : menu === 2 ? (
             <ShopBasket />
+          ) : menu === 3 ? (
+            <EditMyProfile />
           ) : (
             <></>
           )}
