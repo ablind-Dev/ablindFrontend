@@ -92,6 +92,7 @@ export default function Auth() {
     defaultState.state = false;
     setRecoilInfo(defaultState);
     setModalState(false);
+    router.replace("/");
   };
 
   const getUserName = async () => {

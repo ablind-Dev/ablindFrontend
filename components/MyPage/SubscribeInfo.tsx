@@ -113,7 +113,6 @@ export default function SubscribeInfo() {
       });
       setImgCarousel(saveArray);
     }
-    console.log(artist);
   }, [artist]);
 
   const goToArtistPage = (id: number) => {

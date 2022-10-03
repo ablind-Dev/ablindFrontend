@@ -332,6 +332,24 @@ export default function tmp() {
       });
   };
 
+  const editProfile = () => {
+    const multipartFile = new FormData();
+    multipartFile.append("file", imgFile);
+    axios
+      .put("http://www.ablind.co.kr/mypage/profile/update", multipartFile, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const getQna = () => {
     axios
       .get("http://www.ablind.co.kr/shop/5/qna", {
@@ -484,6 +502,130 @@ export default function tmp() {
       });
   };
 
+  const getOrdererInfo = () => {
+    axios
+      .get("http://www.ablind.co.kr/shop/order/member", {
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+          "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const buyItem = () => {
+    const ordererDto = {
+      name: "하성원",
+      phoneNumber: "01075481678",
+      account_name: "경남",
+      account: "0123456789",
+    };
+    const recipientDto = {
+      name: "이준규",
+      phoneNumber: "01012345678",
+      address: "숭실대",
+    };
+    const orderItemDtoList = [{ id: 2 }, { id: 4 }];
+
+    axios
+      .post(
+        "http://www.ablind.co.kr/shop/order",
+        {
+          ordererDto: ordererDto,
+          recipientDto: recipientDto,
+          orderItemDtoList: orderItemDtoList,
+          price: "200000",
+        },
+        {
+          headers: {
+            "Content-type": "application/json",
+            Accept: "application/json",
+            "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const getOrderList = () => {
+    axios
+      .get("http://www.ablind.co.kr/mypage/order", {
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+          "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const getOrderDetail = () => {
+    axios
+      .get("http://www.ablind.co.kr/mypage/order/detail", {
+        params: {
+          id: 12,
+        },
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+          "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const editUserInfo = () => {
+    axios
+      .put(
+        "http://www.ablind.co.kr/mypage/info/update",
+        {
+          name: "김준규",
+          address: "안알랴줌",
+          phoneNumber: "01087654321",
+          account: "123456789",
+          account_name: "토스",
+        },
+        {
+          headers: {
+            "Content-type": "application/json",
+            Accept: "application/json",
+            "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const id = "b9f6eaeb47ed2f08476461345671880c";
+  const url = "http://52.78.4.217:8080/api/authorization_code";
+  const plovoKakao = () => {};
+
   return (
     <>
       <button onClick={() => getArtistList()}>작가리스트받아오기</button>
@@ -513,6 +655,7 @@ export default function tmp() {
         value={profile}
       />
       <button onClick={() => makeReview()}>리뷰업로드</button>
+      <button onClick={() => editProfile()}>프사변경</button>
       <button onClick={() => getQna()}>큐앤에이받아오기</button>
       <button onClick={() => getMyProfile()}>유저정보받아오기</button>
       <button onClick={() => getMyArtist()}>구독한작가받아오기</button>
@@ -520,6 +663,16 @@ export default function tmp() {
       <button onClick={() => postMyBasket()}>5번아이템 장바구니에 담기</button>
       <button onClick={() => editOptionCount()}>5번아이템 개수 4개로</button>
       <button onClick={() => deleteOption()}>옵션삭제</button>
+      <button onClick={() => getOrdererInfo()}>주문자정보조회</button>
+      <button onClick={() => buyItem()}>구매</button>
+      <button onClick={() => getOrderList()}>주문조회</button>
+      <button onClick={() => getOrderDetail()}>주문상세조회</button>
+      <button onClick={() => editUserInfo()}>정보수정</button>
+      <a
+        href={`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${id}&redirect_uri=${url}`}
+      >
+        플로보카카오로그인
+      </a>
     </>
   );
 }
