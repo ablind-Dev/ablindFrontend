@@ -50,7 +50,7 @@ export default function EditMyAccountModal(props: editAccountProps) {
         name="account"
         placeholder="'-'를 제외한 숫자만 입력해주세요."
         value={account}
-        onChange={(e) => setAccount(e.target.value)}
+        onChange={(e) => setAccount(e.target.value.replace(/[^0-9]/g, ""))}
         className="account-input"
       />
       <style jsx>{`

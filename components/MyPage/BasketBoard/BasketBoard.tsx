@@ -3,6 +3,10 @@ import BasketBoardContent from "./BasketBoardContent";
 import PriceBox from "./PriceBox";
 import Api from "../../Auth/CustomApi";
 import axios from "axios";
+import Router from "next/router";
+import NoItem from "./NoItem";
+import { useRecoilState } from "recoil";
+import { recoilOrderState, OrderState } from "../../../states/recoilOrderState";
 
 interface itemInterface {
   itemImage: string; //상품 이미지
@@ -19,6 +23,8 @@ export default function BasketBoard() {
   const [selectItem, setSelectItem] = useState<Array<itemInterface>>([]);
   const [sumPrice, setSumPrice] = useState(0);
   const [sumSelectPrice, setSumSelectPrice] = useState(0);
+  const [orderState, setOrderState] = useRecoilState(recoilOrderState);
+  const router = Router;
 
   //받아오기 관련
   const getMyBasket = async () => {
@@ -36,42 +42,6 @@ export default function BasketBoard() {
       .catch((error) => {
         console.log(error);
       });
-
-    //더미데이터
-    // const tmpq: itemInterface = {
-    //   img: "https://ablind-s3-bucket.s3.ap-northeast-2.amazonaws.com/firsrt/artworks/dummy_art6.jpg", //상품 이미지
-    //   goodsName: "내 쓸쓸함은 차갑지 않아요", //상품 이름
-    //   option: "여기저기 그 떄의 내음 속엔 설렘이 담겨있고", //선택한 옵션 이름
-    //   count: 2, //개수
-    //   price: 5000,
-    //   optId: 0, //옵션 아이디
-    // };
-    // const tmpw: itemInterface = {
-    //   img: "https://ablind-s3-bucket.s3.ap-northeast-2.amazonaws.com/firsrt/artworks/dummy_art6.jpg", //상품 이미지
-    //   goodsName: "내 쓸쓸함은 차갑지 않아요", //상품 이름
-    //   option: "여기저기 그 떄의 내음 속엔 설렘이 담겨있고", //선택한 옵션 이름
-    //   count: 2, //개수
-    //   price: 5000,
-    //   optId: 1, //옵션 아이디
-    // };
-    // const tmpe: itemInterface = {
-    //   img: "https://ablind-s3-bucket.s3.ap-northeast-2.amazonaws.com/firsrt/artworks/dummy_art6.jpg", //상품 이미지
-    //   goodsName: "내 쓸쓸함은 차갑지 않아요", //상품 이름
-    //   option: "여기저기 그 떄의 내음 속엔 설렘이 담겨있고", //선택한 옵션 이름
-    //   count: 2, //개수
-    //   price: 5000,
-    //   optId: 2, //옵션 아이디
-    // };
-    // const tmpr: itemInterface = {
-    //   img: "https://ablind-s3-bucket.s3.ap-northeast-2.amazonaws.com/firsrt/artworks/dummy_art6.jpg", //상품 이미지
-    //   goodsName: "내 쓸쓸함은 차갑지 않아요", //상품 이름
-    //   option: "여기저기 그 떄의 내음 속엔 설렘이 담겨있고", //선택한 옵션 이름
-    //   count: 2, //개수
-    //   price: 5000,
-    //   optId: 3, //옵션 아이디
-    // };
-    // const tmpArray = [tmpq, tmpw, tmpe, tmpr];
-    // setBasketItem(tmpArray);
   };
 
   useEffect(() => {
@@ -265,7 +235,7 @@ export default function BasketBoard() {
         alert("제거가 완료되었습니다.");
       }
     } else {
-      alert("장바구니에 담은 상품이 없습니다.");
+      alert("선택한 상품이 없습니다.");
     }
   };
 
@@ -282,6 +252,32 @@ export default function BasketBoard() {
       .catch((res) => {
         console.log(res);
       });
+  };
+
+  const selectOrder = () => {
+    if (selectItem.length > 0) {
+      const orderingItem: OrderState = {
+        ordering: true,
+        items: selectItem,
+      };
+      setOrderState(orderingItem);
+      // await new Promise(() => setOrderState(orderingItem));
+      router.push("/Order");
+    } else {
+      alert("선택한 상품이 없습니다.");
+    }
+  };
+
+  const allOrder = async () => {
+    if (basketItem) {
+      const orderingItem: OrderState = {
+        ordering: true,
+        items: basketItem,
+      };
+      setOrderState(orderingItem);
+      // await new Promise(() => setOrderState(orderingItem));
+      router.push("/Order");
+    }
   };
 
   return (
@@ -313,12 +309,12 @@ export default function BasketBoard() {
           <PriceBox sumAllPrice={sumPrice} sumSelectPrice={sumSelectPrice} />
           <div className="btns">
             <button onClick={() => removeInBasket()}>삭제하기</button>
-            <button>선택주문</button>
-            <button>전체주문</button>
+            <button onClick={() => selectOrder()}>선택주문</button>
+            <button onClick={() => allOrder()}>전체주문</button>
           </div>
         </div>
       ) : (
-        <></>
+        <NoItem />
       )}
       <style jsx>{`
         .container {
@@ -335,6 +331,8 @@ export default function BasketBoard() {
           color: #bebebe;
           font-size: 28px;
           font-weight: 700;
+          border-bottom: 2px solid #bebebe;
+          padding-bottom: 10px;
         }
         .title {
           font-size: 28px;

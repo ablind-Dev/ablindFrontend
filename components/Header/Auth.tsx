@@ -14,6 +14,17 @@ interface ThemeState {
   theme: string;
 }
 
+interface basicInfo {
+  image: string; //프사
+  email: string;
+  phoneNumber: string;
+  name: string;
+  role: string; //회원인지 예술가인지 관리자인지
+  address: string; //&로 분류
+  account: string; //은행
+  account_name: string; //계좌번호
+}
+
 interface AuthState {
   state: boolean;
 }
@@ -28,7 +39,7 @@ export default function Auth() {
   const [recoilInfo, setRecoilInfo] = useRecoilState(recoilAuthState);
   const defaultState: AuthState = { ...recoilInfo };
   const [modalState, setModalState] = useState(false);
-  const [name, setName] = useState("");
+  const [info, setInfo] = useState<basicInfo>();
 
   const cookies = new Cookies();
 
@@ -95,25 +106,29 @@ export default function Auth() {
     router.replace("/");
   };
 
-  const getUserName = async () => {
+  const getUserProfile = async () => {
     const token = localStorage.getItem("accessToken");
     if (token !== null) {
-      await Api.post("/members/username", {
-        email: localStorage.getItem("email"),
+      Api.get("http://www.ablind.co.kr/mypage", {
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+          "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
+        },
       })
         .then((res) => {
-          setName(res.data.name);
+          setInfo(res.data);
         })
-        .catch((res) => {
+        .catch((error) => {
           logoutServer();
-          console.log(res);
+          console.log(error);
         });
     }
   };
 
   useEffect(() => {
     if (defaultState.state) {
-      getUserName();
+      getUserProfile();
     }
   }, [defaultState]);
 
@@ -122,13 +137,20 @@ export default function Auth() {
       {defaultState.state ? (
         <nav className="yes-auth">
           <span className="non-active">
-            반가워요, <b>{name}</b>님!
+            반가워요, <b>{info ? info.name : ""}</b>님!
           </span>
           <div
             className="auth-btn"
             onClick={() => setModalState((prev) => !prev)}
           >
-            <Image src={basicProfile} alt={"기본프로필"} />
+            <Image
+              src={
+                info ? (info.image ? info.image : basicProfile) : basicProfile
+              }
+              alt={"기본프로필"}
+              layout="fill"
+              objectFit="cover"
+            />
           </div>
           {modalState ? (
             <div className="click-modal">
@@ -203,6 +225,7 @@ export default function Auth() {
           border-radius: 10px;
           overflow: hidden;
           cursor: pointer;
+          position: relative;
         }
         .click-modal {
           position: absolute;

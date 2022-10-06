@@ -41,14 +41,15 @@ export default function BasketBoardContent(props: itemProps) {
 
   return (
     <div className="box">
-      <div className="img-box">
+      <label className="img-box" htmlFor={`${itemId}-${option}-check`}>
         <Image src={img} layout="fill" objectFit="cover" />
         <input
           type="checkbox"
           onChange={(e) => setChecked(e.target.checked)}
           checked={checked}
+          id={`${itemId}-${option}-check`}
         />
-      </div>
+      </label>
       <div className="info-box">
         <div className="title-box">
           <Link href={`/Shop/${itemId}`}>

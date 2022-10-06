@@ -249,12 +249,6 @@ export default function EditMyProfile() {
   //계좌 수정 관련
   const [accountModalOpen, setAccountModal] = useState(false);
   const [accountState, setAccountState] = useState(false);
-  const bankHandler = (bank: string) => {
-    setBank(bank);
-  };
-  const accountInput = (typing: string) => {
-    setAccount(typing.replace(/[^0-9]/g, ""));
-  };
   const openAccountModal = () => setAccountModal(true);
   const closeAccountModal = () => setAccountModal(false);
 
