@@ -1,6 +1,7 @@
 import Router from "next/router";
 import Image from "next/image";
 import goodsdefault from "../../public/images/goodsdefault.png";
+import { MoneyWonReg } from "../Resource/MoneyWonReg";
 
 interface GoodsImg {
   url: string;
@@ -43,7 +44,7 @@ export default function GoodsItem(props: Goods) {
       <span className="artist">{artist}</span>
       <div className="info" onClick={() => onClickItemHandler()}>
         <span>{name}</span>
-        <span>{price}</span>
+        <span>{MoneyWonReg(price)}</span>
       </div>
       <style jsx>{`
         .box {

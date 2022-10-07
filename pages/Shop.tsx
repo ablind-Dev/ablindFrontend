@@ -20,6 +20,7 @@ interface GoodsImg {
 
 interface Goods {
   itemId: number;
+  category: string;
   detailImg: string;
   images: Array<GoodsImg>;
   author: string;

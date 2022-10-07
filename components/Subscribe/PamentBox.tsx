@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import stageOneImg from "../../public/images/friend.png";
 import stageTwoImg from "../../public/images/gift.png";
 import stageThreeImg from "../../public/images/love.png";
-import checkbox from "../../public/images/check-box.png";
 import Image from "next/image";
+import { MoneyWonReg } from "../Resource/MoneyWonReg";
 
 interface stageProps {
   stage: number; //0,1,2
@@ -15,6 +15,7 @@ export default function PaymentBox(props: stageProps) {
   const { stage, selectStage, selected } = props;
   const [img, setImg] = useState(stageOneImg);
   const [price, setPrice] = useState("Listener");
+  const [value, setValue] = useState(0);
   const [explanation, setExplanation] = useState([
     "작가님의 최신 소식을 카카오톡으로 알려드립니다.",
   ]);
@@ -30,16 +31,19 @@ export default function PaymentBox(props: stageProps) {
     switch (stage) {
       case 0:
         setPrice("Listener");
+        setValue(0);
         setExplanation(one);
         break;
       case 1:
         setImg(stageTwoImg);
         setPrice("Supporter");
+        setValue(15000);
         setExplanation(two);
         break;
       case 2:
         setImg(stageThreeImg);
         setPrice("VIP");
+        setValue(20000);
         setExplanation(three);
         break;
       default:
@@ -58,8 +62,8 @@ export default function PaymentBox(props: stageProps) {
       </div>
       <div className="price-box">
         <span className="price">{price}</span>
-        <span className="sub">월 기준</span>
-        {price === "Listener" ? <></> : <span className="vat">(+VAT)</span>}
+        <span className="sub">월 {MoneyWonReg(value)}원</span>
+        {price === "Listener" ? <></> : <span className="vat">(VAT 포함)</span>}
       </div>
       <div className="line" />
       <ul className="explain-box">

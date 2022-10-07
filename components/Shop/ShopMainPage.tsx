@@ -3,6 +3,9 @@ import ShopBannerCarousel from "../Resource/ShopBannerCarousel";
 import SearchBox from "./SearchBox";
 import Categories from "./Categories";
 import GoodsComponent from "./GoodsComponent";
+import { useRecoilState } from "recoil";
+import { recoilCategoryState } from "../../states/recoilCategoryState";
+import { CategoryArray } from "../Resource/CategoryArray";
 
 interface Banner {
   content: string;
@@ -18,6 +21,7 @@ interface GoodsImg {
 
 interface Goods {
   itemId: number;
+  category: string;
   detailImg: string;
   images: Array<GoodsImg>;
   author: string;
@@ -32,8 +36,46 @@ interface shopProps {
   goods: Array<Goods>;
 }
 
+interface CategoryState {
+  category: string;
+}
+
 export default function ShopManiPage(props: shopProps) {
   const { artists, banners, goods } = props;
+  const [recoilInfo, setRecoilInfo] = useRecoilState(recoilCategoryState);
+  const [goodsArr, setGoodsArr] = useState<Array<Goods>>(goods);
+
+  const goodsClassify = () => {
+    if (CategoryArray.includes(recoilInfo.category)) {
+      //카테고리 이름으로 분류
+      classifyByCategory();
+    } else {
+      //작가이름으로 분류
+      classifyByName();
+    }
+  };
+
+  const classifyByCategory = () => {
+    const newArr: Array<Goods> = goods.filter(
+      (good) => good.category === recoilInfo.category
+    );
+    setGoodsArr(newArr);
+  };
+
+  const classifyByName = () => {
+    const newArr: Array<Goods> = goods.filter(
+      (good) => good.name === recoilInfo.category
+    );
+    setGoodsArr(newArr);
+  };
+
+  useEffect(() => {
+    if (recoilInfo.category === "전체") {
+      setGoodsArr(goods);
+    } else {
+      goodsClassify();
+    }
+  }, [recoilInfo]);
 
   return (
     <div className="container">
@@ -43,7 +85,7 @@ export default function ShopManiPage(props: shopProps) {
       </div>
       <div className="category-box">
         <Categories artists={artists} />
-        <GoodsComponent goods={goods} />
+        <GoodsComponent goods={goodsArr} />
       </div>
       <style jsx>{`
         .main-box {

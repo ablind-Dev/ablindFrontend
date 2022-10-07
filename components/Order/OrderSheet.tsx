@@ -4,6 +4,7 @@ import BasicModal from "../Resource/BasicModal";
 import EditAddressModal from "../MyPage/EditAddressModal";
 import { useRecoilState } from "recoil";
 import { recoilOrderState, OrderState } from "../../states/recoilOrderState";
+import axios from "axios";
 
 interface checkProps {
   setStep: Dispatch<SetStateAction<number>>;
@@ -214,11 +215,24 @@ export default function OrderSheet(props: checkProps) {
         addr: addr,
         detail: addrDetail,
       };
-      console.log(orderer);
-      console.log(receiver);
       setOrderer(orderer);
       setReceiver(receiver);
     }
+  };
+
+  const removeItemInBasket = (id: number) => {
+    axios
+      .delete(`http://www.ablind.co.kr/mypage/cart/delete`, {
+        data: {
+          id: id,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((res) => {
+        console.log(res);
+      });
   };
 
   const orderHandler = () => {
@@ -226,7 +240,7 @@ export default function OrderSheet(props: checkProps) {
       Api.post(
         "http://www.ablind.co.kr/shop/order",
         {
-          orderDto: {
+          ordererDto: {
             name: oName,
             phoneNumber: oNumber,
             account_name: oBank,
@@ -247,7 +261,9 @@ export default function OrderSheet(props: checkProps) {
         }
       )
         .then((res) => {
-          console.log(res);
+          items?.map((item) => {
+            removeItemInBasket(item.id);
+          });
           setData();
           setOrderDate(`${new Date()}`);
           setStep(2);
@@ -381,9 +397,7 @@ export default function OrderSheet(props: checkProps) {
       </form>
       <button
         onClick={() => {
-          setData();
-          setOrderDate(`${new Date()}`);
-          setStep(2);
+          orderHandler();
         }}
       >
         주문 완료

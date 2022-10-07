@@ -39,13 +39,13 @@ export default function SubscribeModal(props: subscribeProps) {
         setOptionExplain(
           `${artistName} 작가님의 소식과 함께 매달 굿즈를 보내드려요.`
         );
-        setPrice("3,000");
+        setPrice("15,000");
         break;
       case 2:
         setOptionExplain(
           `${artistName} 작가님의 소식, 굿즈와 함께 전시회 티켓을 만나볼 수 있어요.`
         );
-        setPrice("5,000");
+        setPrice("20,000");
         break;
       default:
         alert("잘못된 접근입니다.");
@@ -88,7 +88,7 @@ export default function SubscribeModal(props: subscribeProps) {
         <div className="last-payment">
           <span className="sub">최종 결제금액</span>
           <span className="price">{price} 원</span>
-          <span className="vat">(VAT 별도)</span>
+          <span className="vat">(VAT 포함)</span>
         </div>
       </div>
       <div className="box pay-box">

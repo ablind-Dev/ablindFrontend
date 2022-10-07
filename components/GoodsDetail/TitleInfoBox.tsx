@@ -10,6 +10,7 @@ import axios from "axios";
 import Router from "next/router";
 import { useRecoilState } from "recoil";
 import { recoilAuthState } from "../../states/recoilAuthState";
+import { MoneyWonReg } from "../Resource/MoneyWonReg";
 
 interface Option {
   id: number;
@@ -163,7 +164,7 @@ export default function TitleInfoBox(props: info) {
         <span className="artist">{artist}</span>
       </div>
 
-      <span className="price">{price} 원</span>
+      <span className="price">{MoneyWonReg(price)} 원</span>
       <ul className="info-list">
         <li>
           <span className="list-title">배송</span>
@@ -225,7 +226,7 @@ export default function TitleInfoBox(props: info) {
                     <FontAwesomeIcon icon={faPlus} />
                   </button>
                 </div>
-                <span className="peek-price">{p.price}원</span>
+                <span className="peek-price">{MoneyWonReg(p.price)}원</span>
               </div>
               <button className="x-mark" onClick={() => deleteOption(index)}>
                 <FontAwesomeIcon icon={faXmark} />
@@ -234,7 +235,7 @@ export default function TitleInfoBox(props: info) {
           ))}
           <div className="total-box">
             <span className="total-info">합계</span>
-            <span className="total">{total}원</span>
+            <span className="total">{MoneyWonReg(total)}원</span>
           </div>
         </div>
       ) : (

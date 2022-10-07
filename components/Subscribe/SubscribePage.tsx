@@ -50,10 +50,10 @@ export default function SubscribePage(props: artistProps) {
         setPrice(0);
         break;
       case 1:
-        setPrice(3000);
+        setPrice(15000);
         break;
       case 2:
-        setPrice(5000);
+        setPrice(20000);
         break;
       default:
         alert("잘못된 접근입니다.");
