@@ -2,7 +2,6 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { useEffect } from "react";
-import MainBannerCarousel from "../components/Resource/MainBannerCarousel";
 import { useResetRecoilState } from "recoil";
 import { recoilThemeState } from "../states/recoilThemeState";
 import Seo from "../components/Seo";
@@ -21,12 +20,10 @@ const Home: NextPage = () => {
   return (
     <div className="container">
       <Seo title="Home" />
-      <MainBannerCarousel />
       <HomeLayout />
       <style jsx>{`
         .container {
           width: 100%;
-          padding-bottom: 100px;
         }
       `}</style>
     </div>

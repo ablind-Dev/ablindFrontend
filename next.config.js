@@ -6,6 +6,7 @@ const nextConfig = {
       "s3.marpple.co",
       "ablind-s3-bucket.s3.ap-northeast-2.amazonaws.com",
       "image.cine21.com",
+      "magazine.brique.co",
     ],
   },
 };

@@ -285,24 +285,24 @@ export default function tmp() {
   const [attachment, setAttachment] = useState("");
   const [imgFile, setImgFile] = useState<File>();
   const handleOnChange: Event<"input", "onChange"> = (e) => {
-    if (window.FileReader) {
-      const {
-        currentTarget: { files, value },
-      } = e;
-      if (files !== null) {
-        const theFile = files![0];
-        const reader = new FileReader();
-        setProfile(value);
-        reader.onloadend = (finishedEvent: any) => {
-          const {
-            target: { result },
-          } = finishedEvent;
-          setAttachment(result);
-          setImgFile(theFile);
-        };
-        reader.readAsDataURL(theFile);
-      }
-    }
+    // if (window.FileReader) {
+    //   const {
+    //     currentTarget: { files, value },
+    //   } = e;
+    //   if (files !== null) {
+    //     const theFile = files![0];
+    //     const reader = new FileReader();
+    //     setProfile(value);
+    //     reader.onloadend = (finishedEvent: any) => {
+    //       const {
+    //         target: { result },
+    //       } = finishedEvent;
+    //       setAttachment(result);
+    //       setImgFile(theFile);
+    //     };
+    //     reader.readAsDataURL(theFile);
+    //   }
+    // }
   };
   const makeReview = () => {
     const tmpForm = {
@@ -626,6 +626,22 @@ export default function tmp() {
   const url = "http://52.78.4.217:8080/api/authorization_code";
   const plovoKakao = () => {};
 
+  const getBanner = () => {
+    axios
+      .get("http://www.ablind.co.kr/banner", {
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <>
       <button onClick={() => getArtistList()}>작가리스트받아오기</button>
@@ -673,6 +689,7 @@ export default function tmp() {
       >
         플로보카카오로그인
       </a>
+      <button onClick={() => getBanner()}>배너 받아오기</button>
     </>
   );
 }
