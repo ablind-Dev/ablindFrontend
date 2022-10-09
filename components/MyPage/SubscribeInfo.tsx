@@ -44,6 +44,7 @@ export default function SubscribeInfo() {
       },
     })
       .then((res) => {
+        console.log(res);
         setArtists(res.data);
       })
       .catch((error) => {

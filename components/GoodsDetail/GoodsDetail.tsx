@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import PageMoveSticker from "../Resource/PageMoveSticker";
 import TitleImgBox from "./TitleImgBox";
 import TitleInfoBox from "./TitleInfoBox";
@@ -6,6 +6,7 @@ import GoodsNav from "./GoodsNav";
 import Content from "./Content";
 import Review from "./Review";
 import Qna from "./Qna";
+import Api from "../Auth/CustomApi";
 
 interface GoodsImg {
   url: string;
@@ -27,6 +28,17 @@ interface goodsDetail {
   price: number;
 }
 
+interface basicInfo {
+  image: string; //프사
+  email: string;
+  phoneNumber: string;
+  name: string;
+  role: string; //회원인지 예술가인지 관리자인지
+  address: string; //&로 분류
+  account: string; //은행
+  account_name: string; //계좌번호
+}
+
 export default function GoodsDetail(props: goodsDetail) {
   const { itemId, detailImg, images, author, name, option, price } = props;
   const [nav, setNav] = useState(0);
@@ -36,9 +48,83 @@ export default function GoodsDetail(props: goodsDetail) {
     reviewRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const [info, setInfo] = useState<basicInfo>();
+  const getMyProfile = () => {
+    Api.get("http://www.ablind.co.kr/mypage", {
+      headers: {
+        "Content-type": "application/json",
+        Accept: "application/json",
+        "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
+      },
+    })
+      .then((res) => {
+        setInfo(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const deleteGoods = () => {
+    if (confirm("진짜 삭제할거에요? 복구 안됨")) {
+      Api.delete(`http://www.ablind.co.kr/admin/delete/item`, {
+        headers: {
+          "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
+        },
+        data: {
+          itemId: itemId,
+        },
+      })
+        .then((res) => {
+          alert("삭제완료");
+        })
+        .catch((res) => {
+          console.log(res);
+          alert("삭제실패");
+        });
+    }
+  };
+
+  const deleteAnswer = (id: number) => {
+    if (info && info.role === "ADMIN") {
+      if (confirm("진짜 삭제할거에요? 복구 안됨")) {
+        Api.delete(`http://www.ablind.co.kr/admin/list/qna/answer/delete`, {
+          headers: {
+            "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
+          },
+          data: {
+            qnaBoardId: id,
+          },
+        })
+          .then((res) => {
+            alert("삭제완료");
+          })
+          .catch((res) => {
+            console.log(res);
+            alert("삭제실패");
+          });
+      }
+    }
+  };
+
+  useEffect(() => {
+    getMyProfile();
+  }, []);
+
   return (
     <div className="container">
       <PageMoveSticker />
+      {info ? (
+        info.role === "ADMIN" ? (
+          <button onClick={() => deleteGoods()}>
+            상품 삭제 _ 관리자만 보여요~
+          </button>
+        ) : (
+          <></>
+        )
+      ) : (
+        <></>
+      )}
       <div className="upper-box">
         <TitleImgBox imgs={images} />
         <TitleInfoBox
@@ -57,7 +143,7 @@ export default function GoodsDetail(props: goodsDetail) {
         ) : nav === 1 ? (
           <Review goodsId={itemId} />
         ) : (
-          <Qna goodsId={itemId} />
+          <Qna goodsId={itemId} deleteAnswer={deleteAnswer} />
         )}
       </div>
       <style jsx>{`

@@ -10,7 +10,7 @@ import { CategoryArray } from "../Resource/CategoryArray";
 interface Banner {
   content: string;
   id: number;
-  img: string;
+  image: string;
   link: string;
 }
 

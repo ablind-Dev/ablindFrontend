@@ -9,7 +9,7 @@ import axios from "axios";
 interface Banner {
   content: string;
   id: number;
-  img: string;
+  image: string;
   link: string;
 }
 

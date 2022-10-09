@@ -1,5 +1,5 @@
 import moment from "moment";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch, SetStateAction} from "react";
 import InquireBoardContent from "./InquireBoardContent";
 import Pagenation from "../../Shop/Pagenation";
 
@@ -7,24 +7,27 @@ interface boardProps {
   title: string;
   contentNum: number;
   contentArray: Array<boardContent>;
+  setStep:Dispatch<SetStateAction<number>>;
 }
 
 interface boardContent {
-  shopId: number; //주문내역 고유 아이디
-  shipping: string; //배송 상태
-  goods: Array<goods>; //주문 상품
-  priceSum: number; //총 가격
   createdAt: string;
+  id: number; //주문내역 고유 아이디
+  orderItems: Array<goods>; //주문 상품
+  orderStatus: string; //배송 상태
+  price: number; //총 가격
 }
 
 interface goods {
-  goodsName: string; //상품 이름
-  optName: string; //옵션 이름
-  price: number; //해당 상품 -> 옵션 -> 가격
+  count: number;
+  id: number;
+  itemName: string; //상품 이름
+  itemOption: string; //옵션 이름
+  orderPrice: number; //해당 상품 -> 옵션 -> 가격
 }
 
 export default function InquireBoard(props: boardProps) {
-  const { title, contentNum, contentArray } = props;
+  const { title, contentNum, contentArray, setStep } = props;
 
   const [viewInquire, setViewInquire] =
     useState<Array<boardContent>>(contentArray);
@@ -84,11 +87,12 @@ export default function InquireBoard(props: boardProps) {
             qnaListInPage[curPage - 1].map((content, index) => (
               <InquireBoardContent
                 index={index}
-                shopId={content.shopId}
-                shipping={content.shipping}
-                goods={content.goods}
-                priceSum={content.priceSum}
+                shopId={content.id}
+                shipping={content.orderStatus}
+                goods={content.orderItems}
+                priceSum={content.price}
                 createdAt={content.createdAt}
+                setStep={setStep}
               />
             ))
           ) : (

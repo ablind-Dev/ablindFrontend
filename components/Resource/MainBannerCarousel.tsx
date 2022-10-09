@@ -75,7 +75,7 @@ export default function MainBannerCarousel() {
   return (
     <div className="container">
       <Slider {...settings} dotsClass="main-banner-dots">
-        {tmpInitBanner.map((banner, index) => (
+        {banners.map((banner, index) => (
           <MainBannerItem
             content={banner.content}
             deleteImage={banner.deleteImage}

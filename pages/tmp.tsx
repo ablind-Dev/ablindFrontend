@@ -1,5 +1,4 @@
 import axios from "axios";
-import LoadingSpinner from "../components/Resource/LoadingSpinner";
 import { ComponentProps, DOMAttributes, useState } from "react";
 import FormData from "form-data";
 
@@ -238,7 +237,7 @@ export default function tmp() {
 
   const getGood = () => {
     axios
-      .get("http://www.ablind.co.kr/shop/detail/5", {
+      .get("http://www.ablind.co.kr/shop/detail/10", {
         headers: {
           "Content-type": "application/json",
           Accept: "application/json",
@@ -579,7 +578,7 @@ export default function tmp() {
     axios
       .get("http://www.ablind.co.kr/mypage/order/detail", {
         params: {
-          id: 12,
+          id: 17,
         },
         headers: {
           "Content-type": "application/json",
@@ -642,6 +641,23 @@ export default function tmp() {
       });
   };
 
+  const getOrderer = () => {
+    axios
+      .get("http://www.ablind.co.kr/admin/list/order?orderStatus=주문완료", {
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+          "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <>
       <button onClick={() => getArtistList()}>작가리스트받아오기</button>
@@ -690,6 +706,7 @@ export default function tmp() {
         플로보카카오로그인
       </a>
       <button onClick={() => getBanner()}>배너 받아오기</button>
+      <button onClick={() => getOrderer()}>관리자용 주문확인</button>
     </>
   );
 }

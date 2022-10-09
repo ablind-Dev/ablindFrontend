@@ -17,6 +17,7 @@ interface boardContentProps {
   answer: string;
   filterArray: (ind: number) => void;
   updateHandler: () => void;
+  deleteAnswer: (id: number) => void;
 }
 
 export default function BasicBoardContent(props: boardContentProps) {
@@ -33,6 +34,7 @@ export default function BasicBoardContent(props: boardContentProps) {
     answer,
     filterArray,
     updateHandler,
+    deleteAnswer,
   } = props;
   const [collapseState, setCollapse] = useState(false);
   const [btnState, setBtnState] = useState(true);
@@ -43,9 +45,9 @@ export default function BasicBoardContent(props: boardContentProps) {
   const dateFormater = (createdAt: string) => {
     const nowDate = new Date();
     const date = new Date(createdAt);
-    let dateByString = moment(createdAt, "YYYYMMDDHHmmss").format("YYYY-MM-DD");
+    let dateByString = moment(createdAt).add(9, "h").format("YYYY-MM-DD");
     const gapTime = date.getTime() - nowDate.getTime();
-    if (gapTime > -86400000) dateByString = moment(date).fromNow();
+    if (gapTime > -86400000) dateByString = moment(date).add(9, "h").fromNow();
     return dateByString;
   };
 
@@ -147,7 +149,10 @@ export default function BasicBoardContent(props: boardContentProps) {
                 <div>{editQuestionContent}</div>
               )}
               {answer ? (
-                <div className="comment-box">
+                <div
+                  className="comment-box"
+                  onClick={() => deleteAnswer(qnaBoardId)}
+                >
                   <FontAwesomeIcon icon={faCaretRight} />
                   <span>{answer}</span>
                 </div>

@@ -69,12 +69,12 @@ export default function ReviewBox(props: reviewProps) {
   const dateFormater = () => {
     const nowDate = new Date();
     const date = new Date(createdAt);
-    const dateByString = moment(createdAt, "YYYYMMDDHHmmss").format(
-      "YYYY-MM-DD HH:mm:ss"
-    );
+    const dateByString = moment(createdAt)
+      .add(9, "h")
+      .format("YYYY-MM-DD HH:mm:ss");
     const gapTime = date.getTime() - nowDate.getTime();
     if (gapTime > -86400000) {
-      setDateByString(moment(date).fromNow());
+      setDateByString(moment(date).add(9, "h").fromNow());
     } else if (gapTime < -86400000) {
       setDateByString(dateByString);
     }

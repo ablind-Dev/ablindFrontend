@@ -31,6 +31,7 @@ export default function Review(props: pageProps) {
   const [recoilInfo, setRecoilInfo] = useRecoilState(recoilAuthState);
   const defaultState: AuthState = { ...recoilInfo };
   const [reviewArray, setReviewArray] = useState<Array<ReviewInfo>>();
+  const [admin, setAdmin] = useState(false);
 
   const getReview = () => {
     Api.get(`http://www.ablind.co.kr/shop/${goodsId}/review`, {
@@ -49,8 +50,27 @@ export default function Review(props: pageProps) {
       });
   };
 
+  const getMyProfile = () => {
+    Api.get("http://www.ablind.co.kr/mypage", {
+      headers: {
+        "Content-type": "application/json",
+        Accept: "application/json",
+        "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
+      },
+    })
+      .then((res) => {
+        res.data.role === "ADMIN" ? setAdmin(true) : setAdmin(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
-    if (defaultState.state) getReview();
+    if (defaultState.state) {
+      getReview();
+      getMyProfile();
+    }
   }, []);
 
   return (
@@ -68,7 +88,7 @@ export default function Review(props: pageProps) {
                 reviewBoardId={review.reviewBoardId}
                 createdAt={review.createdAt}
                 updatedAt={review.updatedAt}
-                myReview={review.myReview}
+                myReview={admin ? true : review.myReview}
                 username={review.username}
                 updateReview={getReview}
               />

@@ -1,70 +1,44 @@
 import Api from "../Auth/CustomApi";
 import { useState, useEffect } from "react";
 import InquireBoard from "./InquireBoard/InquireBoard";
-import { uuid } from "uuidv4";
+import NoItem from "./InquireBoard/NoItem";
+import OrderDetail from "./OrderDetail";
 
 interface inquireContent {
-  shopId: number; //주문내역 고유 아이디
-  shipping: string; //배송 상태
-  goods: Array<goods>; //주문 상품
-  priceSum: number; //총 가격
   createdAt: string;
+  id: number; //주문내역 고유 아이디
+  orderItems: Array<goods>; //주문 상품
+  orderStatus: string; //배송 상태
+  price: number; //총 가격
 }
 
 interface goods {
-  goodsName: string; //상품 이름
-  optName: string; //옵션 이름
-  price: number; //해당 상품 -> 옵션 -> 가격
+  count: number;
+  id: number;
+  itemName: string; //상품 이름
+  itemOption: string; //옵션 이름
+  orderPrice: number; //해당 상품 -> 옵션 -> 가격
 }
 
 export default function InquireOrder() {
   const [inquire, setInquire] = useState<Array<inquireContent>>();
+  const [step, setStep] = useState(0);
 
   const getInquireInfo = () => {
     //통신구문으로 받아오기
-
-    //더미데이터
-    const tmpGoods: goods = {
-      goodsName: "유갓미루킹폴어텐션~~~",
-      optName: "에이티티이엔티아이온 어텐션",
-      price: 3000,
-    };
-    const tmpInquire: inquireContent = {
-      shopId: 0, //주문내역 고유 아이디
-      shipping: "주문 완료", //배송 상태
-      goods: [tmpGoods, tmpGoods, tmpGoods, tmpGoods, tmpGoods, tmpGoods], //주문 상품
-      priceSum: 18000, //총 가격
-      createdAt: "2022-08-23",
-    };
-    setInquire([
-      tmpInquire,
-      tmpInquire,
-      tmpInquire,
-      tmpInquire,
-      tmpInquire,
-      tmpInquire,
-      tmpInquire,
-      tmpInquire,
-      tmpInquire,
-      tmpInquire,
-      tmpInquire,
-      tmpInquire,
-      tmpInquire,
-      tmpInquire,
-      tmpInquire,
-      tmpInquire,
-      tmpInquire,
-      tmpInquire,
-      tmpInquire,
-      tmpInquire,
-      tmpInquire,
-      tmpInquire,
-      tmpInquire,
-      tmpInquire,
-      tmpInquire,
-      tmpInquire,
-      tmpInquire,
-    ]);
+    Api.get("http://www.ablind.co.kr/mypage/order", {
+      headers: {
+        "Content-type": "application/json",
+        Accept: "application/json",
+        "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
+      },
+    })
+      .then((res) => {
+        setInquire(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   useEffect(() => {
@@ -74,13 +48,18 @@ export default function InquireOrder() {
   return (
     <div className="box">
       {inquire ? (
-        <InquireBoard
-          title="주문 조회"
-          contentNum={inquire.length}
-          contentArray={inquire}
-        />
+        step === 0 ? (
+          <InquireBoard
+            title="주문 조회"
+            contentNum={inquire.length}
+            contentArray={inquire}
+            setStep={setStep}
+          />
+        ) : (
+          <OrderDetail step={step} setStep={setStep} />
+        )
       ) : (
-        <></>
+        <NoItem />
       )}
       <style jsx>{`
         .box {

@@ -13,6 +13,7 @@ interface boardProps {
   buttonHandler: () => void; //버튼 클릭 핸들러
   contentArray: Array<boardContent>;
   updateHandler: () => void;
+  deleteAnswer:(id:number) => void;
 }
 
 interface boardContent {
@@ -38,6 +39,7 @@ export default function BasicBoard(props: boardProps) {
     buttonHandler,
     contentArray,
     updateHandler,
+    deleteAnswer
   } = props;
 
   const [viewQuestion, setViewQuestion] =
@@ -122,6 +124,7 @@ export default function BasicBoard(props: boardProps) {
                 filterArray={filterArray}
                 key={content.qnaBoardId}
                 updateHandler={updateHandler}
+                deleteAnswer={deleteAnswer}
               />
             ))
           ) : (

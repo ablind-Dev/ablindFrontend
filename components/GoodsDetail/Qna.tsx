@@ -9,6 +9,7 @@ import Router from "next/router";
 
 interface pageProps {
   goodsId: number;
+  deleteAnswer: (id: number) => void;
 }
 
 interface AuthState {
@@ -28,7 +29,7 @@ interface QnaInfo {
 }
 
 export default function Qna(props: pageProps) {
-  const { goodsId } = props;
+  const { goodsId, deleteAnswer } = props;
   const [recoilInfo, setRecoilInfo] = useRecoilState(recoilAuthState);
   const defaultState: AuthState = { ...recoilInfo };
   const router = Router;
@@ -50,330 +51,6 @@ export default function Qna(props: pageProps) {
       .catch((error) => {
         console.log(error);
       });
-
-    // const tmp: QnaInfo = {
-    //   content: "안녕하세요1",
-    //   createdAt: "2022-08-22",
-    //   myReview: true,
-    //   qnaBoardId: 1,
-    //   secretTNF: false,
-    //   title: "안녕하십니까",
-    //   updatedAt: "2022-08-22",
-    //   username: "이준규",
-    //   answer: "",
-    // };
-    // const tmpArray = [
-    //   {
-    //     content: "안녕하세요1",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: 1,
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요2",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요3",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요4",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요5",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요6",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요7",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요8",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요9",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요10",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요11",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요12",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요13",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요14",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요15",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요16",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요17",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요18",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요19",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요20",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요21",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요22",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요23",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요24",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요25",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요26",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요27",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    //   {
-    //     content: "안녕하세요28",
-    //     createdAt: "2022-08-22",
-    //     myReview: true,
-    //     qnaBoardId: Math.floor(Math.random() * 10000),
-    //     secretTNF: false,
-    //     title: "안녕하십니까",
-    //     updatedAt: "2022-08-22",
-    //     username: "이준규",
-    //     answer: "",
-    //   },
-    // ];
-    // setContentNum(tmpArray.length);
-    // setQnaList(tmpArray);
   };
 
   useEffect(() => {
@@ -404,7 +81,7 @@ export default function Qna(props: pageProps) {
     if (questionTitle === "" || questionContent === "") {
       alert("질문을 입력해주세요.");
     } else {
-      await Api.post(`http://www.ablind.co.kr/shop/5/qna`, {
+      await Api.post(`http://www.ablind.co.kr/shop/${goodsId}/qna`, {
         title: questionTitle,
         content: questionContent,
         secretTNF: checked,
@@ -452,6 +129,7 @@ export default function Qna(props: pageProps) {
                 buttonHandler={modalOpenHandler}
                 contentArray={qnaList}
                 updateHandler={getQna}
+                deleteAnswer={deleteAnswer}
               />
             ) : (
               <></>

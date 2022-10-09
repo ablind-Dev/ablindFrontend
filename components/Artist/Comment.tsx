@@ -40,12 +40,10 @@ export default function Comment(props: commentType) {
   const dateFormater = (value: string) => {
     const nowDate = new Date();
     const date = new Date(value);
-    const dateByString = moment(date, "YYYYMMDDHHmmss").format(
-      "YYYY-MM-DD HH:mm:ss"
-    );
+    const dateByString = moment(date).add(9, "h").format("YYYY-MM-DD HH:mm:ss");
     const gapTime = date.getTime() - nowDate.getTime();
     if (gapTime > -86400000) {
-      setDateByString(moment(date).fromNow());
+      setDateByString(moment(date).add(9, "h").fromNow());
     } else if (gapTime < -86400000) {
       setDateByString(dateByString);
     }

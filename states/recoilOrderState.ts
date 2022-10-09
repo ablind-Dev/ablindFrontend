@@ -7,7 +7,7 @@ interface itemInterface {
   itemId: number;
   count: number; //개수
   price: number;
-  id: number; //옵션 아이디
+  id: number; //장바구니 아이디
 }
 
 export interface OrderState {

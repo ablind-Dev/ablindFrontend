@@ -6,7 +6,7 @@ import { recoilAuthState } from "../../states/recoilAuthState";
 interface Banner {
   content: string;
   id: number;
-  img: string;
+  image: string;
   link: string;
 }
 
@@ -43,7 +43,7 @@ export default function ShopBannerCarousel(props: bannerProps) {
     <div className="container">
       <div className="banner-box">
         <ShopBannerCarouselItem
-          img={banners[bannerChange].img}
+          img={banners[bannerChange].image}
           content={banners[bannerChange].content}
           url={banners[bannerChange].link}
           key={banners[bannerChange].id}

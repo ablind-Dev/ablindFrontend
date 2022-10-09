@@ -1,8 +1,6 @@
 import moment from "moment";
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
+import { MoneyWonReg } from "../../Resource/MoneyWonReg";
+import { Dispatch, SetStateAction } from "react";
 
 interface boardContentProps {
   index: number;
@@ -11,27 +9,31 @@ interface boardContentProps {
   goods: Array<goods>; //주문 상품
   priceSum: number; //총 가격
   createdAt: string;
+  setStep: Dispatch<SetStateAction<number>>;
 }
 
 interface goods {
-  goodsName: string; //상품 이름
-  optName: string; //옵션 이름
-  price: number; //해당 상품 -> 옵션 -> 가격
+  count: number;
+  id: number;
+  itemName: string; //상품 이름
+  itemOption: string; //옵션 이름
+  orderPrice: number; //해당 상품 -> 옵션 -> 가격
 }
 
 export default function InquireBoardContent(props: boardContentProps) {
-  const { index, shopId, shipping, goods, priceSum, createdAt } = props;
+  const { index, shopId, shipping, goods, priceSum, createdAt, setStep } =
+    props;
   return (
     <>
       <tr>
         <td>{shipping}</td>
-        <td className="content-title">
+        <td className="content-title" onClick={() => setStep(shopId)}>
           {goods.length > 1
-            ? `${goods[0].goodsName}외 ${goods.length}개`
-            : `${goods[0].goodsName}`}
+            ? `${goods[0].itemName}외 ${goods.length}개`
+            : `${goods[0].itemName}`}
         </td>
-        <td>{priceSum}</td>
-        <td>{createdAt}</td>
+        <td>{MoneyWonReg(priceSum)}원</td>
+        <td>{moment(createdAt).add(9, "h").format("YYYY-MM-DD")}</td>
       </tr>
       <style jsx>{`
         td {
