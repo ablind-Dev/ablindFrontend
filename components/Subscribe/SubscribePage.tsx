@@ -54,6 +54,7 @@ export default function SubscribePage(props: artistProps) {
         break;
       case 2:
         setPrice(20000);
+        alert("아직 준비중이에요.");
         break;
       default:
         alert("잘못된 접근입니다.");
@@ -63,27 +64,31 @@ export default function SubscribePage(props: artistProps) {
 
   const subscribe = async () => {
     const token = localStorage.getItem("accessToken");
-    if (token) {
-      await axios
-        .post(
-          `http://www.ablind.co.kr/artist/${artistId}/follow/${price}`,
-          {
-            email: localStorage.getItem("email"),
-          },
-          {
-            headers: {
-              "Content-type": "application/json",
-              Accept: "application/json",
-              "ACCESS-TOKEN": token,
+    if (price === 20000) {
+      alert("아직 준비중이에요.");
+    } else {
+      if (token) {
+        await axios
+          .post(
+            `http://www.ablind.co.kr/artist/${artistId}/follow/${price}`,
+            {
+              email: localStorage.getItem("email"),
             },
-          }
-        )
-        .then((res) => {
-          closeModal();
-        })
-        .catch((res) => {
-          console.log(res);
-        });
+            {
+              headers: {
+                "Content-type": "application/json",
+                Accept: "application/json",
+                "ACCESS-TOKEN": token,
+              },
+            }
+          )
+          .then((res) => {
+            closeModal();
+          })
+          .catch((res) => {
+            console.log(res);
+          });
+      }
     }
   };
 

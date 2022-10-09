@@ -5,6 +5,7 @@ import Router from "next/router";
 import { useRecoilState } from "recoil";
 import { recoilAuthState } from "../../states/recoilAuthState";
 import Cookies from "universal-cookie";
+import PolicyModal from "../Resource/PolicyModal";
 
 const cookies = new Cookies();
 
@@ -19,6 +20,7 @@ const LoginForm: NextPage<{ onChagne: () => void }> = (props) => {
   const [recoilInfo, setRecoilInfo] = useRecoilState(recoilAuthState);
   const defaultState: AuthState = { ...recoilInfo };
   const [err, setErr] = useState("");
+  const [modal, setModal] = useState(false);
   const router = Router;
 
   const onChangeHandler = (value: string, type: string) => {
@@ -70,6 +72,10 @@ const LoginForm: NextPage<{ onChagne: () => void }> = (props) => {
     router.push("/");
   };
 
+  const closeModal = () => {
+    setModal(false);
+  };
+
   return (
     <div className="container">
       <div className="title-box">
@@ -117,17 +123,13 @@ const LoginForm: NextPage<{ onChagne: () => void }> = (props) => {
       </div>
       <div className="link-box">
         <div>
-          <a href="#" target="_blank">
-            개인정보 처리방침
-          </a>{" "}
-          |{" "}
-          <a href="#" target="_blank">
-            이용약관
-          </a>
+          <span onClick={() => setModal(true)}>개인정보 처리방침</span> |{" "}
+          <span onClick={() => setModal(true)}>이용약관</span>
         </div>
         <a>아이디 찾기</a>
         <a>비밀번호 찾기</a>
       </div>
+      <PolicyModal open={modal} close={closeModal} />
       <style jsx>{`
         .container {
           display: flex;
@@ -208,7 +210,10 @@ const LoginForm: NextPage<{ onChagne: () => void }> = (props) => {
           color: #646464;
           text-decoration: underline;
         }
-        a:visited {
+        .link-box span {
+          cursor: pointer;
+        }
+        .link-box span:visited {
           color: #646464;
         }
         .err {

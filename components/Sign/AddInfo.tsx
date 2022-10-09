@@ -5,6 +5,7 @@ import { recoilSignUpState } from "../../states/recoilSignUpState";
 import BasicModal from "../Resource/BasicModal";
 import DaumPostcode from "react-daum-postcode";
 import axios from "axios";
+import PolicyModal from "../Resource/PolicyModal";
 
 interface SignUpState {
   name: string;
@@ -30,6 +31,7 @@ const AddInfo: NextPage<{ backLogin: () => void; backpage: () => void }> = (
   const resetRecoil = useResetRecoilState(recoilSignUpState);
   const defaultState: SignUpState = { ...recoilInfo };
   const [completeInfo, setCompleteInfo] = useState<InfoInterface>();
+  const [policyModal, setPolicyModal] = useState(false);
 
   //전화번호 입력 관련
   const [phoneNum, setPhoneNum] = useState("");
@@ -353,9 +355,9 @@ const AddInfo: NextPage<{ backLogin: () => void; backpage: () => void }> = (
             onChange={(e) => setPrivacyPolicy(e.target.checked)}
           />
           <label htmlFor="privacy">
-            <a href="#" target="_blank">
+            <span className="policy-modal" onClick={() => setPolicyModal(true)}>
               개인정보 처리방침
-            </a>
+            </span>
             을 확인하였으며, 이에 동의합니다.
           </label>
         </div>
@@ -368,9 +370,9 @@ const AddInfo: NextPage<{ backLogin: () => void; backpage: () => void }> = (
             onChange={(e) => setUsePolicy(e.target.checked)}
           />
           <label htmlFor="rule">
-            <a href="#" target="_blank">
+            <span className="policy-modal" onClick={() => setPolicyModal(true)}>
               이용약관
-            </a>
+            </span>
             을 확인하였으며, 이에 동의합니다.
           </label>
         </div>
@@ -389,6 +391,7 @@ const AddInfo: NextPage<{ backLogin: () => void; backpage: () => void }> = (
           가입완료
         </button>
       </div>
+      <PolicyModal open={policyModal} close={() => setPolicyModal(false)} />
       <style jsx>{`
         .container {
           display: flex;
@@ -520,11 +523,10 @@ const AddInfo: NextPage<{ backLogin: () => void; backpage: () => void }> = (
           display: flex;
           align-items: center;
         }
-        a {
+        .policy-modal {
           font-weight: bold;
-        }
-        a:visited {
           color: black;
+          cursor: pointer;
         }
         .modal {
           display: flex;

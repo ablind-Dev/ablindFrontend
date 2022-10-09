@@ -136,14 +136,6 @@ export default function GoodsAdmin() {
         });
     } else {
       alert("입력 안한거 있슴다.");
-      const goodsForm = {
-        name: name,
-        category: category,
-        price: price,
-        author: author,
-        options: options,
-      };
-      console.log(goodsForm);
     }
   };
 

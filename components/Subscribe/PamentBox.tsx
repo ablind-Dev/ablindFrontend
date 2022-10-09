@@ -26,7 +26,8 @@ export default function PaymentBox(props: stageProps) {
     "작가님의 작품을 누구보다 먼저 만나볼 수 있습니다.",
     "작가님의 전시회 정보를 빠르게 받아볼 수 있습니다.",
   ];
-  const three = [...two, "작가님의 전시회 티켓을 받아볼 수 있습니다."];
+  // const three = [...two, "작가님의 전시회 티켓을 받아볼 수 있습니다."];
+  const three = ["아직 준비중이에요."];
   useEffect(() => {
     switch (stage) {
       case 0:
@@ -55,7 +56,9 @@ export default function PaymentBox(props: stageProps) {
   return (
     <div
       className={selected === stage ? "selected-container" : "container"}
-      onClick={() => selectStage(stage)}
+      onClick={() =>
+        stage === 2 ? alert("아직 준비중이에요.") : selectStage(stage)
+      }
     >
       <div className="circle">
         <Image src={img} width="200" height="180" />

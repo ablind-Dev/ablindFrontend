@@ -162,7 +162,6 @@ export default function ArtistAdmin() {
       })
         .then((res) => {
           alert("작가 삭제완료 -> 작가 페이지 확인하세요");
-          console.log(res);
         })
         .catch((res) => {
           alert("작가 삭제 실패...");

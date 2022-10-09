@@ -43,9 +43,10 @@ export default function SubscribeModal(props: subscribeProps) {
         break;
       case 2:
         setOptionExplain(
-          `${artistName} 작가님의 소식, 굿즈와 함께 전시회 티켓을 만나볼 수 있어요.`
+          // `${artistName} 작가님의 소식, 굿즈와 함께 전시회 티켓을 만나볼 수 있어요.`
+          "아직 준비중이에요."
         );
-        setPrice("20,000");
+        setPrice("준비중");
         break;
       default:
         alert("잘못된 접근입니다.");
