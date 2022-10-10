@@ -8,9 +8,16 @@ import { faCaretRight, faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import ArtistCarouselItem from "./ArtistCarouselItem";
 import dynamic from "next/dynamic";
-const Carousel = dynamic(() => import("react-spring-3d-carousel"), {
-  ssr: false,
-});
+// const Carousel = dynamic(() => import("react-spring-3d-carousel"), {
+//   ssr: false,
+// });
+
+const Carousel = dynamic<{ inline?: boolean }>(
+  () => import("react-spring-3d-carousel").then(),
+  {
+    ssr: false,
+  }
+);
 
 interface Artist {
   artistId: number;
