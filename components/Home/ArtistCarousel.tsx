@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-// import Carousel from "react-spring-3d-carousel";
 import { v4 as uuidv4 } from "uuid";
 import { config } from "react-spring";
 import Router from "next/router";
@@ -8,16 +7,11 @@ import { faCaretRight, faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import ArtistCarouselItem from "./ArtistCarouselItem";
 import dynamic from "next/dynamic";
-// const Carousel = dynamic(() => import("react-spring-3d-carousel"), {
-//   ssr: false,
-// });
+// import Carousel from "react-spring-3d-carousel";
 
-const Carousel = dynamic<{ inline?: boolean }>(
-  () => import("react-spring-3d-carousel").then(),
-  {
-    ssr: false,
-  }
-);
+const Carousel = dynamic<any>(() => import("react-spring-3d-carousel").then(), {
+  ssr: false,
+});
 
 interface Artist {
   artistId: number;
@@ -33,11 +27,11 @@ interface carouselInterface {
 }
 
 export default function ArtistCarousel() {
-  const [artist, setArtists] = useState<Array<Artist>>();
   const [imgCarousel, setImgCarousel] = useState<Array<carouselInterface>>();
   const [goToSlide, setGoToSlide] = useState(0);
   const router = Router;
 
+  const [artist, setArtists] = useState<Array<Artist>>();
   const getArtistList = () => {
     axios
       .get("http://www.ablind.co.kr/artist", {

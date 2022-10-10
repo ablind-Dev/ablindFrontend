@@ -1,5 +1,6 @@
 import type { AppProps } from "next/app";
 import Layout from "../components/Layout";
+import Head from "next/head";
 import "../styles/global.css";
 import { RecoilRoot } from "recoil";
 import { config } from "@fortawesome/fontawesome-svg-core";
@@ -33,6 +34,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <RecoilRoot>
+      <Head>
+        <link rel="shortcut icon" href="/images/favicon/color.png" />
+      </Head>
       <div className="container">
         <Layout>
           {loading ? <LoadingSpinner /> : <Component {...pageProps} />}

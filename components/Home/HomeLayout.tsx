@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
-import HotqBannerCarousel from "../Resource/HotBannerCarousel";
+import axios from "axios";
 import MainBannerCarousel from "../Resource/MainBannerCarousel";
-import ArtistCarousel from "./ArtistCarousel";
 import Router from "next/router";
 import GoodsGrid from "./GoodsGrid";
+import ArtistCarousel from "./ArtistCarousel";
 
 export default function HomeLayout() {
   const router = Router;
+
   return (
     <div className="container">
       <div>
