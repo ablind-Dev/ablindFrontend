@@ -5,7 +5,6 @@ import { useState, useEffect, ComponentProps, DOMAttributes } from "react";
 
 interface bannerItem {
   content: string;
-  deleteImage: string;
   id: number;
   image: string;
   link: string;
@@ -21,7 +20,7 @@ export type Event<
   TEventHandler extends keyof EventHandlers<TElement>
 > = ComponentProps<TElement>[TEventHandler];
 
-export default function BannerAdmin() {
+export default function ShopBannerAdmin() {
   const [banners, setBanners] = useState<Array<bannerItem>>([]);
   const [content, setContent] = useState("");
   const [link, setLink] = useState("");
@@ -31,7 +30,7 @@ export default function BannerAdmin() {
 
   const getBanner = () => {
     axios
-      .get("http://www.ablind.co.kr/banner", {
+      .get("http://www.ablind.co.kr/shop/banner", {
         headers: {
           "Content-type": "application/json",
           Accept: "application/json",
@@ -78,8 +77,8 @@ export default function BannerAdmin() {
       });
       const multipartFile = new FormData();
       multipartFile.append("file", imgFile);
-      multipartFile.append("MainBannerDto", blob);
-      Api.post("http://www.ablind.co.kr/admin/add/mainbanner", multipartFile, {
+      multipartFile.append("ShopBannerDto", blob);
+      Api.post("http://www.ablind.co.kr/admin/add/shopbanner", multipartFile, {
         headers: {
           "Content-Type": "multipart/form-data",
           "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
@@ -98,13 +97,13 @@ export default function BannerAdmin() {
   };
 
   const deleteBanner = (id: number) => {
-    Api.delete(`http://www.ablind.co.kr/admin/delete/mainbanner`, {
+    Api.delete(`http://www.ablind.co.kr/admin/delete/shopbanner`, {
       data: {
         id: id,
       },
     })
       .then((res) => {
-        alert("배너 삭제완료 ->메인페이지 확인하세요");
+        alert("배너 삭제완료 -> shop 페이지 확인하세요");
         console.log(res);
       })
       .catch((res) => {

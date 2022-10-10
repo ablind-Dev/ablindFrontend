@@ -36,7 +36,7 @@ export default function ShopBannerCarousel(props: bannerProps) {
   useEffect(() => {
     setInterval(() => {
       setBannerChange((prev) => (prev < banners.length - 1 ? prev + 1 : 0));
-    }, 5000);
+    }, 7000);
   }, []);
 
   return (
@@ -48,6 +48,14 @@ export default function ShopBannerCarousel(props: bannerProps) {
           url={banners[bannerChange].link}
           key={banners[bannerChange].id}
         />
+        <ul>
+          {banners.map((banner, index) => (
+            <li
+              className={bannerChange === index ? "selected" : "non-selected"}
+              onClick={() => setBannerChange(index)}
+            />
+          ))}
+        </ul>
       </div>
       <div className="hype-box">
         <span className="ablind">Ablind's Goods</span>
@@ -75,6 +83,28 @@ export default function ShopBannerCarousel(props: bannerProps) {
         }
         .shop {
           color: #76ba99;
+        }
+        ul {
+          position: absolute;
+          list-style-type: none;
+          display: flex;
+          gap: 10px;
+          bottom: 31%;
+          right: 48px;
+        }
+        li {
+          width: 10px;
+          height: 10px;
+          border-radius: 100%;
+          cursor: pointer;
+          transition: all 0.25s;
+        }
+        .selected {
+          background-color: white;
+          transform: scale(1.02);
+        }
+        .non-selected {
+          background-color: #b3b3b3;
         }
       `}</style>
     </div>

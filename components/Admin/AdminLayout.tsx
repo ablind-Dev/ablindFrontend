@@ -7,6 +7,7 @@ import ArtistAdmin from "./ArtistAdmin";
 import SubscribeAdmin from "./SubscribeAdmin";
 import UserAdmin from "./UserAdmin";
 import ArtworkAdmin from "./ArtworkAdmin";
+import ShopBannerAdmin from "./ShopBannerAdmin";
 
 export default function AdminLayout() {
   const [category, setCategory] = useState("main-banner");
@@ -61,6 +62,12 @@ export default function AdminLayout() {
         >
           작품 관리
         </li>
+        <li
+          className={category === "shop-banner" ? "peek" : "none"}
+          onClick={() => setCategory("shop-banner")}
+        >
+          Shop 배너 관리
+        </li>
       </ul>
       {category === "main-banner" ? (
         <BannerAdmin />
@@ -78,6 +85,8 @@ export default function AdminLayout() {
         <UserAdmin />
       ) : category === "artwork" ? (
         <ArtworkAdmin />
+      ) : category === "shop-banner" ? (
+        <ShopBannerAdmin />
       ) : (
         <></>
       )}

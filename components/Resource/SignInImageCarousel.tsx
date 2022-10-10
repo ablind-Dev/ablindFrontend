@@ -25,8 +25,19 @@ export default function SignInImageCarousel() {
 
   return (
     <div className="img-box">
-      <div className="first">
-        <Image src={images[order]} priority className="img" />
+      <div
+        className="first"
+        onContextMenu={(e) => {
+          e.preventDefault();
+        }}
+      >
+        <Image
+          src={images[order]}
+          className="img"
+          priority
+          layout="fill"
+          objectFit="cover"
+        />
       </div>
 
       <style jsx>{`
