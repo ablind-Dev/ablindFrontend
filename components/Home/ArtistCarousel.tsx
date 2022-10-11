@@ -26,27 +26,15 @@ interface carouselInterface {
   onClick: () => void;
 }
 
-export default function ArtistCarousel() {
+interface artistProps {
+  artists: Array<Artist>;
+}
+
+export default function ArtistCarousel(props: artistProps) {
+  const { artists } = props;
   const [imgCarousel, setImgCarousel] = useState<Array<carouselInterface>>();
   const [goToSlide, setGoToSlide] = useState(0);
   const router = Router;
-
-  const [artist, setArtists] = useState<Array<Artist>>();
-  const getArtistList = () => {
-    axios
-      .get("http://www.ablind.co.kr/artist", {
-        headers: {
-          "Content-type": "application/json",
-          Accept: "application/json",
-        },
-      })
-      .then((res) => {
-        setArtists(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
   const handleCaret = (direction: string) => {
     if (imgCarousel) {
@@ -63,13 +51,9 @@ export default function ArtistCarousel() {
   };
 
   useEffect(() => {
-    getArtistList();
-  }, []);
-
-  useEffect(() => {
     let array = [];
-    if (artist) {
-      for (const value of artist) {
+    if (artists) {
+      for (const value of artists) {
         const tmp = {
           key: uuidv4(),
           content: (
@@ -87,15 +71,15 @@ export default function ArtistCarousel() {
       });
       setImgCarousel(saveArray);
     }
-  }, [artist]);
+  }, [artists]);
 
   useInterval(() => {
     handleCaret("right");
-  }, 5000);
+  }, 7000);
 
   return (
     <div className="carousel-box">
-      {artist && imgCarousel && artist.length > 0 ? (
+      {artists && imgCarousel && artists.length > 0 ? (
         <>
           <Carousel
             slides={imgCarousel}

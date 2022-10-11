@@ -5,20 +5,55 @@ import Router from "next/router";
 import GoodsGrid from "./GoodsGrid";
 import ArtistCarousel from "./ArtistCarousel";
 
-export default function HomeLayout() {
+interface bannerItem {
+  content: string;
+  deleteImage: string;
+  id: number;
+  image: string;
+  link: string;
+}
+
+interface GoodsImg {
+  url: string;
+  id: number;
+}
+
+interface Goods {
+  itemId: number;
+  detailImg: string;
+  images: Array<GoodsImg>;
+  author: string;
+  name: string;
+  option: Array<string>;
+  price: number;
+}
+
+interface Artist {
+  artistId: number;
+  intro: string; //intro
+  name: string;
+  profile: string; //이미지 url
+}
+
+interface homeProps {
+  banners: Array<bannerItem>;
+  items: Array<Goods>;
+  artists: Array<Artist>;
+}
+
+export default function HomeLayout(props: homeProps) {
   const router = Router;
+  const { banners, items, artists } = props;
 
   return (
     <div className="container">
-      <div>
-        <MainBannerCarousel />
-      </div>
+      <div>{banners ? <MainBannerCarousel banners={banners} /> : <></>}</div>
       <div className="artist-box">
         <span className="artist-title">
           <span className="logo">Ablind</span>
           {`에서\n당신의 예술가를 만나보세요!`}
         </span>
-        <ArtistCarousel />
+        <ArtistCarousel artists={artists} />
         <button onClick={() => router.push("/Artist")}>
           Ablind 예술가 보러가기
         </button>
@@ -28,7 +63,7 @@ export default function HomeLayout() {
           <span className="logo">Ablind</span>
           {`에서만\n만나볼 수 있는 특별한 상품`}
         </span>
-        <GoodsGrid />
+        <GoodsGrid items={items} />
         <button onClick={() => router.push("/Shop")}>
           Ablind 굿즈 더 보러가기
         </button>

@@ -36,7 +36,7 @@ axiosApiInstance.interceptors.request.use(
   }
 );
 
-// const [refreshCookie, setRefreshCookie] = useCookies();
+const [refreshCookie, setRefreshCookie] = useCookies();
 
 // Response interceptor for API calls
 axiosApiInstance.interceptors.response.use(
@@ -45,7 +45,7 @@ axiosApiInstance.interceptors.response.use(
   },
   async function (error) {
     const originalRequest = error.config;
-    const [refreshCookie, setRefreshCookie] = useCookies();
+    // const [refreshCookie, setRefreshCookie] = useCookies();
     if (error.response.status === 403 && !originalRequest._retry) {
       console.log("토큰 만료");
       originalRequest._retry = true;

@@ -9,7 +9,6 @@ interface bannerItem {
 
 export default function MainBannerItem(props: bannerItem) {
   const { content, deleteImage, image, link } = props;
-  console.log(content);
   return (
     <div className="container">
       <Image src={image} layout="fill" objectFit="cover" />

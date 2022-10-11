@@ -62,6 +62,7 @@ const LoginForm: NextPage<{ onChagne: () => void }> = (props) => {
         changeLoginState();
       })
       .catch((res) => {
+        console.log(res);
         setErr("로그인에 실패하였습니다.");
       });
   };

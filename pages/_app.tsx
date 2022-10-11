@@ -35,10 +35,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <RecoilRoot>
       <Head>
-        <meta
+        {/* <meta
           httpEquiv="Content-Security-Policy"
           content="upgrade-insecure-requests"
-        />
+        /> */}
         <link rel="shortcut icon" href="/images/favicon/color.png" />
       </Head>
       <div className="container">

@@ -24,30 +24,14 @@ interface gridGoods {
   author: string;
 }
 
-export default function GoodsGrid() {
-  const [items, setItems] = useState<Array<Goods>>();
+interface goodsProps {
+  items: Array<Goods>;
+}
+
+export default function GoodsGrid(props: goodsProps) {
   const [viewItem, setViewItem] = useState<Array<gridGoods>>([]);
   const [length, setLength] = useState(0);
-
-  const getItems = async () => {
-    await axios
-      .get("http://www.ablind.co.kr/shop", {
-        headers: {
-          "Content-type": "application/json",
-          Accept: "application/json",
-        },
-      })
-      .then((res) => {
-        if (res.data.length > 16) {
-          setItems(res.data.slice(0, 15));
-        } else {
-          setItems(res.data);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  const { items } = props;
 
   const setGridItems = () => {
     let newItem: Array<gridGoods> = [];
@@ -66,12 +50,8 @@ export default function GoodsGrid() {
   };
 
   useEffect(() => {
-    getItems();
+    items ? setGridItems() : null;
   }, []);
-
-  useEffect(() => {
-    setGridItems();
-  }, [items]);
 
   return (
     <div className="container">
