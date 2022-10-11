@@ -1,5 +1,5 @@
 import moment from "moment";
-import { useState, useEffect, Dispatch, SetStateAction} from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import InquireBoardContent from "./InquireBoardContent";
 import Pagenation from "../../Shop/Pagenation";
 
@@ -7,7 +7,7 @@ interface boardProps {
   title: string;
   contentNum: number;
   contentArray: Array<boardContent>;
-  setStep:Dispatch<SetStateAction<number>>;
+  setStep: Dispatch<SetStateAction<number>>;
 }
 
 interface boardContent {
@@ -86,6 +86,7 @@ export default function InquireBoard(props: boardProps) {
           {qnaListInPage ? (
             qnaListInPage[curPage - 1].map((content, index) => (
               <InquireBoardContent
+                key={content.id}
                 index={index}
                 shopId={content.id}
                 shipping={content.orderStatus}

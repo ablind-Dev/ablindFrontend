@@ -166,6 +166,7 @@ export default function BannerAdmin() {
               if (confirm("진짜 이 배너를 삭제하실겁니까? 복구 안됨요"))
                 deleteBanner(banner.id);
             }}
+            key={banner.id}
           >
             <Image src={banner.image} layout="fill" objectFit="cover" />
           </div>

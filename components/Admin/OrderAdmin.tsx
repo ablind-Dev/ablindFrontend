@@ -178,7 +178,7 @@ export default function OrderAdmin() {
                 </td>
                 <td>
                   {inf.orderItems.map((item, index) => (
-                    <div className="item-box">
+                    <div className="item-box" key={item.id}>
                       <div className="img-box">
                         <Image src={item.img} layout="fill" objectFit="cover" />
                       </div>

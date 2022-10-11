@@ -78,6 +78,7 @@ export default function GoodsGrid() {
       {viewItem ? (
         viewItem.map((item, index) => (
           <GoodsItem
+            key={item.itemId}
             image={item.image}
             name={item.name}
             itemId={item.itemId}

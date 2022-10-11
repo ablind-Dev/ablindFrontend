@@ -51,6 +51,7 @@ export default function ShopBannerCarousel(props: bannerProps) {
         <ul>
           {banners.map((banner, index) => (
             <li
+              key={banner.id}
               className={bannerChange === index ? "selected" : "non-selected"}
               onClick={() => setBannerChange(index)}
             />
@@ -58,7 +59,7 @@ export default function ShopBannerCarousel(props: bannerProps) {
         </ul>
       </div>
       <div className="hype-box">
-        <span className="ablind">Ablind's Goods</span>
+        <span className="ablind">{"Ablind's Goods"}</span>
         <span className="shop">Shop</span>
       </div>
       <style jsx>{`

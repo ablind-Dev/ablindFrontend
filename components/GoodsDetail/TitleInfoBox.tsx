@@ -193,6 +193,7 @@ export default function TitleInfoBox(props: info) {
                 href={
                   "https://smartstore.naver.com/ablind?NaPm=ct%3Dl8zx8sv4%7Cci%3Dshopn%7Ctr%3Dsls%7Chk%3Dc01c9a72550bae6ebc575bc49bc6130b5461ba3c%7Ctrx%3Dundefined"
                 }
+                rel="noopener noreferrer"
                 target="_blank"
               >
                 네이버스토어

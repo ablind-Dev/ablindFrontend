@@ -16,7 +16,12 @@ export default function MainBannerItem(props: bannerItem) {
       <div className="gradient" />
       <div className="info-box">
         <span className="title">{content}</span>
-        <a href={link} target="_blank" className="link-btn">
+        <a
+          href={link}
+          target="_blank"
+          className="link-btn"
+          rel="noopener noreferrer"
+        >
           보러가기
         </a>
       </div>

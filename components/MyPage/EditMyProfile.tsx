@@ -388,7 +388,7 @@ export default function EditMyProfile() {
           <div className="box">
             <ul>
               {category.map((menu, index) => (
-                <div className="info-box">
+                <div className="info-box" key={menu}>
                   <li className="info-menu">{menu}</li>
                   <li
                     className={
