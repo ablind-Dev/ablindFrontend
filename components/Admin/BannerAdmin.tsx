@@ -31,7 +31,7 @@ export default function BannerAdmin() {
 
   const getBanner = () => {
     axios
-      .get("http://www.ablind.co.kr/banner", {
+      .get("https://www.ablind.co.kr/banner", {
         headers: {
           "Content-type": "application/json",
           Accept: "application/json",
@@ -79,7 +79,7 @@ export default function BannerAdmin() {
       const multipartFile = new FormData();
       multipartFile.append("file", imgFile);
       multipartFile.append("MainBannerDto", blob);
-      Api.post("http://www.ablind.co.kr/admin/add/mainbanner", multipartFile, {
+      Api.post("https://www.ablind.co.kr/admin/add/mainbanner", multipartFile, {
         headers: {
           "Content-Type": "multipart/form-data",
           "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
@@ -98,7 +98,7 @@ export default function BannerAdmin() {
   };
 
   const deleteBanner = (id: number) => {
-    Api.delete(`http://www.ablind.co.kr/admin/delete/mainbanner`, {
+    Api.delete(`https://www.ablind.co.kr/admin/delete/mainbanner`, {
       data: {
         id: id,
       },

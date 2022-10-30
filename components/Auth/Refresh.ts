@@ -17,7 +17,7 @@ const refresh = async (
   if (curDate >= authDate && refreshToken && token) {
     // 토큰 갱신 서버통신
     const { data } = await axios.post(
-      "http://www.ablind.co.kr/members/reissue",
+      "https://www.ablind.co.kr/members/reissue",
       {},
       {
         headers: {

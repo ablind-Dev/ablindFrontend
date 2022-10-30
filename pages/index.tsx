@@ -87,21 +87,21 @@ export default function Home(props: serverSideProps) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
-    const bannerRes = await axios.get("http://www.ablind.co.kr/banner", {
+    const bannerRes = await axios.get("https://www.ablind.co.kr/banner", {
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",
       },
     });
 
-    const itemRes = await axios.get("http://www.ablind.co.kr/shop", {
+    const itemRes = await axios.get("https://www.ablind.co.kr/shop", {
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",
       },
     });
 
-    const artistRes = await axios.get("http://www.ablind.co.kr/artist", {
+    const artistRes = await axios.get("https://www.ablind.co.kr/artist", {
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",

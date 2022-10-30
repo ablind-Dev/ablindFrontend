@@ -76,7 +76,7 @@ export default function Auth() {
     if (token !== null) {
       axios
         .post(
-          "http://www.ablind.co.kr/members/logout",
+          "https://www.ablind.co.kr/members/logout",
           {},
           {
             headers: {
@@ -109,7 +109,7 @@ export default function Auth() {
   const getUserProfile = async () => {
     const token = localStorage.getItem("accessToken");
     if (token !== null) {
-      Api.get("http://www.ablind.co.kr/mypage", {
+      Api.get("https://www.ablind.co.kr/mypage", {
         headers: {
           "Content-type": "application/json",
           Accept: "application/json",

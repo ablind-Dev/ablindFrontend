@@ -72,21 +72,21 @@ export default function Shop(props: serversideProps) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
-    const banners = await axios.get("http://www.ablind.co.kr/shop/banner", {
+    const banners = await axios.get("https://www.ablind.co.kr/shop/banner", {
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",
       },
     });
 
-    const goods = await axios.get("http://www.ablind.co.kr/shop", {
+    const goods = await axios.get("https://www.ablind.co.kr/shop", {
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",
       },
     });
 
-    const artists = await axios.get("http://www.ablind.co.kr/artist", {
+    const artists = await axios.get("https://www.ablind.co.kr/artist", {
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",

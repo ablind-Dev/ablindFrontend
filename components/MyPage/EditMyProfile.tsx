@@ -76,7 +76,7 @@ export default function EditMyProfile() {
   const router = Router;
 
   const getMyProfile = () => {
-    Api.get("http://www.ablind.co.kr/mypage", {
+    Api.get("https://www.ablind.co.kr/mypage", {
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",
@@ -271,7 +271,7 @@ export default function EditMyProfile() {
   const profileImgSave = () => {
     const multipartFile = new FormData();
     multipartFile.append("file", imgFile);
-    Api.put("http://www.ablind.co.kr/mypage/profile/update", multipartFile, {
+    Api.put("https://www.ablind.co.kr/mypage/profile/update", multipartFile, {
       headers: {
         "Content-Type": "multipart/form-data",
         "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
@@ -333,7 +333,7 @@ export default function EditMyProfile() {
         });
     } else {
       Api.put(
-        "http://www.ablind.co.kr/mypage/info/update",
+        "https://www.ablind.co.kr/mypage/info/update",
         {
           name: name,
           address: `${address}_${detailAddress}`,

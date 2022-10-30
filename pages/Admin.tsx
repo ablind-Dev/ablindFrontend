@@ -34,7 +34,7 @@ export default function Admin() {
 
   const [info, setInfo] = useState<basicInfo>();
   const getMyProfile = () => {
-    Api.get("http://www.ablind.co.kr/mypage", {
+    Api.get("https://www.ablind.co.kr/mypage", {
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",

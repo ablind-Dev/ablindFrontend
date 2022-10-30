@@ -85,7 +85,7 @@ export default function OrderDetailItem(props: goods) {
       imgFile ? multipartFile.append("file", imgFile) : null;
       multipartFile.append("ItemReviewDto", blob);
       await Api.post(
-        `http://www.ablind.co.kr/shop/${itemId}/review`,
+        `https://www.ablind.co.kr/shop/${itemId}/review`,
         multipartFile,
         {
           headers: {

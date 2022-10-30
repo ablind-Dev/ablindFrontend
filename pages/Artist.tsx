@@ -28,7 +28,7 @@ export default function Artist(props: staticPropsType) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
-    const res = await axios.get("http://www.ablind.co.kr/artist", {
+    const res = await axios.get("https://www.ablind.co.kr/artist", {
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",

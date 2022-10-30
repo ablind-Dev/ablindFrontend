@@ -50,7 +50,7 @@ export default function GoodsDetail(props: goodsDetail) {
 
   const [info, setInfo] = useState<basicInfo>();
   const getMyProfile = () => {
-    Api.get("http://www.ablind.co.kr/mypage", {
+    Api.get("https://www.ablind.co.kr/mypage", {
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",
@@ -67,7 +67,7 @@ export default function GoodsDetail(props: goodsDetail) {
 
   const deleteGoods = () => {
     if (confirm("진짜 삭제할거에요? 복구 안됨")) {
-      Api.delete(`http://www.ablind.co.kr/admin/delete/item`, {
+      Api.delete(`https://www.ablind.co.kr/admin/delete/item`, {
         headers: {
           "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
         },
@@ -88,7 +88,7 @@ export default function GoodsDetail(props: goodsDetail) {
   const deleteAnswer = (id: number) => {
     if (info && info.role === "ADMIN") {
       if (confirm("진짜 삭제할거에요? 복구 안됨")) {
-        Api.delete(`http://www.ablind.co.kr/admin/list/qna/answer/delete`, {
+        Api.delete(`https://www.ablind.co.kr/admin/list/qna/answer/delete`, {
           headers: {
             "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
           },

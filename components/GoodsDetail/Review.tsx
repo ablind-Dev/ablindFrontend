@@ -5,6 +5,8 @@ import { useRecoilState } from "recoil";
 import { recoilAuthState } from "../../states/recoilAuthState";
 import Api from "../Auth/CustomApi";
 import Link from "next/link";
+import Image from "next/image";
+import NoFound from "../../public/images/NoFound.svg";
 
 interface pageProps {
   goodsId: number;
@@ -34,7 +36,7 @@ export default function Review(props: pageProps) {
   const [admin, setAdmin] = useState(false);
 
   const getReview = () => {
-    Api.get(`http://www.ablind.co.kr/shop/${goodsId}/review`, {
+    Api.get(`https://www.ablind.co.kr/shop/${goodsId}/review`, {
       //5부분에 goodsId넣어줘야함.
       headers: {
         "Content-type": "application/json",
@@ -51,7 +53,7 @@ export default function Review(props: pageProps) {
   };
 
   const getMyProfile = () => {
-    Api.get("http://www.ablind.co.kr/mypage", {
+    Api.get("https://www.ablind.co.kr/mypage", {
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",
@@ -78,23 +80,37 @@ export default function Review(props: pageProps) {
       {defaultState.state ? (
         <>
           {reviewArray ? (
-            reviewArray.map((review, index) => (
-              <ReviewBox
-                key={review.reviewBoardId}
-                title={review.title}
-                content={review.content}
-                image={review.image}
-                rate={review.rate}
-                reviewBoardId={review.reviewBoardId}
-                createdAt={review.createdAt}
-                updatedAt={review.updatedAt}
-                myReview={admin ? true : review.myReview}
-                username={review.username}
-                updateReview={getReview}
-              />
-            ))
+            reviewArray.length !== 0 ? (
+              reviewArray.map((review, index) => (
+                <ReviewBox
+                  key={review.reviewBoardId}
+                  title={review.title}
+                  content={review.content}
+                  image={review.image}
+                  rate={review.rate}
+                  reviewBoardId={review.reviewBoardId}
+                  createdAt={review.createdAt}
+                  updatedAt={review.updatedAt}
+                  myReview={admin ? true : review.myReview}
+                  username={review.username}
+                  updateReview={getReview}
+                />
+              ))
+            ) : (
+              <div className="non-login-box">
+                <span>아직 상품 리뷰가 없어요!</span>
+                <div className="no-review-img">
+                  <Image src={NoFound} layout="fill" objectFit="cover" />
+                </div>
+              </div>
+            )
           ) : (
-            <></>
+            <div className="non-login-box">
+              <span>아직 상품 리뷰가 없어요!</span>
+              <div className="no-review-img">
+                <Image src={NoFound} layout="fill" objectFit="cover" />
+              </div>
+            </div>
           )}
         </>
       ) : (
@@ -141,6 +157,11 @@ export default function Review(props: pageProps) {
         .non-login-box button:hover {
           background-color: #76ba99;
           color: white;
+        }
+        .no-review-img {
+          width: 300px;
+          height: 300px;
+          position: relative;
         }
       `}</style>
     </div>

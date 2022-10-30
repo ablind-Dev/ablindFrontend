@@ -73,7 +73,7 @@ const reIssue = (tokens: tokens): tokens => {
   };
   axios
     .post(
-      "http://www.ablind.co.kr/members/reissue",
+      "https://www.ablind.co.kr/members/reissue",
       {},
       {
         headers: {

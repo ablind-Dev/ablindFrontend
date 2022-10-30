@@ -45,7 +45,7 @@ export default function OrderComplete(props: completeProps) {
         </div>
         <div className="sheet-box">
           <span className="sheet-title">입금 계좌</span>
-          <span>국민은행 123456789 - 양드림</span>
+          <span>3333163485191 카카오뱅크 양드림</span>
           <span className="sheet-title sheet-title-div">입금 기한</span>
           <div>
             <span>

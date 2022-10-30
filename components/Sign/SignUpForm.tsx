@@ -46,7 +46,7 @@ const SignUpForm: NextPage<{ backLogin: () => void; goNext: () => void }> = (
     //통신해서 id 중복검사
     axios
       .post(
-        "http://www.ablind.co.kr/members/login/id",
+        "https://www.ablind.co.kr/members/login/id",
         {
           email: id,
         },

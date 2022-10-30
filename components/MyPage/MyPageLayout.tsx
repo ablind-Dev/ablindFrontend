@@ -49,7 +49,7 @@ export default function MyPageLayout(props: infoProps) {
     if (token !== null) {
       axios
         .post(
-          "http://www.ablind.co.kr/members/logout",
+          "https://www.ablind.co.kr/members/logout",
           {},
           {
             headers: {

@@ -187,7 +187,7 @@ const AddInfo: NextPage<{ backLogin: () => void; backpage: () => void }> = (
   const saveState = () => {
     axios
       .post(
-        "http://www.ablind.co.kr/members/new",
+        "https://www.ablind.co.kr/members/new",
         {
           name: defaultState.name,
           email: defaultState.id,

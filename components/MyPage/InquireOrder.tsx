@@ -26,7 +26,7 @@ export default function InquireOrder() {
 
   const getInquireInfo = () => {
     //통신구문으로 받아오기
-    Api.get("http://www.ablind.co.kr/mypage/order", {
+    Api.get("https://www.ablind.co.kr/mypage/order", {
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",

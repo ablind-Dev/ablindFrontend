@@ -32,7 +32,7 @@ export default function ArtworkAdmin() {
 
   const getArtist = () => {
     axios
-      .get("http://www.ablind.co.kr/artist", {
+      .get("https://www.ablind.co.kr/artist", {
         headers: {
           "Content-type": "application/json",
           Accept: "application/json",
@@ -48,7 +48,7 @@ export default function ArtworkAdmin() {
 
   const getArtistDetail = () => {
     axios
-      .get(`http://www.ablind.co.kr/artist/${artistId}`, {
+      .get(`https://www.ablind.co.kr/artist/${artistId}`, {
         headers: {
           "Content-type": "application/json",
           Accept: "application/json",
@@ -85,7 +85,7 @@ export default function ArtworkAdmin() {
   const deleteArtwork = (id: number) => {
     console.log(id);
     if (confirm("진짜 삭제하시겠습니까?")) {
-      Api.delete(`http://www.ablind.co.kr/admin/artist/work/delete`, {
+      Api.delete(`https://www.ablind.co.kr/admin/artist/work/delete`, {
         headers: {
           "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
         },
@@ -116,12 +116,16 @@ export default function ArtworkAdmin() {
       multipartFile.append("work", imgFile);
       multipartFile.append("artistDetailDto", blob);
       multipartFile.append("itemDto", blob);
-      Api.post("http://www.ablind.co.kr/admin/artist/work/add", multipartFile, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
-        },
-      })
+      Api.post(
+        "https://www.ablind.co.kr/admin/artist/work/add",
+        multipartFile,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
         .then((res) => {
           alert("작품 업로드 성공");
           getArtistDetail();

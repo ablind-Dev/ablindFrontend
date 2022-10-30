@@ -18,7 +18,7 @@ const state = ["선택하세요", "수락", "거절"];
 export default function SubscribeAdmin() {
   const [sub, setSub] = useState<Array<Subscribe>>();
   const getAllSubscribe = () => {
-    Api.get("http://www.ablind.co.kr/admin/artist/follow/list", {
+    Api.get("https://www.ablind.co.kr/admin/artist/follow/list", {
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",
@@ -36,7 +36,7 @@ export default function SubscribeAdmin() {
   const updateState = (state: string, id: number) => {
     if (state === "수락") {
       Api.post(
-        "http://www.ablind.co.kr/admin/artist/follow/approve",
+        "https://www.ablind.co.kr/admin/artist/follow/approve",
         {
           id: id,
         },
@@ -56,7 +56,7 @@ export default function SubscribeAdmin() {
         });
     } else if (state === "거절") {
       Api.post(
-        "http://www.ablind.co.kr/admin/artist/follow/delete",
+        "https://www.ablind.co.kr/admin/artist/follow/delete",
         {
           id: id,
         },

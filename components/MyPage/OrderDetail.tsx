@@ -41,7 +41,7 @@ export default function OrderDetail(props: orderDetailProps) {
   const [review, setReview] = useState(false);
 
   const getOrderDetail = () => {
-    Api.get("http://www.ablind.co.kr/mypage/order/detail", {
+    Api.get("https://www.ablind.co.kr/mypage/order/detail", {
       params: {
         id: step,
       },
@@ -142,6 +142,10 @@ export default function OrderDetail(props: orderDetailProps) {
                 <tr>
                   <td className="content-title">수령지</td>
                   <td>{itemDetail.recipientAddress}</td>
+                </tr>
+                <tr>
+                  <td className="content-title">입금 계좌</td>
+                  <td>3333163485191 카카오뱅크 양드림</td>
                 </tr>
               </tbody>
             </table>

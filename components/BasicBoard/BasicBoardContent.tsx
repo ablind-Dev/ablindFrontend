@@ -66,7 +66,7 @@ export default function BasicBoardContent(props: boardContentProps) {
   const deleteQuestionHandler = () => {
     if (confirm("삭제한 질문은 복구할 수 없습니다.\n정말 삭제하시겠습니까?")) {
       axios
-        .delete(`http://www.ablind.co.kr/shop/5/qna/delete`, {
+        .delete(`https://www.ablind.co.kr/shop/5/qna/delete`, {
           data: {
             qnaBoardId: qnaBoardId,
           },
@@ -94,7 +94,7 @@ export default function BasicBoardContent(props: boardContentProps) {
     if (confirm("댓글을 수정하시겠습니까?")) {
       axios
         .put(
-          "http://www.ablind.co.kr/shop/5/qna/update",
+          "https://www.ablind.co.kr/shop/5/qna/update",
           {
             qnaBoardId: qnaBoardId,
             title: editQuestionTitle,

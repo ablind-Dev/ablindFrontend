@@ -45,7 +45,7 @@ export default function GoodsAdmin() {
 
   const getArtist = () => {
     axios
-      .get("http://www.ablind.co.kr/artist", {
+      .get("https://www.ablind.co.kr/artist", {
         headers: {
           "Content-type": "application/json",
           Accept: "application/json",
@@ -121,7 +121,7 @@ export default function GoodsAdmin() {
       imgFile.map((img) => multipartFile.append("img", img));
       multipartFile.append("detail", detailFile);
       multipartFile.append("itemDto", blob);
-      Api.post("http://www.ablind.co.kr/admin/add/item", multipartFile, {
+      Api.post("https://www.ablind.co.kr/admin/add/item", multipartFile, {
         headers: {
           "Content-Type": "multipart/form-data",
           "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,

@@ -101,7 +101,7 @@ export default function OrderSheet(props: checkProps) {
   };
 
   const getMyProfile = () => {
-    Api.get("http://www.ablind.co.kr/mypage", {
+    Api.get("https://www.ablind.co.kr/mypage", {
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",
@@ -222,7 +222,7 @@ export default function OrderSheet(props: checkProps) {
 
   const removeItemInBasket = (id: number) => {
     axios
-      .delete(`http://www.ablind.co.kr/mypage/cart/delete`, {
+      .delete(`https://www.ablind.co.kr/mypage/cart/delete`, {
         data: {
           id: id,
         },
@@ -238,7 +238,7 @@ export default function OrderSheet(props: checkProps) {
   const orderHandler = () => {
     if (errState) {
       Api.post(
-        "http://www.ablind.co.kr/shop/order",
+        "https://www.ablind.co.kr/shop/order",
         {
           ordererDto: {
             name: oName,

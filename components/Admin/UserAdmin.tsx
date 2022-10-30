@@ -17,7 +17,7 @@ interface User {
 export default function UserAdmin() {
   const [users, setUsers] = useState<Array<User>>();
   const getAllUsers = () => {
-    Api.get("http://www.ablind.co.kr/admin/member/list", {
+    Api.get("https://www.ablind.co.kr/admin/member/list", {
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",
@@ -34,7 +34,7 @@ export default function UserAdmin() {
 
   const deleteUser = (id: number) => {
     if (confirm("진짜 강퇴하시겠습니까?")) {
-      Api.delete(`http://www.ablind.co.kr/admin/member/delete`, {
+      Api.delete(`https://www.ablind.co.kr/admin/member/delete`, {
         headers: {
           "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
         },

@@ -3,7 +3,7 @@ import axios from "axios";
 import { refresh, refreshErrorHandle } from "./Refresh";
 
 const Api = axios.create({
-  baseURL: `http://www.ablind.co.kr`,
+  baseURL: `https://www.ablind.co.kr`,
   timeout: 10000,
   params: {},
 });

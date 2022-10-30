@@ -37,7 +37,7 @@ export default function Qna(props: pageProps) {
   const [contentNum, setContentNum] = useState(0);
 
   const getQna = () => {
-    Api.get(`http://www.ablind.co.kr/shop/${goodsId}/qna`, {
+    Api.get(`https://www.ablind.co.kr/shop/${goodsId}/qna`, {
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",
@@ -81,7 +81,7 @@ export default function Qna(props: pageProps) {
     if (questionTitle === "" || questionContent === "") {
       alert("질문을 입력해주세요.");
     } else {
-      await Api.post(`http://www.ablind.co.kr/shop/${goodsId}/qna`, {
+      await Api.post(`https://www.ablind.co.kr/shop/${goodsId}/qna`, {
         title: questionTitle,
         content: questionContent,
         secretTNF: checked,

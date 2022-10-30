@@ -33,7 +33,7 @@ export default function ArtistAdmin() {
 
   const getArtist = () => {
     axios
-      .get("http://www.ablind.co.kr/artist", {
+      .get("https://www.ablind.co.kr/artist", {
         headers: {
           "Content-type": "application/json",
           Accept: "application/json",
@@ -132,7 +132,7 @@ export default function ArtistAdmin() {
       multipartFile.append("backGround", background);
       multipartFile.append("detail", detail);
       multipartFile.append("artistDetailDto", blob);
-      Api.post("http://www.ablind.co.kr/admin/artist/add", multipartFile, {
+      Api.post("https://www.ablind.co.kr/admin/artist/add", multipartFile, {
         headers: {
           "Content-Type": "multipart/form-data",
           "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
@@ -152,7 +152,7 @@ export default function ArtistAdmin() {
 
   const deleteArtist = (id: number) => {
     if (confirm("진짜 삭제하시겠습니까?")) {
-      Api.delete(`http://www.ablind.co.kr/admin/artist/delete`, {
+      Api.delete(`https://www.ablind.co.kr/admin/artist/delete`, {
         headers: {
           "ACCESS-TOKEN": `${localStorage.getItem("accessToken")}`,
         },

@@ -57,7 +57,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   try {
     const itemId = query.params;
     const res = await axios.get(
-      `http://www.ablind.co.kr/shop/detail/${itemId}`,
+      `https://www.ablind.co.kr/shop/detail/${itemId}`,
       {
         headers: {
           "Content-type": "application/json",

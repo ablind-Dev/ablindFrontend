@@ -62,7 +62,7 @@ export default function ArtistDetailCommentComponent(props: artistId) {
   ]);
   const getComment = async () => {
     await axios
-      .get(`http://www.ablind.co.kr/artist/${artistId}/board`, {
+      .get(`https://www.ablind.co.kr/artist/${artistId}/board`, {
         headers: {
           "Content-type": "application/json",
           Accept: "application/json",
@@ -103,7 +103,7 @@ export default function ArtistDetailCommentComponent(props: artistId) {
   };
 
   const saveModal = async () => {
-    await Api.post(`http://www.ablind.co.kr/artist/${artistId}/board`, {
+    await Api.post(`https://www.ablind.co.kr/artist/${artistId}/board`, {
       email: localStorage.getItem("email"),
       title: myCommentTitle,
       content: myComment,

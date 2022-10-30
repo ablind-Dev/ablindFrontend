@@ -36,7 +36,7 @@ export default function SubscribeInfo() {
   const router = Router;
 
   const getMyArtist = async () => {
-    await Api.get("http://www.ablind.co.kr/mypage/follow/artist", {
+    await Api.get("https://www.ablind.co.kr/mypage/follow/artist", {
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",

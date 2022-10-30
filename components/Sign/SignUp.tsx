@@ -53,7 +53,7 @@ export default function SignUp() {
 
     axios
       .post(
-        "http://www.ablind.co.kr/members/new",
+        "https://www.ablind.co.kr/members/new",
         {
           name: name,
           email: email,

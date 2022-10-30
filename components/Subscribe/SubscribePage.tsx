@@ -70,7 +70,7 @@ export default function SubscribePage(props: artistProps) {
       if (token) {
         await axios
           .post(
-            `http://www.ablind.co.kr/artist/${artistId}/follow/${price}`,
+            `https://www.ablind.co.kr/artist/${artistId}/follow/${price}`,
             {
               email: localStorage.getItem("email"),
             },

@@ -34,7 +34,7 @@ export default function MyPage() {
 
   const [info, setInfo] = useState<basicInfo>();
   const getMyProfile = () => {
-    Api.get("http://www.ablind.co.kr/mypage", {
+    Api.get("https://www.ablind.co.kr/mypage", {
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",
@@ -89,7 +89,7 @@ export default function MyPage() {
 
 // export const getServerSideProps: GetServerSideProps = async (context) => {
 //   try {
-//     const res = await axios.get("http://www.ablind.co.kr/mypage", {
+//     const res = await axios.get("https://www.ablind.co.kr/mypage", {
 //       headers: {
 //         "Content-type": "application/json",
 //         Accept: "application/json",

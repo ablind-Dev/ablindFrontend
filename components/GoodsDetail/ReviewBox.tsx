@@ -90,7 +90,7 @@ export default function ReviewBox(props: reviewProps) {
       confirm("한 번 삭제한 리뷰는 복구할 수 없습니다.\n정말 삭제하시겠습니까?")
     ) {
       axios
-        .delete(`http://www.ablind.co.kr/shop/5/review/delete`, {
+        .delete(`https://www.ablind.co.kr/shop/5/review/delete`, {
           data: {
             reviewBoardId: reviewBoardId,
           },

@@ -92,7 +92,7 @@ export default function Comment(props: commentType) {
     if (confirm("삭제한 댓글은 복구할 수 없습니다.\n정말 삭제하시겠습니까?")) {
       //댓글 삭제 통신
       await Api.delete(
-        `http://www.ablind.co.kr/artist/${artistId}/board/delete`,
+        `https://www.ablind.co.kr/artist/${artistId}/board/delete`,
         {
           data: {
             boardId: boardId,
@@ -119,7 +119,7 @@ export default function Comment(props: commentType) {
   };
 
   const saveModal = async () => {
-    await Api.put(`http://www.ablind.co.kr/artist/${artistId}/board/update`, {
+    await Api.put(`https://www.ablind.co.kr/artist/${artistId}/board/update`, {
       boardId: boardId,
       title: editTitle,
       content: editContent,

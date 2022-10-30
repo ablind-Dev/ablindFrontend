@@ -43,7 +43,7 @@ export default function Subscribe(props: coverProps) {
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   try {
     const artistId = query.params;
-    const res = await axios.get(`http://www.ablind.co.kr/artist/${artistId}`, {
+    const res = await axios.get(`https://www.ablind.co.kr/artist/${artistId}`, {
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",

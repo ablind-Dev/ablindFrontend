@@ -50,7 +50,7 @@ export default function QnaAdmin() {
 
   const saveAnswer = (id: number) => {
     Api.post(
-      "http://www.ablind.co.kr/admin/list/qna/answer",
+      "https://www.ablind.co.kr/admin/list/qna/answer",
       {
         qnaBoardId: id,
         answer: answer,

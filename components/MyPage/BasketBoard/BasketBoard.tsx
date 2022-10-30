@@ -29,7 +29,7 @@ export default function BasketBoard() {
   //받아오기 관련
   const getMyBasket = async () => {
     //통신으로 받아오기
-    await Api.get("http://www.ablind.co.kr/mypage/cart", {
+    await Api.get("https://www.ablind.co.kr/mypage/cart", {
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",
@@ -65,7 +65,7 @@ export default function BasketBoard() {
   const editCount = async (id: number, count: number) => {
     await axios
       .put(
-        "http://www.ablind.co.kr/mypage/cart/update",
+        "https://www.ablind.co.kr/mypage/cart/update",
         {
           id: id,
           count: count,
@@ -241,7 +241,7 @@ export default function BasketBoard() {
 
   const removeItemInBasket = (id: number) => {
     axios
-      .delete(`http://www.ablind.co.kr/mypage/cart/delete`, {
+      .delete(`https://www.ablind.co.kr/mypage/cart/delete`, {
         data: {
           id: id,
         },

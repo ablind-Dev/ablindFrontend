@@ -52,7 +52,7 @@ export default function OrderAdmin() {
   const [info, setInfo] = useState<Array<Order>>();
 
   const getAllList = () => {
-    Api.get("http://www.ablind.co.kr/admin/list/order", {
+    Api.get("https://www.ablind.co.kr/admin/list/order", {
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",
@@ -69,7 +69,7 @@ export default function OrderAdmin() {
   const getOrderListByOption = (option: string) => {
     if (option !== "전체") {
       Api.get(
-        `http://www.ablind.co.kr/admin/list/order?orderStatus=${option}`,
+        `https://www.ablind.co.kr/admin/list/order?orderStatus=${option}`,
         {
           headers: {
             "Content-type": "application/json",
@@ -91,7 +91,7 @@ export default function OrderAdmin() {
   const changeOptionHandler = (id: number, option: string) => {
     if (option !== "선택하면 적용" && option === "배송 준비 중") {
       Api.post(
-        "http://www.ablind.co.kr/admin/delivery/pay",
+        "https://www.ablind.co.kr/admin/delivery/pay",
         {
           orderId: id,
         },
@@ -111,7 +111,7 @@ export default function OrderAdmin() {
         });
     } else if (option !== "선택하면 적용") {
       Api.post(
-        "http://www.ablind.co.kr/admin/list/order/update",
+        "https://www.ablind.co.kr/admin/list/order/update",
         {
           id: id,
           orderStatus: option,

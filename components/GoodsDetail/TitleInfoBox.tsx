@@ -121,7 +121,7 @@ export default function TitleInfoBox(props: info) {
   ) => {
     await axios
       .post(
-        "http://www.ablind.co.kr/mypage/cart/add",
+        "https://www.ablind.co.kr/mypage/cart/add",
         {
           itemId: itemId,
           count: count,
@@ -277,7 +277,7 @@ export default function TitleInfoBox(props: info) {
       )}
       <div className="btn-box">
         <button onClick={() => putCart()}>장바구니</button>
-        <button onClick={() => buyNow()}>바로 구매하기</button>
+        {/* <button onClick={() => buyNow()}>바로 구매하기</button> */}
       </div>
       <style jsx>{`
         .container {
