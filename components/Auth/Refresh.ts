@@ -6,7 +6,8 @@ const cookies = new Cookies();
 const refresh = async (
   config: AxiosRequestConfig
 ): Promise<AxiosRequestConfig> => {
-  const refreshToken = cookies.get("refreshToken");
+  // const refreshToken = cookies.get("refreshToken");
+  const refreshToken = localStorage.getItem("refresh");
   let token = localStorage.getItem("accessToken");
   const curDate = new Date();
   const authDate = new Date(
