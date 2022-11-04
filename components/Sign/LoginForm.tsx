@@ -55,10 +55,10 @@ const LoginForm: NextPage<{ onChagne: () => void }> = (props) => {
         localStorage.setItem("accessToken", res.data.accessToken);
         localStorage.setItem("accessTokenExpiredTime", res.data.date);
         localStorage.setItem("email", id);
-        // cookies.set("refreshToken", res.data.refreshToken, {
-        //   path: "/",
-        // });
-        localStorage.setItem("refresh", res.data.refreshToken);
+        cookies.set("refreshToken", res.data.refreshToken, {
+          path: "/",
+        });
+        // localStorage.setItem("refresh", res.data.refreshToken);
         setErr("");
         changeLoginState();
       })

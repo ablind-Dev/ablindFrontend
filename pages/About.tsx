@@ -20,7 +20,7 @@ export default function About(props: serversideProps) {
   return (
     <>
       <Seo title="About" />
-      <AboutLayout title={title} />
+      <AboutLayout />
     </>
   );
 }

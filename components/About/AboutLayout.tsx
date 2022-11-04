@@ -1,22 +1,23 @@
-interface aboutProps {
-  title: string;
-}
-
-export default function AboutLayout(props: aboutProps) {
-  const { title } = props;
+import Image from "next/image";
+import about from "../../public/images/about.png";
+export default function AboutLayout() {
   return (
     <div className="container">
-      <span>{title}</span>
+      <div className="img-box">
+        <Image src={about} layout="fill" objectFit="cover" />
+      </div>
       <style jsx>{`
         .container {
           display: flex;
-          width: 100vw;
-          height: 100vh;
-          flex-direction: row;
           justify-content: center;
-          align-items: center;
-          white-space: pre-line;
-          text-align: center;
+          align-items: flex-start;
+        }
+        .img-box {
+          position: relative;
+          min-width: 800px;
+          min-height: 2748.99px;
+          width: 70vw;
+          height: 240.54vw;
         }
       `}</style>
     </div>

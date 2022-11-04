@@ -10,8 +10,8 @@ interface tokens {
 const axiosApiInstance = axios.create();
 const accessToken = localStorage.getItem("accessToken");
 const date = localStorage.getItem("date");
-// const refreshToken = Cookies.get("refreshToken");
-const refreshToken = localStorage.getItem("refresh");
+const refreshToken = Cookies.get("refreshToken");
+// const refreshToken = localStorage.getItem("refresh");
 let tokens: tokens;
 if (accessToken && refreshToken && date) {
   const tmp: tokens = {
@@ -46,7 +46,7 @@ axiosApiInstance.interceptors.response.use(
   },
   async function (error) {
     const originalRequest = error.config;
-    // const [refreshCookie, setRefreshCookie] = useCookies();
+    const [refreshCookie, setRefreshCookie] = useCookies();
     if (error.response.status === 403 && !originalRequest._retry) {
       console.log("토큰 만료");
       originalRequest._retry = true;
@@ -55,11 +55,11 @@ axiosApiInstance.interceptors.response.use(
         originalRequest.headers["ACCESS-TOKEN"] = new_token.accessToken;
         localStorage.setItem("accessToken", new_token.accessToken);
         localStorage.setItem("date", new_token.date);
-        // setRefreshCookie("refreshToken", new_token.refreshToken, {
-        //   path: "/",
-        //   httpOnly: true,
-        // });
-        localStorage.setItem("refresh", new_token.refreshToken);
+        setRefreshCookie("refreshToken", new_token.refreshToken, {
+          path: "/",
+          httpOnly: true,
+        });
+        // localStorage.setItem("refresh", new_token.refreshToken);
       }
       return axios(originalRequest);
     }
