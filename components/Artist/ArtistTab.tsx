@@ -54,7 +54,11 @@ export default function ArtistTab(props: staticPropsType) {
 
       <div className="name-box">
         {artists.map((artist, index) => (
-          <div key={index} className="name">
+          <div
+            key={index}
+            className="name"
+            onClick={() => moveToArtist(artist)}
+          >
             {artist.name}
           </div>
         ))}

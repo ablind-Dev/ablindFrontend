@@ -83,7 +83,15 @@ export default function SubscribePage(props: artistProps) {
             }
           )
           .then((res) => {
-            closeModal();
+            if (
+              confirm(
+                "구독 신청이 완료되었습니다.\n다른 작가님을 더 구경하실래요?"
+              )
+            ) {
+              router.push("/Artist");
+            } else {
+              closeModal();
+            }
           })
           .catch((res) => {
             console.log(res);

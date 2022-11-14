@@ -24,11 +24,7 @@ export default function SubscribeModal(props: subscribeProps) {
   } = props;
   const [optionExplain, setOptionExplain] = useState("하이하이");
   const [price, setPrice] = useState("0");
-  const bank = [
-    "농협은행 0123456789",
-    "카카오뱅크 0123456789",
-    "KB국민 0123456789",
-  ];
+  const bank = ["우리은행 1005-404-424384 양드림(에이블라인드)"];
   useEffect(() => {
     switch (selectedStage) {
       case 0:
