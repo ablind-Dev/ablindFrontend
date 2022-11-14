@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react";
 import instagram from "../../public/images/instagram.png";
 import Image from "next/image";
-import Link from "next/link";
 import { useRecoilState } from "recoil";
 import { recoilThemeState } from "../../states/recoilThemeState";
 
@@ -22,6 +20,9 @@ export default function Footer() {
       `https://smartstore.naver.com/ablind?NaPm=ct%3Dl4xtudpo%7Cci%3Dshopn%7Ctr%3Dsls%7Chk%3Dae9b3123248d0b81670297cd094edcfc15a09d7e%7Ctrx%3Dundefined`
     );
   };
+  const onClickYoutube = () => {
+    window.open(`https://www.youtube.com/channel/UCq6bwRzsy0sF7oQt-6cn1Xw`);
+  };
   return (
     <div className="container">
       <div className="box">
@@ -38,6 +39,9 @@ export default function Footer() {
           </div>
           <div className="naver" onClick={() => onClickNaver()}>
             <div>N</div>
+          </div>
+          <div className="youtube" onClick={() => onClickYoutube()}>
+            <div>Y</div>
           </div>
         </div>
         <div className="copyright">
@@ -71,6 +75,19 @@ export default function Footer() {
           cursor: pointer;
         }
         .naver {
+          width: 21px;
+          height: 21px;
+          border: 2.8px solid white;
+          border-radius: 5px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: #f5f5f5;
+          font-weight: bold;
+          cursor: pointer;
+        }
+
+        .youtube {
           width: 21px;
           height: 21px;
           border: 2.8px solid white;
