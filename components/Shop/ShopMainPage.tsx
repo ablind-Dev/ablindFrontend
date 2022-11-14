@@ -81,7 +81,7 @@ export default function ShopManiPage(props: shopProps) {
     <div className="container">
       <ShopBannerCarousel banners={banners} />
       <div className="search-box">
-        <SearchBox advertise={"작품 또는 작가명을 검색해주세요❤"} />
+        {/* <SearchBox advertise={"작품 또는 작가명을 검색해주세요❤"} /> */}
       </div>
       <div className="category-box">
         <Categories artists={artists} />
@@ -102,7 +102,7 @@ export default function ShopManiPage(props: shopProps) {
           flex-direction: row;
           align-items: start;
           gap: 50px;
-          padding: 50px 50px 0px 50px;
+          padding: 100px 50px 0px 50px;
         }
       `}</style>
     </div>
