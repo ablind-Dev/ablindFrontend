@@ -42,33 +42,44 @@ const SignUpForm: NextPage<{ backLogin: () => void; goNext: () => void }> = (
     }
   };
 
+  const isEmail = (email: string) => {
+    const emailRegex =
+      /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+
+    return emailRegex.test(email);
+  };
+
   const checkIdClick = () => {
     //통신해서 id 중복검사
-    axios
-      .post(
-        "https://www.ablind.co.kr/members/login/id",
-        {
-          email: id,
-        },
-        {
-          headers: {
-            "Content-type": "application/json",
-            Accept: "application/json",
+    if (isEmail(id)) {
+      axios
+        .post(
+          "https://www.ablind.co.kr/members/login/id",
+          {
+            email: id,
           },
-        }
-      )
-      .then((res) => {
-        alert("중복되는 아이디가 존재합니다.");
-      })
-      .catch((res) => {
-        if (res.response.data === "No") {
-          alert("중복되는 아이디가 존재합니다");
-        } else {
-          if (confirm("사용가능한 Email 입니다. 사용하시겠습니까?")) {
-            setIdCheck(true);
+          {
+            headers: {
+              "Content-type": "application/json",
+              Accept: "application/json",
+            },
           }
-        }
-      });
+        )
+        .then((res) => {
+          alert("중복되는 아이디가 존재합니다.");
+        })
+        .catch((res) => {
+          if (res.response.data === "No") {
+            alert("중복되는 아이디가 존재합니다");
+          } else {
+            if (confirm("사용가능한 Email 입니다. 사용하시겠습니까?")) {
+              setIdCheck(true);
+            }
+          }
+        });
+    } else {
+      alert("올바른 이메일 형식으로 입력해주세요.");
+    }
   };
 
   const cancleID = () => {
@@ -240,6 +251,7 @@ const SignUpForm: NextPage<{ backLogin: () => void; goNext: () => void }> = (
         }
         .overlap-btn {
           background-color: #76ba99;
+          width: 80px;
           height: 40px;
           border: none;
           border-radius: 5px;
@@ -253,6 +265,7 @@ const SignUpForm: NextPage<{ backLogin: () => void; goNext: () => void }> = (
         .cancle-id-btn {
           background-color: #ff8c8c;
           height: 40px;
+          width: 80px;
           border: none;
           border-radius: 5px;
           padding: 0px 12px 0px 12px;
