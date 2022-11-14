@@ -9,6 +9,7 @@ import Cookies from "universal-cookie";
 import axios from "axios";
 import Router from "next/router";
 import EditMyProfile from "./EditMyProfile";
+import PolicyModal from "../Resource/PolicyModal";
 
 const SubscribeInfo = dynamic(
   () => import("../../components/MyPage/SubscribeInfo"),
@@ -37,6 +38,11 @@ export default function MyPageLayout(props: infoProps) {
   const defaultState: AuthState = { ...recoilInfo };
   const cookies = new Cookies();
   const router = Router;
+
+  const [modal, setModal] = useState(false);
+  const closeModal = () => {
+    setModal(false);
+  };
 
   const logout = () => {
     if (confirm("정말 로그아웃 하시겠습니까?")) {
@@ -115,8 +121,8 @@ export default function MyPageLayout(props: infoProps) {
             </button>
           </div>
           <div className="terms">
-            <a target="_blank">개인정보 처리방침</a>
-            <a target="_blank">이용약관</a>
+            <span onClick={() => setModal(true)}>개인정보 처리방침</span>
+            <span onClick={() => setModal(true)}>이용약관</span>
           </div>
         </div>
         <div className="right-box">
@@ -133,7 +139,7 @@ export default function MyPageLayout(props: infoProps) {
           )}
         </div>
       </div>
-
+      <PolicyModal open={modal} close={closeModal} />
       <style jsx>{`
         .container {
           width: 100%;
@@ -180,13 +186,13 @@ export default function MyPageLayout(props: infoProps) {
           align-items: center;
           gap: 6px;
         }
-        .terms a {
+        .terms span {
           text-decoration: none;
           color: #646464;
           transition: all 0.15s;
           cursor: pointer;
         }
-        .terms a:hover {
+        .terms span:hover {
           color: #76ba99;
         }
         .left-box button {
