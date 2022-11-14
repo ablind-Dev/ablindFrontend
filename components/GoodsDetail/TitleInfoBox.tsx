@@ -99,7 +99,7 @@ export default function TitleInfoBox(props: info) {
   };
 
   const putCart = async () => {
-    if (defaultState) {
+    if (defaultState.state) {
       if (!peek || peek.length === 0) {
         alert("옵션을 선택해주세요.");
       } else {
