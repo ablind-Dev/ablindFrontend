@@ -17,7 +17,7 @@ export default function Categories(props: categoryProps) {
     "작품 단독",
     "액세서리",
     "엽서",
-    "폰케이스 / 그립톡",
+    "폰케이스 / 스마트톡",
   ];
   const [recoilInfo, setRecoilInfo] = useRecoilState(recoilCategoryState);
   const defaultState: CategoryState = { ...recoilInfo };

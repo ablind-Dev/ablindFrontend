@@ -19,7 +19,7 @@ const categories = [
   "작품 단독",
   "액세서리",
   "엽서",
-  "폰케이스 / 그립톡",
+  "폰케이스 / 스마트톡",
 ];
 
 type EventHandlers<T> = Omit<
