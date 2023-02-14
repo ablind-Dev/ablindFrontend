@@ -118,11 +118,14 @@ export default function ArtistTab(props: staticPropsType) {
           text-shadow: 2px 2px 6px gray;
         }
         .name-box {
+          width: 80%;
+          min-width: 400px;
           display: flex;
           flex-direction: row;
           gap: 20px;
           justify-content: center;
           padding-bottom: 20px;
+          flex-wrap: wrap;
         }
         .name {
           cursor: pointer;

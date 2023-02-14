@@ -39,7 +39,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           {loading ? <LoadingSpinner /> : <Component {...pageProps} />}
         </Layout>
       </div>
-      <div className="mobile-box">
+      {/* <div className="mobile-box">
         <div className="img-box">
           <div className="circle" />
           <Image src={NoFound} layout="fill" objectFit="cover" />
@@ -48,7 +48,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <span className="title">죄송합니다.</span>
           <span>{`현재 Ablind는 PC로만 이용이 가능합니다.\n서둘러 모바일 환경을 제공할 수 있도록 노력하겠습니다.`}</span>
         </div>
-      </div>
+      </div> */}
       <style jsx>{`
         .mobile-box {
           display: none;
@@ -74,7 +74,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           font-weight: 900;
           font-size: 2rem;
         }
-        @media (max-width: 450px) {
+        /* @media (max-width: 450px) {
           .container {
             display: none;
           }
@@ -88,7 +88,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             text-align: center;
             gap: 20px;
           }
-        }
+        } */
       `}</style>
     </RecoilRoot>
   );
